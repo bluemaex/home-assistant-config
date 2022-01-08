@@ -1,0 +1,16 @@
+- name: maexhome switches
+  mode: bridge
+  port: 21107
+  filter:
+    include_entity_globs:
+      - switch.denon_*
+      - script.appletv_*
+    include_entities:
+      - scene.bettzeit
+      - scene.alles_aus
+      - scene.coming_home
+      - scene.movie_time
+      - switch.beamer_livingroom
+      - switch.homekit_arriving_leaving_automation
+    exclude_entities:
+      - script.appletv_main

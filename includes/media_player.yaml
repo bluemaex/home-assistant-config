@@ -1,0 +1,4 @@
+- platform: libratone_zipp
+  host: !secret libratone_zipp_bad
+  name: Zipp Bad
+  scan_interval: 2

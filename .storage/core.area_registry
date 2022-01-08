@@ -1,0 +1,34 @@
+{
+    "version": 1,
+    "minor_version": 1,
+    "key": "core.area_registry",
+    "data": {
+        "areas": [
+            {
+                "name": "Flur",
+                "id": "flur",
+                "picture": "/api/image/serve/ba54dc8852df7a4ef87e32cacac14fd4/512x512"
+            },
+            {
+                "name": "Bad",
+                "id": "bad",
+                "picture": "/api/image/serve/fa41570e45122c5aa34b4398d50c82ed/512x512"
+            },
+            {
+                "name": "Schlafzimmer",
+                "id": "schlafzimmer",
+                "picture": "/api/image/serve/c58ac0365502afbbf3dbbbab5637d658/512x512"
+            },
+            {
+                "name": "Kueche",
+                "id": "kueche",
+                "picture": "/api/image/serve/d603ed9dedb68b9f346764483088a648/512x512"
+            },
+            {
+                "name": "Wohnzimmer",
+                "id": "wohnzimmer",
+                "picture": "/api/image/serve/596fef9d7547513a9a34cdd9472158c7/512x512"
+            }
+        ]
+    }
+}

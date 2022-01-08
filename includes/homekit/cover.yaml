@@ -1,0 +1,6 @@
+- name: maexhome cover
+  mode: bridge
+  port: 21103
+  filter:
+    include_domains:
+      - cover

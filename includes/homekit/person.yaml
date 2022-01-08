@@ -1,0 +1,7 @@
+- name: maexhome people
+  mode: bridge
+  port: 21104
+  filter:
+    include_entities:
+      - device_tracker.minimaex
+      - group.allpersons

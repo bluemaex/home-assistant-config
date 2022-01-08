@@ -1,0 +1,6 @@
+- name: maexhome denon
+  mode: accessory
+  port: 21101
+  filter:
+    include_entities:
+      - media_player.denon_avr_x1200w

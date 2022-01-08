@@ -1,0 +1,15 @@
+# Temperature
+- platform: statistics
+  name: Wohnzimmer Temperature mean over last 24 hours
+  entity_id: sensor.ble_temperature_xiaomi_wohnzimmer
+  state_characteristic: mean
+  sampling_size: 86400
+  max_age:
+    hours: 24
+
+- platform: derivative
+  source: sensor.ble_temperature_xiaomi_wohnzimmer
+  name: Wohnzimmer Temperature change per hour
+  round: 1
+  unit_time: h
+  time_window: "00:30:00"

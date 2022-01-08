@@ -1,0 +1,59 @@
+automation:
+  #
+  # Arriving
+  #
+  - id: arriving_at_home
+    alias: "Arriving: At Home"
+    trigger:
+      - platform: event
+        event_type: homekit_arriving
+    condition:
+      - condition: state
+        entity_id: input_boolean.guest_mode
+        state: "off"
+      - condition: state
+        entity_id: group.allpersons
+        state: "not_home"
+    action:
+      - scene: scene.coming_home
+    mode: single
+
+  #
+  # Leaving
+  #
+  - id: leaving_from_home
+    alias: "Leaving: Switch off Everything"
+    trigger:
+      - platform: event
+        event_type: homekit_leaving
+    condition:
+      - condition: state
+        entity_id: input_boolean.guest_mode
+        state: "off"
+    action:
+      - scene: scene.alles_aus
+    mode: single
+
+#
+# Homekit specific toggle switch for leaving/arriving
+#
+switch:
+  - platform: template
+    switches:
+      homekit_arriving_leaving_automation:
+        friendly_name: "Homekit: Arriving/Leaving Automation"
+        unique_id: "homekit_arriving_leaving_automation"
+        value_template: "{{ is_state('group.allpersons', 'home') }}"
+        availability_template: "{{ is_state('switch.beamer', 'on') }}"
+        turn_on:
+          - event: homekit_arriving
+            event_data: {}
+        turn_off:
+          - event: homekit_leaving
+            event_data: {}
+        icon_template: >-
+          {% if is_state('group.allpersons', 'home') %}
+            mdi:home-lightbulb
+          {% else %}
+            mdi:home-lightbulb-outline
+          {% endif %}

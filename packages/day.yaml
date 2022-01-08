@@ -1,0 +1,52 @@
+scene:
+  - id: sunrise
+    name: "Day: Sonnenaufgang"
+    icon: mdi:weather-sunset-up
+    entities: {}
+
+  - id: sunset
+    name: "Day: Sonnenuntergang"
+    icon: mdi:weather-sunset-down
+    entities:
+      light.schlafzimmer_bett:
+        brightness: 38
+        color_temp: 370
+        state: "on"
+      light.wohnzimmer_decke:
+        brightness: 189
+        color_temp: 370
+        state: "on"
+      switch.monitor_hintergrund:
+        friendly_name: Monitor Hintergrundlicht
+        icon: mdi:monitor
+        state: "on"
+
+automation:
+  - id: day_sunset
+    alias: "Day: Sunset"
+    description: ""
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: -00:45:00
+    condition:
+      - condition: state
+        entity_id: group.all_persons
+        state: home
+    action:
+      - scene: scene.sonnenuntergang
+    mode: single
+
+  - id: day_sunrise
+    alias: "Day: Sunrise"
+    description: ""
+    trigger:
+      - platform: sun
+        event: sunrise
+    condition:
+      - condition: state
+        entity_id: group.all_persons
+        state: home
+    action:
+      - scene: scene.sonnenaufgang
+    mode: single

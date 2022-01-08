@@ -1,0 +1,31 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# allow python scripts
+python_script:
+
+# base
+homeassistant: !include includes/homeassistant.yaml
+influxdb: !include includes/influxdb.yaml
+recorder: !include includes/recorder.yaml
+logger: !include includes/logger.yaml
+http: !include includes/http.yaml
+frontend: !include includes/frontend.yaml
+
+# custom defined entities
+group: !include includes/group.yaml
+notify: !include includes/notify.yaml
+input_boolean: !include includes/input_boolean.yaml
+input_number: !include includes/input_number.yaml
+media_player: !include includes/media_player.yaml
+binary_sensor: !include includes/binary_sensor.yaml
+sensor: !include_dir_merge_list includes/sensor
+switch: !include_dir_merge_list includes/switch
+homekit: !include_dir_merge_list includes/homekit
+zone: !include includes/zone.yaml
+person: !include includes/person.yaml
+
+# managed via web ui
+automation ui: !include automations.yaml
+scene ui: !include scenes.yaml
+script ui: !include scripts.yaml

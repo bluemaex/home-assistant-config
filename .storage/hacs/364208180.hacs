@@ -1,0 +1,68 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/364208180.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@koying"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "main",
+        "description": "Jellyfin integration for Home Assistant",
+        "domain": "jellyfin",
+        "domains": [
+            "sensor",
+            "media_player"
+        ],
+        "downloads": 0,
+        "etag_repository": "W/\"0ea407df31a833f8aa9faa7ba9b1cd5c7d5a0ebad63fe35ab750623f66473518\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "koying/jellyfin_ha",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": null,
+        "id": "364208180",
+        "iot_class": [
+            "Cloud Pushing"
+        ],
+        "installed": true,
+        "installed_commit": "7f2070b",
+        "installed_version": "v1.0.8",
+        "open_issues": 9,
+        "last_commit": "a79def9",
+        "last_version": "v1.0.8",
+        "last_updated": "2022-01-03T18:12:32Z",
+        "manifest_name": "Jellyfin",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-01-03T18:12:32",
+        "releases": true,
+        "render_readme": true,
+        "published_tags": [
+            "v1.0.8",
+            "v1.0.7",
+            "v1.0.6",
+            "v1.0.5",
+            "v1.0.4"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 42,
+        "topics": [
+            "custom-component",
+            "hacs",
+            "home-assistant",
+            "homeassistant",
+            "jellyfin"
+        ],
+        "zip_release": false
+    }
+}

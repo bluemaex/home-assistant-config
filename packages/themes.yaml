@@ -1,0 +1,69 @@
+input_boolean:
+  dark_mode:
+    initial: true
+    name: Dark mode
+    icon: mdi:theme-light-dark
+
+  theme_alternative:
+    initial: false
+    name: Theme alternative
+
+input_select:
+  theme:
+    options:
+      - blue-red
+      - dark-blue
+      - dark-green
+      - light-blue
+      - light-green
+      - orange
+      - red
+    icon: mdi:format-color-fill
+    initial: blue-red
+
+automation:
+  - id: frontend_theme_darkmode_on
+    alias: "Frontend: turn on dark mode during night"
+    trigger:
+      - platform: time
+        at: "20:00"
+      - platform: sun
+        event: sunset
+    condition: "{{ is_state('input_boolean.dark_mode', 'off') }}"
+    action:
+      entity_id: input_boolean.dark_mode
+      service: input_boolean.turn_on
+
+  - id: frontend_theme_lightmode_on
+    alias: "Frontend: turn on light mode on during day"
+    trigger:
+      - platform: time
+        at: "06:00"
+      - platform: sun
+        event: sunrise
+    condition: "{{ is_state('input_boolean.dark_mode', 'on') }}"
+    action:
+      entity_id: input_boolean.dark_mode
+      service: input_boolean.turn_off
+
+  - id: frontend_theme_change
+    alias: "Frontend: change theme"
+    trigger:
+      - platform: state
+        entity_id: input_select.theme
+      - platform: state
+        entity_id: input_boolean.dark_mode
+      - platform: state
+        entity_id: input_boolean.theme_alternative
+      - platform: homeassistant
+        event: start
+    action:
+      service: frontend.set_theme
+      data:
+        name: >
+          {% set name = states("input_select.theme") -%}
+          {% set mode = "dark" if is_state("input_boolean.dark_mode", "on") else "light" -%}
+          {% set suffix = "-alternative" if is_state("input_boolean.theme_alternative", "on") else "" -%}
+          ios-{{ mode }}-mode-{{ name }}{{ suffix }}
+        mode: >
+          {{ "dark" if is_state("input_boolean.dark_mode", "on") else "light" }}

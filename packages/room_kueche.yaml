@@ -1,0 +1,48 @@
+scene:
+  - id: kueche_morgens
+    name: "Küche: Morgens"
+    entities:
+      light.kuche:
+        color_mode: color_temp
+        brightness: 128
+        color_temp: 366
+        state: "on"
+    icon: mdi:coffee-maker
+  - id: kueche_tagsuber
+    name: "Küche: Tagsüber"
+    entities:
+      light.kuche:
+        color_mode: color_temp
+        brightness: 254
+        color_temp: 370
+        state: "on"
+    icon: mdi:countertop
+  - id: kueche_nachts
+    name: "Küche: Nachts"
+    entities:
+      light.kuche:
+        color_mode: color_temp
+        brightness: 38
+        color_temp: 370
+        state: "on"
+    icon: mdi:countertop-outline
+
+automation:
+  - id: kueche_motion_activate_light
+    alias: "Küche: Motion activated Lights"
+    use_blueprint:
+      path: networkingcat/yet_another_motion_automation.yaml
+      input:
+        motion_entity: binary_sensor.shelly_motion_kuche_motion
+        light_target:
+          entity_id:
+            - light.kuche
+        no_motion_wait: 300
+        scene_morning: scene.kuche_morning
+        scene_day: scene.kuche_tagsuber
+        scene_evening: scene.kuche_tagsuber
+        scene_night: scene.kuche_nachts
+        time_scene_morning: "05:00:00"
+        time_scene_day: "10:00:00"
+        time_scene_evening: "17:00:00"
+        time_scene_night: "23:00:00"

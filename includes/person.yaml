@@ -1,0 +1,11 @@
+- name: bluemaex
+  id: bluemaex
+  user_id: !secret user_bluemaex_id
+  picture: !secret user_bluemaex_photo
+  device_trackers:
+    - device_tracker.minimaex
+
+- name: Kiosk
+  id: kiosk
+  user_id: !secret user_kiosk_id
+  picture: !secret user_kiosk_photo

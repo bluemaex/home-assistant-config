@@ -1,0 +1,37 @@
+name: maexhome
+currency: "EUR"
+latitude: !secret homeassistant_latitude
+longitude: !secret homeassistant_longitude
+elevation: !secret homeassistant_elevation
+time_zone: !secret homeassistant_timezone
+external_url: !secret homeassistant_external_url
+internal_url: !secret homeassistant_internal_url
+unit_system: metric
+temperature_unit: C
+
+packages: !include_dir_named ../packages
+allowlist_external_dirs:
+  - /config/
+
+auth_providers:
+  - type: trusted_networks
+    trusted_networks:
+      - !secret auth_macmini_ip_lan
+      - !secret auth_macmini_ip_wifi
+      - !secret auth_kiosk_ip_lan
+    trusted_users:
+      !secret auth_macmini_ip_lan: !secret user_bluemaex_id
+      !secret auth_macmini_ip_wifi: !secret user_bluemaex_id
+      !secret auth_kiosk_ip_lan: !secret user_kiosk_id
+    allow_bypass_login: true
+  - type: homeassistant
+
+# customize entity properties
+customize:
+  media_player.denon_avr_x1200w:
+    device_class: tv
+
+customize_glob:
+  sensor.*_energy_today:
+    device_class: energy
+    state_class: total_increasing

@@ -1,0 +1,197 @@
+input_select:
+  washing_machine_status:
+    name: Washing Machine Status
+    options:
+      - Idle
+      - Running
+      - Finishing
+      - Clean
+    initial: Idle
+    icon: mdi:tumble-dryer
+
+input_datetime:
+  washing_machine_on:
+    name: Washing machine last started
+    has_date: true
+    has_time: true
+
+  washing_machine_finished:
+    name: Washing machine last finished
+    has_date: true
+    has_time: true
+
+  washing_machine_off:
+    name: Washing machine last off
+    has_date: true
+    has_time: true
+
+binary_sensor:
+  - platform: template
+    sensors:
+      washing_machine:
+        friendly_name: Washing machine
+        value_template: >
+          {{ states("input_select.washing_machine_status") != 'Idle' }}
+        delay_off: "00:05:00"
+        icon_template: >
+          {% if is_state("binary_sensor.washing_machine", "on") %}
+            mdi:washing-machine
+          {% else %}
+            mdi:washing-machine-off
+          {% endif %}
+  - platform: template
+    sensors:
+      washing_machine_empty_alert:
+        friendly_name: Washing machine notifications
+        value_template: >
+          {{ is_state("group.allpersons", "home") and is_state("input_select.washing_machine_status", "Clean") }}
+        icon_template: >
+          {% if is_state("group.allpersons", "home") %}
+            mdi:cellphone-message
+          {% else %}
+            mdi:cellphone-message-off
+          {% endif %}
+
+sensor:
+  - platform: history_stats
+    name: Times washing machine has been on last 7 days
+    entity_id: input_select.washing_machine_status
+    state: "Running"
+    type: count
+    duration:
+      days: 7
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: Hours washing machine has been on last 7 days
+    entity_id: input_select.washing_machine_status
+    state:
+      - "Running"
+      - "Finishing"
+    type: time
+    duration:
+      days: 7
+    end: "{{ now() }}"
+
+automation:
+  - id: washing_machine_to_running
+    alias: "Waschmaschine: 1 - IDLE -> RUNNING"
+    mode: single
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.waschmaschine_energy_power
+        above: 10
+    condition:
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: input_select.washing_machine_status
+            state: Idle
+          - condition: state
+            entity_id: input_select.washing_machine_status
+            state: Clean
+          - condition: state
+            entity_id: input_select.washing_machine_status
+            state: Finishing
+    action:
+      - service: input_select.select_option
+        data:
+          option: Running
+        entity_id: input_select.washing_machine_status
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.washing_machine_on
+        data:
+          timestamp: "{{ now().timestamp() }}"
+
+  - id: washing_machine_to_finishing
+    alias: "Waschmaschine: 2 - RUNNING -> FINISHING"
+    mode: single
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.waschmaschine_energy_power
+        below: "5"
+        for: 00:11:00
+    condition:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_select.washing_machine_status
+            state: Running
+    action:
+      - service: input_select.select_option
+        data:
+          option: Finishing
+        entity_id: input_select.washing_machine_status
+
+  - id: washing_machine_to_clean
+    alias: "Waschmaschine: 3 - FINISHING -> CLEAN"
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: input_select.washing_machine_status
+        to: Finishing
+        for: 00:11:00
+    condition:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_select.washing_machine_status
+            state: Finishing
+    action:
+      - service: input_select.select_option
+        data:
+          option: Clean
+        entity_id: input_select.washing_machine_status
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.washing_machine_finished
+        data:
+          timestamp: "{{ now().timestamp() }}"
+      - condition: state
+        entity_id: group.all_persons
+        state: home
+      - service: notify.all_phones
+        data:
+          message: me finish, me empty! kthxbye
+          title: Washing Machine bzzz
+
+  - id: washing_machine_to_idle
+    alias: "Waschmaschine: 4 - CLEAN -> IDLE"
+    mode: single
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.waschmaschine_energy_power
+        below: "1"
+        for: 00:10:00
+    condition:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_select.washing_machine_status
+            state: Clean
+    action:
+      - service: input_select.select_option
+        data:
+          option: Idle
+        entity_id: input_select.washing_machine_status
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.washing_machine_off
+        data:
+          timestamp: "{{ now().timestamp() }}"
+
+alert:
+  washing_machine_not_emptied:
+    name: Washmachine finished but not emptied
+    entity_id: binary_sensor.washing_machine_empty_alert
+    state: "on"
+    repeat:
+      - 15
+      - 20
+      - 30
+    skip_first: true
+    title: Washing Machine bzzz
+    message: "You are done ☝️ You like smelly clothes? I finished {{ relative_time(states('input_datetime.washing_machine_finished') | as_datetime) }} ago"
+    notifiers:
+      - all_phones

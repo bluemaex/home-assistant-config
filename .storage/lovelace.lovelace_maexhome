@@ -1,0 +1,2776 @@
+{
+    "version": 1,
+    "minor_version": 1,
+    "key": "lovelace.lovelace_maexhome",
+    "data": {
+        "config": {
+            "background": "var(--background-image)",
+            "decluttering_templates": {
+                "automation_template": {
+                    "card": {
+                        "card": {
+                            "show_header_toggle": false,
+                            "title": "[[name]] automations",
+                            "type": "entities"
+                        },
+                        "filter": {
+                            "include": [
+                                {
+                                    "entity_id": "automation.[[slug]]*"
+                                }
+                            ]
+                        },
+                        "sort": "entity_id",
+                        "type": "custom:auto-entities"
+                    }
+                }
+            },
+            "title": "maexhome",
+            "views": [
+                {
+                    "path": "default_view",
+                    "title": "Home",
+                    "badges": [
+                        {
+                            "entity": "binary_sensor.motion_unifi_g3_flex_flur"
+                        },
+                        {
+                            "entity": "binary_sensor.shelly_motion_bad_motion"
+                        },
+                        {
+                            "entity": "binary_sensor.shelly_motion_kuche_motion"
+                        },
+                        {
+                            "entity": "person.bluemaex"
+                        },
+                        {
+                            "entity": "sensor.ble_temperature_xiaomi_wohnzimmer"
+                        },
+                        {
+                            "entity": "sensor.ble_temperature_xiaomi_schlafzimmer"
+                        },
+                        {
+                            "entity": "sensor.ble_temperature_xiaomi_bad"
+                        },
+                        {
+                            "entity": "sensor.ble_temperature_xiaomi_kuche"
+                        },
+                        {
+                            "entity": "sensor.ble_temperature_xiaomi_flur"
+                        },
+                        {
+                            "entity": "sensor.ble_temperature_xiaomi_servereck"
+                        }
+                    ],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "type": "entity",
+                                    "entity": "sensor.time"
+                                },
+                                {
+                                    "entity": "scene.coming_home",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "icon": "mdi:home-import-outline",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "show_state": false,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "scene.coming_home"
+                                        }
+                                    },
+                                    "type": "button"
+                                },
+                                {
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "icon": "mdi:bus-stop",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "show_state": false,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.alles_aus",
+                                        "service_data": {},
+                                        "target": {}
+                                    },
+                                    "type": "button",
+                                    "name": "Alles aus"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "weather-forecast",
+                            "entity": "weather.maexhome",
+                            "name": "Kreuzberg, Berlin",
+                            "show_forecast": false
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entities": [
+                                        "light.wohnzimmer_decke",
+                                        "switch.monitor_hintergrund",
+                                        "switch.banana"
+                                    ],
+                                    "head": {
+                                        "color_picker": true,
+                                        "entity": "light.wohnzimmer",
+                                        "hide_when_off": false,
+                                        "name": "Wohnzimmer",
+                                        "type": "custom:slider-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        "light.schlafzimmer_bett",
+                                        "light.schlafzimmer_decke"
+                                    ],
+                                    "head": {
+                                        "entity": "light.schlafzimmer_bett",
+                                        "hide_when_off": false,
+                                        "name": "Schlafzimmer",
+                                        "type": "custom:slider-entity-row"
+                                    },
+                                    "name": "Schlafzimmer",
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        "light.kuche"
+                                    ],
+                                    "head": {
+                                        "entity": "light.kuche",
+                                        "hide_when_off": false,
+                                        "name": "K\u00fcche",
+                                        "type": "custom:slider-entity-row"
+                                    },
+                                    "name": "K\u00fcche",
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        "light.bad_spiegel",
+                                        "light.bad_decke",
+                                        {
+                                            "entity": "script.white_lights_living_room",
+                                            "icon_height": "20px",
+                                            "name": "White lights",
+                                            "show_icon": false,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "script.white_lights_living_room"
+                                            }
+                                        }
+                                    ],
+                                    "head": {
+                                        "color_picker": true,
+                                        "entity": "light.bad",
+                                        "hide_when_off": false,
+                                        "name": "Bad",
+                                        "type": "custom:slider-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Lichter",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entities": [
+                                        "switch.denon_qs1",
+                                        "switch.denon_qs2",
+                                        "switch.denon_qs3",
+                                        "switch.denon_qs4",
+                                        {
+                                            "type": "divider"
+                                        },
+                                        {
+                                            "entity": "switch.denon_power",
+                                            "name": "Infrared Power Toggle"
+                                        },
+                                        {
+                                            "entity": "switch.mediaeck",
+                                            "name": "Power Outlet Toggle"
+                                        }
+                                    ],
+                                    "head": {
+                                        "entity": "media_player.denon_avr_x1200w",
+                                        "name": "DenonAVR",
+                                        "type": "custom:mini-media-player",
+                                        "group": true,
+                                        "artwork": "material"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        "switch.beamer"
+                                    ],
+                                    "head": {
+                                        "entity": "switch.beamer_livingroom"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entity": "media_player.maextv",
+                                    "name": "AppleTV",
+                                    "type": "custom:mini-media-player",
+                                    "group": true,
+                                    "artwork": "material",
+                                    "hide": {
+                                        "volume": true
+                                    }
+                                },
+                                {
+                                    "entity": "media_player.kuche",
+                                    "name": "Homepod K\u00fcche",
+                                    "type": "custom:mini-media-player",
+                                    "group": true,
+                                    "artwork": "material",
+                                    "hide": {
+                                        "volume": true
+                                    }
+                                },
+                                {
+                                    "entity": "media_player.schlafzimmer",
+                                    "name": "Homepod Schlafzimmer",
+                                    "type": "custom:mini-media-player",
+                                    "group": true,
+                                    "artwork": "material",
+                                    "hide": {
+                                        "volume": true
+                                    }
+                                },
+                                {
+                                    "entity": "media_player.zipp_bad",
+                                    "name": "Zipp Bad",
+                                    "type": "custom:mini-media-player",
+                                    "group": true,
+                                    "artwork": "material",
+                                    "hide": {
+                                        "volume": true
+                                    }
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "content": "# Quarantine-o-meter \nThe gauge meters display the amount of time spent at home in the last 14 days. Where Max left the house (on average) {{ (states(\"sensor.quarantine_meter_max_times_left\")|int(0) / 14) | round(1) }} times per day ({{states(\"sensor.quarantine_meter_max_times_left\")}} total) and is outside {{ states(\"sensor.time_outside_this_week\") }} h/d.",
+                                    "type": "markdown"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.quarantine_meter_max",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Max",
+                                            "severity": {
+                                                "green": 95,
+                                                "red": 0,
+                                                "yellow": 80
+                                            },
+                                            "theme": "Backend-selected",
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "custom:vertical-stack-in-card"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entities": [
+                                        {
+                                            "icon": "mdi:currency-eur",
+                                            "name": "{% set kwh = states(\"sensor.servereck_energy_today\") | float(0) %} {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0) %} {%\nset cost_today = cost * kwh %} Today used {{ kwh }} kWh and cost \u20ac{{ cost_today | round(2) }}. ",
+                                            "type": "custom:template-entity-row"
+                                        }
+                                    ],
+                                    "head": {
+                                        "entity": "sensor.servereck_status",
+                                        "icon": "mdi:server",
+                                        "name": "Servereck",
+                                        "state": "{{ states(\"sensor.servereck_energy_power\") }} Watt\n",
+                                        "type": "custom:template-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "icon": "mdi:currency-eur",
+                                            "name": "{% set kwh = states(\"sensor.schreibtisch_energy_today\") | float(0) %} {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0) %} {%\n   set cost_today = cost * kwh %} Today used {{ kwh }} kWh and cost \u20ac{{ cost_today | round(2) }}. ",
+                                            "type": "custom:template-entity-row"
+                                        }
+                                    ],
+                                    "head": {
+                                        "entity": "sensor.servereck_status",
+                                        "icon": "mdi:desk",
+                                        "name": "Schreibtisch",
+                                        "state": "{{ states(\"sensor.schreibtisch_energy_power\") }} Watt\n",
+                                        "type": "custom:template-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "icon": "mdi:currency-eur",
+                                            "name": "{% set kwh = states(\"sensor.mediaeck_energy_today\") | float(0) %} {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0) %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }} kWh and cost \u20ac{{ cost_today | round(2) }}. ",
+                                            "type": "custom:template-entity-row"
+                                        }
+                                    ],
+                                    "head": {
+                                        "entity": "media_player.denon_avr_x1200w",
+                                        "name": "Mediaeck",
+                                        "secondary": "Has been on for {{ states(\"sensor.hours_denon_has_been_on_last_7_days\") | float(0) }} hours in the last 7 days\n",
+                                        "state": "{% if is_state(\"media_player.denon_avr_x1200w\", \"off\") %}\n  Off\n{% else %}\n  {{ states(\"sensor.mediaeck_energy_power\") }} Watt\n{% endif %}\n",
+                                        "type": "custom:template-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "icon": "mdi:currency-eur",
+                                            "name": "{% set kwh = states(\"sensor.beamer_energy_today\") | float(0) %} {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0) %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }} kWh and cost \u20ac{{ cost_today | round(2) }}. ",
+                                            "type": "custom:template-entity-row"
+                                        }
+                                    ],
+                                    "head": {
+                                        "entity": "switch.beamer_livingroom",
+                                        "name": "Projector Wohnzimmer",
+                                        "secondary": "Has been on {{ states(\"sensor.times_projector_has_been_on_last_7_days\") | int(0) }} times ({{ states(\"sensor.hours_projector_has_been_on_last_7_days\") }} hours) in the last 7 days\n",
+                                        "state": "{% if is_state(\"switch.beamer_livingroom\", \"off\") %}\n  Off\n{% else %}\n  {{ states(\"sensor.beamer_energy_power\") }} Watt\n{% endif %}\n",
+                                        "type": "custom:template-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "icon": "mdi:currency-eur",
+                                            "name": "{% set kwh = states(\"sensor.waschmaschine_energy_today\") | float(0) %} {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0) %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }} kWh and cost \u20ac{{ cost_today | round(2) }}. ",
+                                            "type": "custom:template-entity-row"
+                                        }
+                                    ],
+                                    "head": {
+                                        "entity": "binary_sensor.washing_machine",
+                                        "name": "Washing machine",
+                                        "secondary": "Has been on {{ states(\"sensor.times_washing_machine_has_been_on_last_7_days\") }} times ({{ states(\"sensor.hours_washing_machine_has_been_on_last_7_days\") }} hours) in the last 7 days\n",
+                                        "state": "{% if is_state(\"binary_sensor.washing_machine\", \"on\") %}\n  {{states(\"input_select.washing_machine_status\")}}, {{ states(\"sensor.waschmaschine_energy_power\") }} Watt\n{% elif is_state(\"input_select.washing_machine_status\", \"Clean\") %}\n  Finished\n{% else %}\n  Off\n{% endif %}\n",
+                                        "type": "custom:template-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "icon": "mdi:currency-eur",
+                                            "name": "{% set kwh = states(\"sensor.fridge_energy_today\") | float(0) %} {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0) %} {%\n   set cost_today = cost * kwh %} Today used {{ kwh }} kWh and cost \u20ac{{ cost_today | round(2) }}. ",
+                                            "type": "custom:template-entity-row"
+                                        }
+                                    ],
+                                    "head": {
+                                        "entity": "sensor.fridge_status",
+                                        "icon": "mdi:fridge",
+                                        "name": "Fridge",
+                                        "state": "{{ states(\"sensor.fridge_energy_power\") }} Watt\n",
+                                        "type": "custom:template-entity-row"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Stromverbrauch",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_boolean.vacation_mode"
+                                },
+                                {
+                                    "entity": "input_boolean.guest_mode"
+                                },
+                                {
+                                    "entities": [
+                                        "input_select.theme",
+                                        "input_boolean.theme_alternative"
+                                    ],
+                                    "head": {
+                                        "entity": "input_boolean.dark_mode",
+                                        "name": "Dark mode"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "type": "entities"
+                        }
+                    ]
+                },
+                {
+                    "title": "Temperatur",
+                    "path": "temp",
+                    "icon": "",
+                    "panel": false,
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.ble_temperature_xiaomi_wohnzimmer",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "entity": "sensor.ble_temperature_xiaomi_schlafzimmer",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.ble_temperature_xiaomi_bad",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "entity": "sensor.ble_temperature_xiaomi_flur",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "sensor",
+                                            "entity": "sensor.ble_temperature_xiaomi_kuche",
+                                            "graph": "line"
+                                        },
+                                        {
+                                            "entity": "sensor.ble_temperature_xiaomi_servereck",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.ble_humidity_xiaomi_wohnzimmer",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "entity": "sensor.ble_humidity_xiaomi_schlafzimmer",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.ble_humidity_xiaomi_bad",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        },
+                                        {
+                                            "entity": "sensor.ble_humidity_xiaomi_flur",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "sensor",
+                                            "entity": "sensor.ble_humidity_xiaomi_kuche",
+                                            "graph": "line"
+                                        },
+                                        {
+                                            "entity": "sensor.ble_humidity_xiaomi_servereck",
+                                            "graph": "line",
+                                            "type": "sensor"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "Cam",
+                    "path": "cam",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.motion_unifi_g3_flex_flur"
+                                },
+                                {
+                                    "entity": "binary_sensor.is_dark_unifi_g3_flex_flur"
+                                },
+                                {
+                                    "entity": "select.recording_mode_unifi_g3_flex_flur"
+                                },
+                                {
+                                    "entity": "camera.unifi_g3_flex_flur"
+                                }
+                            ],
+                            "title": "Unifi Protect",
+                            "show_header_toggle": false
+                        },
+                        {
+                            "type": "picture-entity",
+                            "entity": "camera.unifi_g3_flex_flur",
+                            "camera_image": "camera.unifi_g3_flex_flur",
+                            "show_name": true,
+                            "show_state": false,
+                            "hold_action": {
+                                "action": "none"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "title": "AVR",
+                    "path": "remote-avr",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "button",
+                                    "tap_action": {
+                                        "action": "none"
+                                    },
+                                    "name": "Denon AVR",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "show_state": true,
+                                    "icon_height": "20px",
+                                    "entity": "switch.denon_power"
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "media"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "AppleTV",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "game"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "RecalBox",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "internetradio"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Internet Radio",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "aux"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "AUX",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "bluetooth"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Bluetooth",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "tuner"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Tuner",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "backward"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "<<"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "playpause"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Play/Pause",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "forward"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": ">>",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "mute"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Mute",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "button",
+                                    "entity": "remote.rm3_wohnzimmer_remote",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "remote.send_command",
+                                        "service_data": {
+                                            "entity_id": "remote.rm3_wohnzimmer_remote",
+                                            "device": "denonavr",
+                                            "command": "up"
+                                        },
+                                        "target": {}
+                                    },
+                                    "name": "^",
+                                    "icon": "mdi:projector",
+                                    "show_icon": false
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "left"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "<",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "enter"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "menu",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "right"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": ">",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "button",
+                                    "entity": "remote.rm3_wohnzimmer_remote",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "remote.send_command",
+                                        "service_data": {
+                                            "entity_id": "remote.rm3_wohnzimmer_remote",
+                                            "device": "denonavr",
+                                            "command": "down"
+                                        },
+                                        "target": {}
+                                    },
+                                    "name": "v",
+                                    "icon": "mdi:projector",
+                                    "show_icon": false
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "info"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Info"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "option"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Option",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "back"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Back",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "setup"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Setup",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "volume_up"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Vol +"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "channel_up"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Channel +"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "page_up"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Page +",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "volume_down"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Vol -",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "channel_down"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Channel -"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "page_down"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Page -"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "quick_1"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "1",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "quick_2"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "2",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "quick_3"
+                                                }
+                                            },
+                                            "name": "3",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "denonavr",
+                                                    "command": "quick_4"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "4"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "media-control",
+                            "entity": "media_player.denon_avr_x1200w"
+                        }
+                    ]
+                },
+                {
+                    "title": "AppleTV",
+                    "path": "remote-apple",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "button",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "name": "Apple",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "icon": "mdi:apple",
+                                    "show_state": true,
+                                    "icon_height": "20px",
+                                    "entity": "switch.denon_qs2"
+                                },
+                                {
+                                    "type": "button",
+                                    "entity": "remote.rm3_wohnzimmer_remote",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "remote.send_command",
+                                        "service_data": {
+                                            "entity_id": "remote.rm3_wohnzimmer_remote",
+                                            "device": "apple_remote_ir",
+                                            "command": "up"
+                                        },
+                                        "target": {}
+                                    },
+                                    "name": "^",
+                                    "icon": "mdi:projector",
+                                    "show_icon": false
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "apple_remote_ir",
+                                                    "command": "left"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "<",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "apple_remote_ir",
+                                                    "command": "playpause"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Play/Pause",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "apple_remote_ir",
+                                                    "command": "right"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": ">",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "button",
+                                    "entity": "remote.rm3_wohnzimmer_remote",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "remote.send_command",
+                                        "service_data": {
+                                            "entity_id": "remote.rm3_wohnzimmer_remote",
+                                            "device": "apple_remote_ir",
+                                            "command": "down"
+                                        },
+                                        "target": {}
+                                    },
+                                    "name": "v",
+                                    "icon": "mdi:projector",
+                                    "show_icon": false
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "apple_remote_ir",
+                                                    "command": "menu"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Menu",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "media-control",
+                            "entity": "media_player.maextv"
+                        }
+                    ]
+                },
+                {
+                    "title": "beamer",
+                    "path": "remote-beamer",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "button",
+                                    "tap_action": {
+                                        "action": "none"
+                                    },
+                                    "name": "Beamer",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "icon": "mdi:projector",
+                                    "show_state": true,
+                                    "icon_height": "20px",
+                                    "show_icon": true,
+                                    "entity": "switch.beamer_livingroom"
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "power"
+                                                }
+                                            },
+                                            "name": "Power",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "3D"
+                                                }
+                                            },
+                                            "name": "3D",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "source"
+                                                }
+                                            },
+                                            "name": "Source",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "setup"
+                                                }
+                                            },
+                                            "name": "Setup",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "mode"
+                                                }
+                                            },
+                                            "name": "Mode",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "hide"
+                                                }
+                                            },
+                                            "name": "hide",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "zoom"
+                                                }
+                                            },
+                                            "name": "Zoom",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "ratio"
+                                                }
+                                            },
+                                            "name": "ratio",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "freeze"
+                                                }
+                                            },
+                                            "name": "Freeze",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "button",
+                                    "entity": "remote.rm3_wohnzimmer_remote",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "remote.send_command",
+                                        "service_data": {
+                                            "entity_id": "remote.rm3_wohnzimmer_remote",
+                                            "device": "beamer",
+                                            "command": "up"
+                                        }
+                                    },
+                                    "name": "^",
+                                    "icon": "mdi:projector",
+                                    "show_icon": false
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "left"
+                                                }
+                                            },
+                                            "name": "<",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "menu"
+                                                }
+                                            },
+                                            "name": "menu",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "right"
+                                                }
+                                            },
+                                            "name": ">",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "button",
+                                    "entity": "remote.rm3_wohnzimmer_remote",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "remote.send_command",
+                                        "service_data": {
+                                            "entity_id": "remote.rm3_wohnzimmer_remote",
+                                            "device": "beamer",
+                                            "command": "down"
+                                        }
+                                    },
+                                    "name": "v",
+                                    "icon": "mdi:projector",
+                                    "show_icon": false
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "play_pause"
+                                                }
+                                            },
+                                            "name": "Play/Pause",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "enter"
+                                                }
+                                            },
+                                            "name": "Enter",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "back"
+                                                }
+                                            },
+                                            "name": "Back",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "forward"
+                                                }
+                                            },
+                                            "name": "forward",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 1
+                                                }
+                                            },
+                                            "name": 1,
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 2
+                                                }
+                                            },
+                                            "name": 2,
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 3
+                                                }
+                                            },
+                                            "name": 3,
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "pageup"
+                                                }
+                                            },
+                                            "name": "PageUp",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 4
+                                                }
+                                            },
+                                            "name": "4/VGA",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 5
+                                                }
+                                            },
+                                            "name": "5/Component",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 6
+                                                }
+                                            },
+                                            "name": "6/Video",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": "pagedown"
+                                                }
+                                            },
+                                            "name": "PageDown",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 7
+                                                }
+                                            },
+                                            "name": "7/sd",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 8
+                                                }
+                                            },
+                                            "name": "8/hdmi",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 9
+                                                }
+                                            },
+                                            "name": 9,
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "beamer",
+                                                    "command": 0
+                                                }
+                                            },
+                                            "name": "0",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "title": "backlight",
+                    "path": "remote-monitor",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "vertical-stack",
+                            "cards": [
+                                {
+                                    "type": "button",
+                                    "name": "Monitor Backlight ",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "icon": "mdi:monitor",
+                                    "show_state": false,
+                                    "icon_height": "20px",
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "entity": "switch.monitor_hintergrund"
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "brightness_up"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Brightness Up"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "brightness_down"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Brightness Down",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "power_off"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Power Off",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "power_on"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Power On",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "red"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Red"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "green"
+                                                }
+                                            },
+                                            "name": "Green",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "blue"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Blue",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "white"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "White",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c1"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "C1"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c2"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "C2"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c3"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "C3",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "flash"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "Flash",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c4"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "C4"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c5"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "C5",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c6"
+                                                }
+                                            },
+                                            "name": "C6",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "strobe"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Strobe"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c7"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "C7"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c8"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "C8",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c9"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "C9",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "fade"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Fade"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c10"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "C10"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c11"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "C11",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "c12"
+                                                },
+                                                "target": {}
+                                            },
+                                            "name": "C12",
+                                            "icon": "mdi:projector",
+                                            "show_icon": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "entity": "remote.rm3_wohnzimmer_remote",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "remote.send_command",
+                                                "service_data": {
+                                                    "entity_id": "remote.rm3_wohnzimmer_remote",
+                                                    "device": "ledstrip_monitor",
+                                                    "command": "smooth"
+                                                },
+                                                "target": {}
+                                            },
+                                            "icon": "mdi:projector",
+                                            "show_icon": false,
+                                            "name": "Smooth"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "card": {
+                                "show_header_toggle": false,
+                                "title": "Uncategorized automations",
+                                "type": "entities"
+                            },
+                            "filter": {
+                                "exclude": [
+                                    {
+                                        "entity_id": "automation.alarm_clock_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.apple_watch*"
+                                    },
+                                    {
+                                        "entity_id": "automation.arriving_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.backup_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.day_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.doorbell_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.frontend_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.logger_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.leaving_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.notification_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.remote_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.shellies_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.vacation_mode_*"
+                                    },
+                                    {
+                                        "entity_id": "automation.waschmaschine*"
+                                    }
+                                ],
+                                "include": [
+                                    {
+                                        "domain": "automation"
+                                    }
+                                ]
+                            },
+                            "sort": {
+                                "method": "entity_id"
+                            },
+                            "type": "custom:auto-entities"
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Arriving"
+                                },
+                                {
+                                    "slug": "arriving_"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Frontend"
+                                },
+                                {
+                                    "slug": "frontend_"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Remotes"
+                                },
+                                {
+                                    "slug": "remote_"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Shelly"
+                                },
+                                {
+                                    "slug": "shellies"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Leaving"
+                                },
+                                {
+                                    "slug": "leaving"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Backup automations"
+                                },
+                                {
+                                    "slug": "backup"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Lovelace"
+                                },
+                                {
+                                    "slug": "frontend"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Vacation mode"
+                                },
+                                {
+                                    "slug": "vacation_mode"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Waschmaschine automations"
+                                },
+                                {
+                                    "slug": "waschmaschine_"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Apple Watch"
+                                },
+                                {
+                                    "slug": "apple_watch"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Logger automations"
+                                },
+                                {
+                                    "slug": "logger"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Day/Sun automations"
+                                },
+                                {
+                                    "slug": "day"
+                                }
+                            ]
+                        },
+                        {
+                            "template": "automation_template",
+                            "type": "custom:decluttering-card",
+                            "variables": [
+                                {
+                                    "name": "Notification automations"
+                                },
+                                {
+                                    "slug": "notification"
+                                }
+                            ]
+                        }
+                    ],
+                    "icon": "mdi:robot",
+                    "path": "automations",
+                    "title": "Automations"
+                },
+                {
+                    "title": "System Information",
+                    "path": "system",
+                    "icon": "mdi:home-assistant",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.installed_version",
+                                            "icon": "mdi:home-assistant",
+                                            "name": "Hassio Installed Version"
+                                        },
+                                        {
+                                            "entity": "sensor.latest_available_version",
+                                            "icon": "mdi:home-assistant",
+                                            "name": "Hassio Current Version"
+                                        },
+                                        {
+                                            "entity": "sensor.hacs",
+                                            "icon": "mdi:update",
+                                            "name": "Community Store"
+                                        },
+                                        {
+                                            "type": "divider"
+                                        },
+                                        {
+                                            "entity": "sensor.last_boot",
+                                            "icon": "mdi:calendar"
+                                        },
+                                        {
+                                            "entity": "sensor.uptime",
+                                            "icon": "mdi:home-assistant"
+                                        },
+                                        {
+                                            "entity": "sensor.mariadb_size",
+                                            "icon": "mdi:home-assistant"
+                                        },
+                                        {
+                                            "animation": "off",
+                                            "entity": "sensor.processor_use",
+                                            "entity_row": true,
+                                            "height": "30px",
+                                            "indicator": "off",
+                                            "severity": [
+                                                {
+                                                    "color": "green",
+                                                    "from": 0,
+                                                    "to": 60
+                                                },
+                                                {
+                                                    "color": "orange",
+                                                    "from": 60,
+                                                    "to": 85
+                                                },
+                                                {
+                                                    "color": "red",
+                                                    "from": 85,
+                                                    "to": 100
+                                                }
+                                            ],
+                                            "style": "ha-card {\n  box-shadow: none;\n  --ha-card-background: 'rgba(0, 0, 0, 0)';\n}\n",
+                                            "type": "custom:bar-card"
+                                        },
+                                        {
+                                            "entities": [
+                                                {
+                                                    "animation": "off",
+                                                    "entity_row": true,
+                                                    "height": "30px",
+                                                    "indicator": "off",
+                                                    "severity": [
+                                                        {
+                                                            "color": "green",
+                                                            "from": 0,
+                                                            "to": 60
+                                                        },
+                                                        {
+                                                            "color": "orange",
+                                                            "from": 60,
+                                                            "to": 70
+                                                        },
+                                                        {
+                                                            "color": "red",
+                                                            "from": 70,
+                                                            "to": 100
+                                                        }
+                                                    ],
+                                                    "style": "ha-card {\n  box-shadow: none;\n  --ha-card-background: 'rgba(0, 0, 0, 0)';\n}\n",
+                                                    "type": "custom:bar-card",
+                                                    "entities": [
+                                                        {
+                                                            "entity": "sensor.load_5m"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "animation": "off",
+                                                    "entity_row": true,
+                                                    "height": "30px",
+                                                    "indicator": "off",
+                                                    "severity": [
+                                                        {
+                                                            "color": "green",
+                                                            "from": 0,
+                                                            "to": 60
+                                                        },
+                                                        {
+                                                            "color": "orange",
+                                                            "from": 60,
+                                                            "to": 70
+                                                        },
+                                                        {
+                                                            "color": "red",
+                                                            "from": 70,
+                                                            "to": 100
+                                                        }
+                                                    ],
+                                                    "style": "ha-card {\n  box-shadow: none;\n  --ha-card-background: 'rgba(0, 0, 0, 0)';\n}\n",
+                                                    "type": "custom:bar-card",
+                                                    "entities": [
+                                                        {
+                                                            "entity": "sensor.load_15m"
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "head": {
+                                                "animation": "off",
+                                                "entity_row": true,
+                                                "height": "30px",
+                                                "indicator": "off",
+                                                "severity": [
+                                                    {
+                                                        "color": "green",
+                                                        "from": 0,
+                                                        "to": 60
+                                                    },
+                                                    {
+                                                        "color": "orange",
+                                                        "from": 60,
+                                                        "to": 70
+                                                    },
+                                                    {
+                                                        "color": "red",
+                                                        "from": 70,
+                                                        "to": 100
+                                                    }
+                                                ],
+                                                "style": "ha-card {\n  box-shadow: none;\n  --ha-card-background: 'rgba(0, 0, 0, 0)';\n}\n",
+                                                "type": "custom:bar-card",
+                                                "entities": [
+                                                    {
+                                                        "entity": "sensor.load_1m"
+                                                    }
+                                                ]
+                                            },
+                                            "type": "custom:fold-entity-row"
+                                        },
+                                        {
+                                            "animation": "off",
+                                            "entity": "sensor.memory_use_percent",
+                                            "entity_row": true,
+                                            "height": "30px",
+                                            "indicator": "off",
+                                            "severity": [
+                                                {
+                                                    "color": "green",
+                                                    "from": 0,
+                                                    "to": 60
+                                                },
+                                                {
+                                                    "color": "orange",
+                                                    "from": 60,
+                                                    "to": 85
+                                                },
+                                                {
+                                                    "color": "red",
+                                                    "from": 85,
+                                                    "to": 100
+                                                }
+                                            ],
+                                            "style": "ha-card {\n  box-shadow: none;\n  --ha-card-background: 'rgba(0, 0, 0, 0)';\n}\n",
+                                            "type": "custom:bar-card"
+                                        },
+                                        {
+                                            "animation": "off",
+                                            "entity": "sensor.disk_use_percent",
+                                            "entity_row": true,
+                                            "height": "30px",
+                                            "indicator": "off",
+                                            "severity": [
+                                                {
+                                                    "color": "green",
+                                                    "from": 0,
+                                                    "to": 60
+                                                },
+                                                {
+                                                    "color": "orange",
+                                                    "from": 60,
+                                                    "to": 85
+                                                },
+                                                {
+                                                    "color": "red",
+                                                    "from": 85,
+                                                    "to": 100
+                                                }
+                                            ],
+                                            "style": "ha-card {\n  box-shadow: none;\n  --ha-card-background: 'rgba(0, 0, 0, 0)';\n}\n",
+                                            "type": "custom:bar-card"
+                                        },
+                                        {
+                                            "type": "divider"
+                                        },
+                                        {
+                                            "entity": "sensor.maexhome_external_ipv4",
+                                            "icon": "mdi:ip-network"
+                                        },
+                                        {
+                                            "entity": "sensor.maexhome_external_ipv6"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "System",
+                                    "type": "entities"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "VLAN Home",
+                            "icon": "mdi:server",
+                            "show": {
+                                "labels": true
+                            },
+                            "entities": [
+                                "sensor.network_in_enp1s0",
+                                "sensor.network_out_enp1s0"
+                            ]
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "VLAN IoT",
+                            "icon": "mdi:server",
+                            "show": {
+                                "labels": true
+                            },
+                            "entities": [
+                                "sensor.network_in_enp2s0",
+                                "sensor.network_out_enp2s0"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,10 @@
+- platform: group
+  name: all_phones
+  services:
+    - service: mobile_app_minimaex
+
+- platform: group
+  name: max
+  services:
+    - service: mobile_app_minimaex
+    - service: mobile_app_maexpad

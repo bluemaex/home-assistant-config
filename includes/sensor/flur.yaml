@@ -1,0 +1,8 @@
+# bewegungscounter
+- platform: statistics
+  name: Flur Bewegungszähler 24h
+  entity_id: binary_sensor.motion_unifi_g3_flex_flur
+  state_characteristic: count
+  sampling_size: 86400
+  max_age:
+    hours: 24

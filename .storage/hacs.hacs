@@ -1,0 +1,34 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs.hacs",
+    "data": {
+        "view": "Grid",
+        "compact": false,
+        "onboarding_done": false,
+        "archived_repositories": [
+            "custom-components/custom_components",
+            "custom-components/sensor.custom_components",
+            "Michsior14/ha-laser-egg",
+            "custom-components/sensor.tautulli",
+            "mampfes/hacs_wiffi",
+            "pilotak/homeassistant-mikrotik",
+            "estevez-dev/extended-banner-card",
+            "ppanagiotis/pymusiccast",
+            "jensweimann/awb",
+            "Kraineff/philips-airpurifier",
+            "briis/smartweather",
+            "KoljaWindeler/kaco"
+        ],
+        "renamed_repositories": {
+            "scottyphillips/mitsubishi_hass": "scottyphillips/echonetlite_homeassistant",
+            "xMrVizzy/Philips-AirPurifier": "kraineff/philips-airpurifier",
+            "custom-components/blueprint": "custom-components/integration_blueprint",
+            "idittansikte/bootstrap-grid-card": "ownbee/bootstrap-grid-card",
+            "marksie1988/atomic-calendar-revive": "totaldebug/atomic-calendar-revive",
+            "PepegaBruh/CryptoTracker": "BigNocciolino/CryptoTracker",
+            "mf-social/ps-date-countdown": "point-4ward/ps-date-countdown",
+            "9a4gl/hass-peltec": "9a4gl/hass-centrometal-boiler"
+        }
+    }
+}

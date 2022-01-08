@@ -1,0 +1,37 @@
+http:
+  routers:
+    redirectToHttpsRouter:
+      entryPoints: ["web"]
+      middlewares: ["httpsRedirect"]
+      rule: "HostRegexp(`{host:.+}`)"
+      service: noopService
+
+    homeAssistantRouter:
+      rule: "Host(`home.b.blmx.de`)"
+      entryPoints: ["web-secure"]
+      tls:
+        certResolver: le
+      service: homeAssistantService
+  
+    metricsRouter:
+      rule: "Host(`home.b.blmx.de`) && PathPrefix(`/metrics`)"
+      entryPoints: ["web-secure"]
+      tls:
+        certResolver: le
+      service: prometheus@internal  
+
+  middlewares:
+    httpsRedirect:
+      redirectScheme:
+        scheme: https
+
+  services:
+    noopService:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1"
+
+    homeAssistantService:
+      loadBalancer:
+        servers:
+          - url: "http://homeassistant:8123"

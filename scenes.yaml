@@ -1,0 +1,87 @@
+- id: "1598285429149"
+  name: "Coming Home"
+  icon: mdi:home-import-outline
+  entities:
+    switch.denon_qs1:
+      icon: mdi:radio
+      state: "on"
+    light.schlafzimmer_bett:
+      brightness: 38
+      color_temp: 370
+      state: "on"
+    light.wohnzimmer_decke:
+      brightness: 189
+      state: "on"
+    light.flur_eck:
+      brightness: 26
+      color_temp: 370
+      state: "on"
+    switch.monitor_hintergrund:
+      friendly_name: Monitor Hintergrundlicht
+      icon: mdi:monitor
+      state: "on"
+- id: "1598132687768"
+  name: Movie Time
+  icon: mdi:theater
+  entities:
+    switch.beamer_livingroom:
+      friendly_name: Beamer Wohnzimmer
+      icon: mdi:projector
+      state: "on"
+    light.wohnzimmer_decke:
+      friendly_name: Wohnzimmer Deckenlicht
+      state: "off"
+    switch.denon_qs2:
+      friendly_name: DENON AppleTV
+      icon: mdi:apple
+      state: "on"
+    switch.monitor_hintergrund:
+      friendly_name: Monitor Hintergrundlicht
+      icon: mdi:monitor
+      state: "on"
+- id: "1598285266647"
+  name: Alles aus
+  icon: mdi:home-export-outline
+  entities:
+    switch.denon_power:
+      icon: mdi:audio-video-off
+      state: "off"
+    switch.beamer_livingroom:
+      icon: mdi:projector
+      state: "off"
+    light.alle_lichter:
+      supported_features: 40
+      state: "off"
+    switch.monitor_hintergrund:
+      icon: mdi:monitor
+      state: "off"
+    switch.banana:
+      icon: mdi:monitor
+      state: "off"
+- id: "1598285288828"
+  name: Bettzeit
+  icon: mdi:bed
+  entities:
+    switch.monitor_hintergrund:
+      icon: mdi:monitor
+      state: "off"
+    switch.banana:
+      icon: mdi:monitor
+      state: "off"
+    switch.denon_power:
+      icon: mdi:audio-video-off
+      state: "off"
+    switch.beamer_livingroom:
+      icon: mdi:projector
+      state: "off"
+    light.bad:
+      state: "off"
+    light.kueche:
+      state: "off"
+    light.wohnzimmer:
+      state: "off"
+    light.schlafzimmer_decke:
+      state: "off"
+    light.schlafzimmer_bett:
+      state: "on"
+      brightness: 40

@@ -1,0 +1,95 @@
+appletv_main:
+  alias: AppleTV - BackToMain
+  icon: mdi:menu
+  mode: single
+  sequence:
+  - data:
+      command: menu
+      device: apple_remote_ir
+      hold_secs: 3
+    service: remote.send_command
+    target:
+      entity_id: remote.rm3_wohnzimmer_remote
+  - delay: 00:00:02
+appletv_jellyfin:
+  alias: AppleTV - Jellyfin
+  icon: mdi:movie
+  mode: single
+  sequence:
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.maextv
+    data:
+      source: Infuse
+appletv_netflix:
+  alias: AppleTV - Netflix
+  icon: mdi:netflix
+  mode: single
+  sequence:
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.maextv
+    data:
+      source: Netflix
+appletv_youtube:
+  alias: AppleTV - Youtube
+  icon: mdi:youtube
+  mode: single
+  sequence:
+  - service: media_player.select_source
+    data:
+      source: YouTube
+    target:
+      entity_id: media_player.maextv
+appletv_prime:
+  alias: AppleTV - Prime
+  icon: mdi:television-classic
+  mode: single
+  sequence:
+  - service: media_player.select_source
+    data:
+      source: Prime Video
+    target:
+      entity_id: media_player.maextv
+denon_etnfm:
+  alias: DENON - ETN.fm
+  icon: mdi:radio
+  mode: single
+  sequence:
+  - service: remote.send_command
+    data:
+      device: denonavr
+      command: quick_1
+      num_repeats: 1
+      entity_id: remote.rm3_wohnzimmer_remote
+  - delay: 00:00:30
+  - condition: state
+    entity_id: switch.denon_qs1
+    state: 'off'
+  - service: remote.send_command
+    data:
+      device: denonavr
+      command: quick_1
+      num_repeats: 1
+      entity_id: remote.rm3_wohnzimmer_remote
+denon_sunshine90:
+  alias: DENON - Sunshine Live 90er
+  icon: mdi:radio
+  mode: single
+  sequence:
+  - service: remote.send_command
+    data:
+      device: denonavr
+      command: quick_4
+      num_repeats: 1
+      entity_id: remote.rm3_wohnzimmer_remote
+  - delay: 00:00:30
+  - condition: state
+    entity_id: switch.denon_qs4
+    state: 'off'
+  - service: remote.send_command
+    data:
+      device: denonavr
+      command: quick_4
+      num_repeats: 1
+      entity_id: remote.rm3_wohnzimmer_remote

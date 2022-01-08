@@ -1,0 +1,57 @@
+input_text:
+  schlafzimmer_remote_rollo_last_event:
+    name: Schlafzimmer Remote Rollo Last Event
+    icon: mdi:remote
+    min: 0
+    max: 255
+
+  schlafzimmer_remote_bett_last_event:
+    name: Schlafzimmer Remote Bett Last Event
+    icon: mdi:remote
+    min: 0
+    max: 255
+
+automation:
+  - id: remote_schlafzimmer_rollo
+    alias: "Remote: Schlafzimmer Rollo"
+    use_blueprint:
+      path: EPMatt/ikea_e1766.yaml
+      input:
+        integration: deCONZ
+        controller_device: 8dc8f16bcce157e549d443b2e2ee3be6
+        action_button_up_short:
+          - device_id: afcc0eee503432667f4c10110231b5ab
+            domain: cover
+            entity_id: cover.schlafzimmer
+            type: set_position
+            position: 100
+        helper_last_controller_event: input_text.schlafzimmer_remote_rollo_last_event
+        action_button_down_short:
+          - device_id: afcc0eee503432667f4c10110231b5ab
+            domain: cover
+            entity_id: cover.schlafzimmer
+            type: set_position
+            position: 0
+
+  - id: remote_schlafzimmer_bett
+    alias: "Remote: Schlafzimmer Bett"
+    use_blueprint:
+      path: EPMatt/ikea_e1743.yaml
+      input:
+        integration: deCONZ
+        controller_device: e58397ebdae78265b10a85c120a88219
+        action_button_up_short:
+          - scene: scene.coming_home
+          - device_id: afcc0eee503432667f4c10110231b5ab
+            domain: cover
+            entity_id: cover.schlafzimmer
+            type: set_position
+            position: 100
+        helper_last_controller_event: input_text.schlafzimmer_remote_bett_last_event
+        action_button_down_short:
+          - scene: scene.alles_aus
+          - device_id: afcc0eee503432667f4c10110231b5ab
+            domain: cover
+            entity_id: cover.schlafzimmer
+            type: set_position
+            position: 0

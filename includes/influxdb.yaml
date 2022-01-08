@@ -1,0 +1,90 @@
+host: !secret influxdb_host
+port: !secret influxdb_port
+database: !secret influxdb_database
+username: !secret influxdb_username
+password: !secret influxdb_password
+max_retries: 3
+default_measurement: state
+exclude:
+  entities:
+    - sun.sun
+    - sensor.date
+    - sensor.date_time
+    - sensor.time
+    - sensor.hacs
+    - sensor.energy_current
+    - sensor.energy_today
+    - sensor.energy_yesterday
+    - sensor.brother_hl_l2370dn_series
+    - sensor.timestamp_start_of_today
+    - sensor.uptime
+    - sensor.mariadb_size
+    - sensor.lovelace_lovelace_maexhome
+
+  entity_globs:
+    - sensor.*_status
+    - sensor.*_tx
+    - sensor.*_rx
+    - sensor.*_storage
+    - sensor.*_energy_reactivepower
+    - sensor.*_energy_apparentpower
+    - sensor.*_energy_factor
+    - sensor.*_energy_totalstarttime
+    - sensor.*_energy_total
+    - sensor.*_energy_yesterday
+    - sensor.hl_l2370dn_*
+    - automation.shellies_*
+    - sensor.*_tx
+    - sensor.*_rx
+    - sensor.*_status
+    - sensor.*_rssi
+    - sensor.ble_rssi_*
+    - binary_sensor.*_button1
+    - sensor.network_in_*
+    - sensor.network_out_*
+    - sensor.load_*
+    - sensor.disk_*
+    - sensor.processor_*
+    - sensor.memory_*
+
+component_config_glob:
+  automation.*:
+    override_measurement: automation
+  # media related
+  media_player.*:
+    override_measurement: media
+  switch.denon_*:
+    override_measurement: media
+  remote.*:
+    override_measurement: media
+  script.appletv_*:
+    override_measurement: media
+  script.denon_*:
+    override_measurement: media
+  # tracker
+  person.*:
+    override_measurement: tracker
+  group.allpersons:
+    override_measurement: tracker
+  group.person_*:
+    override_measurement: tracker
+  device_tracker.*:
+    override_measurement: tracker
+  sensor.minimaex_*:
+    override_measurement: tracker
+  sensor.maexpad_*:
+    override_measurement: tracker
+  sensor.maexmini_*:
+    override_measurement: tracker
+  # humidity
+  sensor.ble_humidity_*:
+    override_measurement: humidity
+  sensor.ble_temperature_*:
+    override_measurement: temperature
+  # battery
+  sensor.ble_battery_*:
+    override_measurement: battery
+  sensor.shelly_*_battery:
+    override_measurement: battery
+  sensor.*_battery_level:
+    override_measurement: battery

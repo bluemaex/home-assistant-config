@@ -1,0 +1,60 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/224041719.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@postlund"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "Beta version of new Apple TV integration in Home Assistant supporting tvOS 15",
+        "domain": "apple_tv",
+        "domains": [
+            "media_player",
+            "remote"
+        ],
+        "downloads": 0,
+        "etag_repository": "W/\"4df06c974b8d90dd74bd5ea98efe68218ad5e7f50f9d0dbf3b19114ed93bf716\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "postlund/hass-atv-beta",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": "2021.11.0",
+        "id": "224041719",
+        "iot_class": "Local Push",
+        "installed": true,
+        "installed_commit": "0ce0162",
+        "installed_version": "v2.2.0",
+        "open_issues": 2,
+        "last_commit": "0ce0162",
+        "last_version": "v2.2.0",
+        "last_updated": "2021-12-17T07:20:19Z",
+        "manifest_name": "Apple TV",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2021-12-17T07:20:19",
+        "releases": true,
+        "render_readme": true,
+        "published_tags": [
+            "v2.2.0",
+            "v2.1.0",
+            "v2.0.0",
+            "v1.9.1",
+            "v1.9.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 263,
+        "topics": [],
+        "zip_release": false
+    }
+}

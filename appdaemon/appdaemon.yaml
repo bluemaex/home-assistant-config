@@ -1,0 +1,18 @@
+---
+secrets: /config/secrets.yaml
+
+appdaemon:
+  latitude: !secret homeassistant_latitude
+  longitude: !secret homeassistant_longitude
+  elevation: !secret homeassistant_elevation
+  time_zone: !secret homeassistant_timezone
+  plugins:
+    HASS:
+      type: hass
+
+http:
+  url: http://127.0.0.1:5050
+
+admin:
+api:
+hadashboard:

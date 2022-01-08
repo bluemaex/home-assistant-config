@@ -1,0 +1,54 @@
+- platform: systemmonitor
+  resources:
+    - type: processor_temperature
+    - type: disk_use_percent
+      arg: "/"
+    - type: memory_use_percent
+    - type: network_in
+      arg: enp1s0
+    - type: network_out
+      arg: enp1s0
+    - type: network_in
+      arg: enp2s0
+    - type: network_out
+      arg: enp2s0
+    - type: processor_use
+    - type: last_boot
+    - type: load_1m
+    - type: load_5m
+    - type: load_15m
+
+- platform: dnsip
+  name: maexhome external IPv4
+
+- platform: dnsip
+  ipv6: true
+  name: maexhome external IPv6
+
+- platform: version
+  name: Installed Version
+  source: local
+
+- platform: version
+  name: Latest Available Version
+  beta: false
+  image: raspberrypi4
+  source: hassio
+
+- platform: uptime
+
+- platform: filesize
+  file_paths:
+    - /config/.storage/lovelace.lovelace_maexhome
+
+- platform: sql
+  db_url: !secret database_dsn
+  queries:
+    - name: MariaDB size
+      query: >
+        SELECT table_schema AS "database",
+        ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) "value"
+        FROM information_schema.tables WHERE table_schema="homeassistant"
+        GROUP BY table_schema;
+      column: value
+      unit_of_measurement: MB

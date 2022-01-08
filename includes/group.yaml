@@ -1,0 +1,4 @@
+allpersons:
+  name: All Persons
+  entities:
+    - person.bluemaex

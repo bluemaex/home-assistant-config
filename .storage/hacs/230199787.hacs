@@ -1,0 +1,79 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/230199787.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@briis",
+            "@AngellusMortis",
+            "@bdraco"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "Control and monitor your Unifi Protect Cameras from Home Assistant",
+        "domain": "unifiprotect",
+        "domains": [
+            "binary_sensor",
+            "sensor",
+            "camera",
+            "switch",
+            "light",
+            "select",
+            "number"
+        ],
+        "downloads": 0,
+        "etag_repository": "W/\"a2d18c40c96742ce2b2cf5f1ad1b744e9951b20fb10765df957609d20bdab977\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "briis/unifiprotect",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": "2021.11.0",
+        "id": "230199787",
+        "iot_class": [
+            "Local Push"
+        ],
+        "installed": true,
+        "installed_commit": "699943e",
+        "installed_version": "v0.12.0-beta6",
+        "open_issues": 8,
+        "last_commit": "578427a",
+        "last_version": "v0.11.4",
+        "last_updated": "2022-01-08T03:24:00Z",
+        "manifest_name": "UniFi Protect",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-01-08T03:24:00",
+        "releases": true,
+        "render_readme": false,
+        "published_tags": [
+            "v0.11.4",
+            "v0.11.3",
+            "v0.11.2",
+            "v0.11.1",
+            "v0.11.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 510,
+        "topics": [
+            "cloudkey",
+            "home-assistant",
+            "homeassistant",
+            "protect",
+            "python",
+            "ubiquiti",
+            "unifi",
+            "unifi-protect",
+            "unifi-protect-server"
+        ],
+        "zip_release": false
+    }
+}

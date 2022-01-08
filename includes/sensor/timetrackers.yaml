@@ -1,0 +1,97 @@
+#
+# Templates
+#
+- platform: template
+  sensors:
+    timestamp_start_of_today:
+      value_template: >
+        {{ as_timestamp(now().replace(hour=0).replace(minute=0).replace(second=0)) }}
+      unit_of_measurement: "s"
+
+#
+# Usage Tracker
+#
+- platform: history_stats
+  name: Hours Denon has been on last 7 days
+  entity_id: media_player.denon_avr_x1200w
+  state:
+    - "on"
+    - "playing"
+  type: time
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Hours AppleTV has been playing last 7 days
+  entity_id: media_player.maextv
+  state: "playing"
+  type: time
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Hours Projector has been on last 7 days
+  entity_id: switch.beamer_livingroom
+  state: "on"
+  type: time
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Times Projector has been on last 7 days
+  entity_id: switch.beamer_livingroom
+  state: "on"
+  type: count
+  duration:
+    days: 7
+  end: "{{ now() }}"
+
+#
+# Quarantine Tracker
+#
+- platform: history_stats
+  name: Quarantine meter Max times left
+  entity_id: person.bluemaex
+  state: "home"
+  type: count
+  duration:
+    days: 14
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Max
+  entity_id: person.bluemaex
+  state: "home"
+  type: ratio
+  duration:
+    days: 14
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Time outside this week
+  entity_id: person.bluemaex
+  state:
+    - "away"
+    - "unknown"
+    - "not_home"
+  type: time
+  start: >
+    {{ states("sensor.timestamp_start_of_today") | float(0) - now().weekday() * 86400 }}
+  end: "{{ now() }}"
+
+  #
+  # Work Tracker
+  #
+- platform: history_stats
+  name: Time at work this week Max
+  entity_id: person.bluemaex
+  state:
+    - Work_M51
+    - Work_K11
+  type: time
+  start: >
+    {{ states("sensor.timestamp_start_of_today")|float - now().weekday() * 86400 }}
+  end: "{{ now() }}"

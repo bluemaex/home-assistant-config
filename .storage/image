@@ -1,0 +1,44 @@
+{
+    "version": 1,
+    "minor_version": 1,
+    "key": "image",
+    "data": {
+        "items": [
+            {
+                "id": "fa41570e45122c5aa34b4398d50c82ed",
+                "filesize": 56355,
+                "content_type": "image/jpeg",
+                "name": "Bathroom.png",
+                "uploaded_at": "2021-12-25T15:31:01.990665+00:00"
+            },
+            {
+                "id": "ba54dc8852df7a4ef87e32cacac14fd4",
+                "filesize": 54260,
+                "content_type": "image/jpeg",
+                "name": "Hall.png",
+                "uploaded_at": "2021-12-25T15:31:47.881704+00:00"
+            },
+            {
+                "id": "d603ed9dedb68b9f346764483088a648",
+                "filesize": 57388,
+                "content_type": "image/jpeg",
+                "name": "Kitchen.png",
+                "uploaded_at": "2021-12-25T15:32:21.781399+00:00"
+            },
+            {
+                "id": "c58ac0365502afbbf3dbbbab5637d658",
+                "filesize": 57869,
+                "content_type": "image/jpeg",
+                "name": "Bed2.png",
+                "uploaded_at": "2021-12-25T15:32:42.911382+00:00"
+            },
+            {
+                "id": "596fef9d7547513a9a34cdd9472158c7",
+                "filesize": 56766,
+                "content_type": "image/jpeg",
+                "name": "LivingRoom.png",
+                "uploaded_at": "2021-12-25T15:33:02.089712+00:00"
+            }
+        ]
+    }
+}
