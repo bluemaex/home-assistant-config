@@ -1,7 +1,7 @@
 - name: Home
   latitude: !secret homeassistant_latitude
   longitude: !secret homeassistant_longitude
-  radius: 50
+  radius: 75
   icon: mdi:home
 
 - name: Eltern
@@ -13,11 +13,11 @@
 - name: Work M51
   latitude: !secret zone_work1_latitude
   longitude: !secret zone_work1_longitude
-  radius: 300
+  radius: 100
   icon: mdi:badge-account
 
 - name: Work K11
   latitude: !secret zone_work2_latitude
   longitude: !secret zone_work2_longitude
-  radius: 300
+  radius: 200
   icon: mdi:badge-account

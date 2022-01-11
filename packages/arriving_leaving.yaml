@@ -1,39 +1,3 @@
-automation:
-  #
-  # Arriving
-  #
-  - id: arriving_at_home
-    alias: "Arriving: At Home"
-    trigger:
-      - platform: event
-        event_type: homekit_arriving
-    condition:
-      - condition: state
-        entity_id: input_boolean.guest_mode
-        state: "off"
-      - condition: state
-        entity_id: group.allpersons
-        state: "not_home"
-    action:
-      - scene: scene.coming_home
-    mode: single
-
-  #
-  # Leaving
-  #
-  - id: leaving_from_home
-    alias: "Leaving: Switch off Everything"
-    trigger:
-      - platform: event
-        event_type: homekit_leaving
-    condition:
-      - condition: state
-        entity_id: input_boolean.guest_mode
-        state: "off"
-    action:
-      - scene: scene.alles_aus
-    mode: single
-
 #
 # Homekit specific toggle switch for leaving/arriving
 #
@@ -43,17 +7,144 @@ switch:
       homekit_arriving_leaving_automation:
         friendly_name: "Homekit: Arriving/Leaving Automation"
         unique_id: "homekit_arriving_leaving_automation"
-        value_template: "{{ is_state('group.allpersons', 'home') }}"
-        availability_template: "{{ is_state('switch.beamer', 'on') }}"
+        #value_template: "{{ is_state('group.residents', 'home') }}"
         turn_on:
           - event: homekit_arriving
             event_data: {}
         turn_off:
-          - event: homekit_leaving
-            event_data: {}
+          - service: script.turn_on
+            target:
+              entity_id: script.leaving_turnoff_chooser
         icon_template: >-
-          {% if is_state('group.allpersons', 'home') %}
+          {% if is_state('group.residents', 'home') %}
             mdi:home-lightbulb
           {% else %}
             mdi:home-lightbulb-outline
           {% endif %}
+
+#
+# Automation on leaving/arriving
+#
+automation:
+  - id: leaving_from_home
+    alias: "Leaving: Switch off Everything"
+    trigger:
+      - platform: event
+        event_type: homekit_leaving
+    action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.alles_aus
+        data:
+          transition: 2
+    mode: single
+
+  - id: arriving_at_home
+    alias: "Arriving: At Home"
+    trigger:
+      - platform: event
+        event_type: homekit_arriving
+    condition:
+      - condition: state
+        entity_id: input_boolean.guest_mode
+        state: "off"
+    action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.coming_home
+        data:
+          transition: 2
+      - service: notify.mobile_app_minimaex
+        data:
+          title: Welcome Home
+          message: >-
+            Welcome Back!
+    mode: single
+
+#
+# confirmable notification when leaving, with the options
+#  - to turn off everything (again)
+#  - to toggle guest mode
+#
+# if no selection is made than the default mode executes
+#
+script:
+  leaving_turnoff_chooser:
+    alias: Left Building Notification
+    icon: mdi:menu
+    mode: restart
+    sequence:
+      - alias: Set up variables for the actions
+        variables:
+          action_turnoff: "{{ 'LEAVING_TURNOFF_' ~ context.id }}"
+          action_guestmode: "{{ 'LEAVING_GUESTMODE_' ~ context.id }}"
+          action_ignore: "{{ 'LEAVING_IGNORE_' ~ context.id }}"
+      - alias: Left the building
+        service: notify.mobile_app_minimaex
+        data:
+          title: You've left the building
+          message: |-
+            {% if is_state('input_boolean.guest_mode', 'off') %}
+              I turn everything off for you in a second 😘
+            {% else %}
+              Guest mode is on, leaving everything as is.
+            {% endif %}
+          data:
+            tag: leaving_turnoff_chooser
+            actions:
+              - action: "{{ action_turnoff }}"
+                title: Turn off anyway
+              - action: "{{ action_guestmode }}"
+                title: |-
+                  {% if is_state('input_boolean.guest_mode', 'off') %}
+                    Activate Guest mode
+                  {% else %}
+                    Deactivate Guest mode
+                  {% endif %}
+              - action: "{{ action_ignore }}"
+                title: Cancel
+      - alias: Wait for a response
+        wait_for_trigger:
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              action: "{{ action_turnoff }}"
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              action: "{{ action_guestmode }}"
+          - platform: event
+            event_type: mobile_app_notification_action
+            event_data:
+              action: "{{ action_ignore }}"
+        timeout:
+          minutes: 5
+      - alias: Perform the action
+        choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ wait.trigger.event.data.action == action_turnoff }}"
+            sequence:
+              - event: homekit_leaving
+                event_data: {}
+          - conditions:
+              - condition: template
+                value_template: "{{ wait.trigger.event.data.action == action_guestmode }}"
+            sequence:
+              - service: input_boolean.toggle
+                target:
+                  entity_id: input_boolean.guest_mode
+          - conditions:
+              - condition: template
+                value_template: "{{ wait.trigger.event.data.action == action_ignore }}"
+            sequence:
+              - service: notify.mobile_app_minimaex
+                data:
+                  title: Shutdown canceled
+                  message: Yes, sir.
+        default:
+          - condition: state
+            entity_id: input_boolean.guest_mode
+            state: "off"
+          - event: homekit_leaving
+            event_data: {}

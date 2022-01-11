@@ -4,4 +4,3 @@
   filter:
     include_entities:
       - device_tracker.minimaex
-      - group.allpersons

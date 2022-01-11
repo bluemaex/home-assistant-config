@@ -31,7 +31,7 @@ automation:
         offset: -00:45:00
     condition:
       - condition: state
-        entity_id: group.all_persons
+        entity_id: group.residents
         state: home
     action:
       - scene: scene.sonnenuntergang
@@ -45,7 +45,7 @@ automation:
         event: sunrise
     condition:
       - condition: state
-        entity_id: group.all_persons
+        entity_id: group.residents
         state: home
     action:
       - scene: scene.sonnenaufgang

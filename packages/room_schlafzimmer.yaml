@@ -1,12 +1,12 @@
 input_text:
-  schlafzimmer_remote_rollo_last_event:
-    name: Schlafzimmer Remote Rollo Last Event
+  remote_schlafzimmer_rollo_last_event:
+    name: Remote Schlafzimmer Rollo Last Event
     icon: mdi:remote
     min: 0
     max: 255
 
-  schlafzimmer_remote_bett_last_event:
-    name: Schlafzimmer Remote Bett Last Event
+  remote_schlafzimmer_remote_bett_last_event:
+    name: Remote Schlafzimmer Bett Last Event
     icon: mdi:remote
     min: 0
     max: 255
@@ -25,7 +25,7 @@ automation:
             entity_id: cover.schlafzimmer
             type: set_position
             position: 100
-        helper_last_controller_event: input_text.schlafzimmer_remote_rollo_last_event
+        helper_last_controller_event: input_text.remote_schlafzimmer_rollo_last_event
         action_button_down_short:
           - device_id: afcc0eee503432667f4c10110231b5ab
             domain: cover
@@ -47,7 +47,7 @@ automation:
             entity_id: cover.schlafzimmer
             type: set_position
             position: 100
-        helper_last_controller_event: input_text.schlafzimmer_remote_bett_last_event
+        helper_last_controller_event: input_text.remote_schlafzimmer_remote_bett_last_event
         action_button_down_short:
           - scene: scene.alles_aus
           - device_id: afcc0eee503432667f4c10110231b5ab

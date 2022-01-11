@@ -1,12 +1,13 @@
 input_boolean:
   dark_mode:
     initial: true
-    name: Dark mode
+    name: Theme Dark mode
     icon: mdi:theme-light-dark
 
   theme_alternative:
     initial: false
     name: Theme alternative
+    icon: mdi:theme-light-dark
 
 input_select:
   theme:
@@ -18,8 +19,9 @@ input_select:
       - light-green
       - orange
       - red
-    icon: mdi:format-color-fill
+    icon: mdi:theme-light-dark
     initial: blue-red
+    name: Theme Selection
 
 automation:
   - id: frontend_theme_darkmode_on

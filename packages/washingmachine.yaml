@@ -44,9 +44,9 @@ binary_sensor:
       washing_machine_empty_alert:
         friendly_name: Washing machine notifications
         value_template: >
-          {{ is_state("group.allpersons", "home") and is_state("input_select.washing_machine_status", "Clean") }}
+          {{ is_state("group.residents", "home") and is_state("input_select.washing_machine_status", "Clean") }}
         icon_template: >
-          {% if is_state("group.allpersons", "home") %}
+          {% if is_state("group.residents", "home") %}
             mdi:cellphone-message
           {% else %}
             mdi:cellphone-message-off
@@ -149,7 +149,7 @@ automation:
         data:
           timestamp: "{{ now().timestamp() }}"
       - condition: state
-        entity_id: group.all_persons
+        entity_id: group.residents
         state: home
       - service: notify.all_phones
         data:
@@ -187,9 +187,11 @@ alert:
     entity_id: binary_sensor.washing_machine_empty_alert
     state: "on"
     repeat:
+      - 5
+      - 10
+      - 10
       - 15
       - 20
-      - 30
     skip_first: true
     title: Washing Machine bzzz
     message: "You are done ☝️ You like smelly clothes? I finished {{ relative_time(states('input_datetime.washing_machine_finished') | as_datetime) }} ago"

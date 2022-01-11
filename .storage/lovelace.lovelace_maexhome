@@ -97,7 +97,7 @@
                                     "show_state": false,
                                     "tap_action": {
                                         "action": "call-service",
-                                        "service": "script.alles_aus",
+                                        "service": "scene.alles_aus",
                                         "service_data": {},
                                         "target": {}
                                     },
@@ -181,6 +181,9 @@
                                         "type": "custom:slider-entity-row"
                                     },
                                     "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entity": "light.flur"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -272,7 +275,7 @@
                         {
                             "cards": [
                                 {
-                                    "content": "# Quarantine-o-meter \nThe gauge meters display the amount of time spent at home in the last 14 days. Where Max left the house (on average) {{ (states(\"sensor.quarantine_meter_max_times_left\")|int(0) / 14) | round(1) }} times per day ({{states(\"sensor.quarantine_meter_max_times_left\")}} total) and is outside {{ states(\"sensor.time_outside_this_week\") }} h/d.",
+                                    "content": "# Quarantine-o-meter \nThe gauge meters display the amount of time spent at home in the last 14 days. Where Max left the house (on average) {{ (states(\"sensor.quarantine_meter_max_times_left\")|int(0) / 14) | round(1) }} times per day ({{states(\"sensor.quarantine_meter_max_times_left\")}} total) and has been outside {{ states(\"sensor.time_outside_this_week\") }}h this week.",
                                     "type": "markdown"
                                 },
                                 {

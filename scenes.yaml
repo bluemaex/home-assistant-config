@@ -74,13 +74,7 @@
     switch.beamer_livingroom:
       icon: mdi:projector
       state: "off"
-    light.bad:
-      state: "off"
-    light.kueche:
-      state: "off"
-    light.wohnzimmer:
-      state: "off"
-    light.schlafzimmer_decke:
+    light.alle_lichter:
       state: "off"
     light.schlafzimmer_bett:
       state: "on"

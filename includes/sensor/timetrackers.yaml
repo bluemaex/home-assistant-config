@@ -89,8 +89,8 @@
   name: Time at work this week Max
   entity_id: person.bluemaex
   state:
-    - Work_M51
-    - Work_K11
+    - "Work M51"
+    - "Work K11"
   type: time
   start: >
     {{ states("sensor.timestamp_start_of_today")|float - now().weekday() * 86400 }}

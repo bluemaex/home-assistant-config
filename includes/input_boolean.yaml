@@ -1,3 +1,7 @@
 guest_mode:
   name: Guest mode
   icon: mdi:human-male-female
+
+vacation_mode:
+  name: On Vacation
+  icon: mdi:airplane

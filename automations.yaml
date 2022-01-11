@@ -1,13 +1,1 @@
-- id: "1640695808574"
-  alias: Battery low detection
-  description: Yo
-  use_blueprint:
-    path: bluemaex/low-battery-level-detection-notification-for-all-battery-sensors.yaml
-    input:
-      threshold: 30
-      actions:
-        - service: notify.all_phones
-          data:
-            title: Low Battery Warning
-            message: The battery of the sensor(s) {{sensors}} is low.
-      time: "14:00:00"
+[]

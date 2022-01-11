@@ -13,6 +13,7 @@ http: !include includes/http.yaml
 frontend: !include includes/frontend.yaml
 
 # custom defined entities
+automation: !include_dir_merge_list includes/automation
 group: !include includes/group.yaml
 notify: !include includes/notify.yaml
 input_boolean: !include includes/input_boolean.yaml

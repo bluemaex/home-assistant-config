@@ -1,0 +1,1 @@
+convert_lovelace: "python /config/utils/json2yaml.py /config/.storage/lovelace.lovelace_maexhome /config/lovelace-ui.yaml"

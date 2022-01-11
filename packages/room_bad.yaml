@@ -45,9 +45,9 @@ automation:
         no_motion_wait: 300
         scene_morning: scene.bad_morgens
         scene_day: scene.bad_tagsuber
-        scene_evening: scene.bad_tagsuber
+        scene_evening: scene.bad_morgens
         scene_night: scene.bad_nachts
         time_scene_morning: "05:00:00"
         time_scene_day: "10:00:00"
-        time_scene_evening: "17:00:00"
+        time_scene_evening: "22:00:00"
         time_scene_night: "23:00:00"

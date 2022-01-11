@@ -1,0 +1,20 @@
+- id: notification_persistent_to_mobile
+  alias: "Notification: Send persistent Notifications to Mobile Devices"
+  trigger:
+    platform: event
+    event_type: call_service
+    event_data:
+      domain: persistent_notification
+      service: create
+  condition:
+    condition: template
+    value_template:
+      '{{ trigger.event.data.service_data.notification_id == notification_id
+      or notification_id == "" }}'
+  action:
+    - service: notify.mobile_app_minimaex
+      data:
+        title: "{{ trigger.event.data.service_data.title }}"
+        message: "{{ trigger.event.data.service_data.message }}"
+        data:
+          tag: "{{ trigger.event.data.service_data.notification_id }}"

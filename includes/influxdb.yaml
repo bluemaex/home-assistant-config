@@ -64,7 +64,7 @@ component_config_glob:
   # tracker
   person.*:
     override_measurement: tracker
-  group.allpersons:
+  group.residents:
     override_measurement: tracker
   group.person_*:
     override_measurement: tracker

@@ -18,10 +18,14 @@ auth_providers:
     trusted_networks:
       - !secret auth_macmini_ip_lan
       - !secret auth_macmini_ip_wifi
+      - !secret auth_macbook_ip_lan
+      - !secret auth_macbook_ip_wifi
       - !secret auth_kiosk_ip_lan
     trusted_users:
       !secret auth_macmini_ip_lan: !secret user_bluemaex_id
       !secret auth_macmini_ip_wifi: !secret user_bluemaex_id
+      !secret auth_macbook_ip_lan: !secret user_bluemaex_id
+      !secret auth_macbook_ip_wifi: !secret user_bluemaex_id
       !secret auth_kiosk_ip_lan: !secret user_kiosk_id
     allow_bypass_login: true
   - type: homeassistant

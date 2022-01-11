@@ -1,0 +1,34 @@
+- id: battery_low_check
+  alias: "Batteries: low battery level check"
+  variables:
+    threshold: 25
+    exclude:
+      entity_id: []
+    sensors: >-
+      {% set result = namespace(sensors=[]) %} {% for state in states.sensor |
+      selectattr('attributes.device_class', '==', 'battery') %}
+        {% if 0 <= state.state | int(-1) < threshold | int and not state.entity_id in exclude.entity_id %}
+          {% set result.sensors = result.sensors + [state.name ~ ' (' ~ state.state ~ ' %)'] %}
+        {% endif %}
+      {% endfor %} {% for state in states.binary_sensor |
+      selectattr('attributes.device_class', '==', 'battery') | selectattr('state',
+      '==', 'on') %}
+        {% if not state.entity_id in exclude.entity_id %}
+          {% set result.sensors = result.sensors + [state.name] %}
+        {% endif %}
+      {% endfor %} {{result.sensors|join(', ')}}
+  trigger:
+    - platform: time
+      at: "22:18:00"
+  condition:
+    - condition: template
+      value_template: '{{ sensors != "" }}'
+  action:
+    - condition: state
+      entity_id: group.residents
+      state: home
+    - service: notify.all_phones
+      data:
+        title: Low Battery Warning
+        message: The battery of the sensor(s) {{sensors}} is low.
+  mode: single

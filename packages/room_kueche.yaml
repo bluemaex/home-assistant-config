@@ -38,11 +38,11 @@ automation:
           entity_id:
             - light.kuche
         no_motion_wait: 300
-        scene_morning: scene.kuche_morning
+        scene_morning: scene.kuche_morgens
         scene_day: scene.kuche_tagsuber
-        scene_evening: scene.kuche_tagsuber
+        scene_evening: scene.kuche_morgens
         scene_night: scene.kuche_nachts
         time_scene_morning: "05:00:00"
         time_scene_day: "10:00:00"
-        time_scene_evening: "17:00:00"
+        time_scene_evening: "22:00:00"
         time_scene_night: "23:00:00"

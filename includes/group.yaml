@@ -1,4 +1,4 @@
-allpersons:
-  name: All Persons
+residents:
+  name: residents
   entities:
     - person.bluemaex
