@@ -28,7 +28,9 @@
             "marksie1988/atomic-calendar-revive": "totaldebug/atomic-calendar-revive",
             "PepegaBruh/CryptoTracker": "BigNocciolino/CryptoTracker",
             "mf-social/ps-date-countdown": "point-4ward/ps-date-countdown",
-            "9a4gl/hass-peltec": "9a4gl/hass-centrometal-boiler"
+            "9a4gl/hass-peltec": "9a4gl/hass-centrometal-boiler",
+            "78wesley/Darkish-Theme": "78wesley/Home-Assistant-Darkish-Theme",
+            "KartoffelToby/ai_thermostat": "KartoffelToby/better_thermostat"
         }
     }
 }

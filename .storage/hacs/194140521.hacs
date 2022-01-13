@@ -14,7 +14,7 @@
         "domain": "browser_mod",
         "domains": [],
         "downloads": 0,
-        "etag_repository": "W/\"d7e40a482cbf70e200fa1388d739d614fc53697c69cc28202ce8a625160472d1\"",
+        "etag_repository": "W/\"e6ee51467af288fdc439db0cb011fa72d3e4771c9bca72d0b51cdc259ecec0c7\"",
         "file_name": "",
         "filename": null,
         "first_install": false,
@@ -29,7 +29,7 @@
         "installed": true,
         "installed_commit": "63d204c",
         "installed_version": "1.5.1",
-        "open_issues": 41,
+        "open_issues": 43,
         "last_commit": "63d204c",
         "last_version": "1.5.1",
         "last_updated": "2022-01-06T12:14:07Z",
@@ -48,7 +48,7 @@
         ],
         "selected_tag": null,
         "show_beta": false,
-        "stargazers_count": 544,
+        "stargazers_count": 548,
         "topics": [],
         "zip_release": false
     }

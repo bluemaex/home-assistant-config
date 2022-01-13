@@ -19,7 +19,7 @@
             "remote"
         ],
         "downloads": 0,
-        "etag_repository": "W/\"4df06c974b8d90dd74bd5ea98efe68218ad5e7f50f9d0dbf3b19114ed93bf716\"",
+        "etag_repository": "W/\"5abc07e7cb312059fe56ef3693e8513aa56be5c9066a94bee83bae9849790fa3\"",
         "file_name": "",
         "filename": null,
         "first_install": false,
@@ -53,7 +53,7 @@
         ],
         "selected_tag": null,
         "show_beta": false,
-        "stargazers_count": 263,
+        "stargazers_count": 265,
         "topics": [],
         "zip_release": false
     }

@@ -19,7 +19,7 @@
             "media_player"
         ],
         "downloads": 0,
-        "etag_repository": "W/\"0ea407df31a833f8aa9faa7ba9b1cd5c7d5a0ebad63fe35ab750623f66473518\"",
+        "etag_repository": "W/\"ca750cccdfa6fed85301069a3857c7f15fe4ecb6cdbaf0180e53e856c78249e7\"",
         "file_name": "",
         "filename": null,
         "first_install": false,
@@ -55,7 +55,7 @@
         ],
         "selected_tag": null,
         "show_beta": false,
-        "stargazers_count": 42,
+        "stargazers_count": 43,
         "topics": [
             "custom-component",
             "hacs",

@@ -106,7 +106,7 @@ CONF_HMAX = 99.9
 
 # Sensors with deviating temperature range
 KETTLES = ('YM-K1501', 'YM-K1501EU', 'V-SK152')
-PROBES = ('iBBQ-2', 'H5183')
+PROBES = ('iBBQ-2', 'iBBQ-4', 'H5183')
 
 # Sensor entity description
 @dataclass
@@ -247,7 +247,7 @@ SENSOR_TYPES: tuple[BLEMonitorSensorEntityDescription, ...] = (
         key="temperature probe 1",
         sensor_class="TemperatureSensor",
         name="ble temperature probe 1",
-        unique_id="t_probe_1",
+        unique_id="t_probe_1_",
         native_unit_of_measurement=TEMP_CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -256,7 +256,25 @@ SENSOR_TYPES: tuple[BLEMonitorSensorEntityDescription, ...] = (
         key="temperature probe 2",
         sensor_class="TemperatureSensor",
         name="ble temperature probe 2",
-        unique_id="t_probe_2",
+        unique_id="t_probe_2_",
+        native_unit_of_measurement=TEMP_CELSIUS,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    BLEMonitorSensorEntityDescription(
+        key="temperature probe 3",
+        sensor_class="TemperatureSensor",
+        name="ble temperature probe 2",
+        unique_id="t_probe_3_",
+        native_unit_of_measurement=TEMP_CELSIUS,
+        device_class=SensorDeviceClass.TEMPERATURE,
+        state_class=SensorStateClass.MEASUREMENT,
+    ),
+    BLEMonitorSensorEntityDescription(
+        key="temperature probe 4",
+        sensor_class="TemperatureSensor",
+        name="ble temperature probe 4",
+        unique_id="t_probe_4_",
         native_unit_of_measurement=TEMP_CELSIUS,
         device_class=SensorDeviceClass.TEMPERATURE,
         state_class=SensorStateClass.MEASUREMENT,
@@ -291,7 +309,7 @@ SENSOR_TYPES: tuple[BLEMonitorSensorEntityDescription, ...] = (
     BLEMonitorSensorEntityDescription(
         key="humidity outdoor",
         sensor_class="HumiditySensor",
-        name="ble temperature outdoor",
+        name="ble humidity outdoor",
         unique_id="h_outdoor_",
         native_unit_of_measurement=PERCENTAGE,
         device_class=SensorDeviceClass.HUMIDITY,
@@ -703,7 +721,8 @@ MEASUREMENT_DICT = {
     'b-parasite V1.1.0'       : [["temperature", "humidity", "moisture", "voltage", "rssi", "illuminance"], [], []],
     'SmartSeries 7000'        : [["rssi"], [], ["toothbrush"]],
     'iBBQ-2'                  : [["temperature probe 1", "temperature probe 2", "rssi"], [], []],
-    'IBS-TH2'                 : [["temperature", "humidity", "battery", "rssi"], [], []],
+    'iBBQ-4'                  : [["temperature probe 1", "temperature probe 2", "temperature probe 3", "temperature probe 4","rssi"], [], []],
+    'IBS-TH'                  : [["temperature", "humidity", "battery", "rssi"], [], []],
 }
 
 
@@ -791,12 +810,14 @@ MANUFACTURER_DICT = {
     'b-parasite V1.1.0'       : 'rbaron',
     'SmartSeries 7000'        : 'Oral-B',
     'iBBQ-2'                  : 'Inkbird',
-    'IBS-TH2'                 : 'Inkbird',
+    'iBBQ-4'                  : 'Inkbird',
+    'IBS-TH'                  : 'Inkbird',
 }
 
 # Renamed model dictionary
 RENAMED_MODEL_DICT = {
-    'H5051/H5074': 'H5074'
+    'H5051/H5074': 'H5074',
+    'IBS-TH2': 'IBS-TH',
 }
 
 # Selection list for report_uknown

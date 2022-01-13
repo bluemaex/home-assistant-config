@@ -14,7 +14,7 @@
         "domain": "",
         "domains": [],
         "downloads": 0,
-        "etag_repository": "W/\"e9728e8b6c6270047d0a3dc8a58d567ede6c15822bcdc9ff863c78242354caeb\"",
+        "etag_repository": "W/\"b6ca1099f0eb4af273ad7db99bca694e08ccbab6bacea3e6f94d7d887cd8db5f\"",
         "file_name": "ios-themes.yaml",
         "filename": "ios-themes.yaml",
         "first_install": false,
@@ -48,7 +48,7 @@
         ],
         "selected_tag": null,
         "show_beta": false,
-        "stargazers_count": 271,
+        "stargazers_count": 272,
         "topics": [],
         "zip_release": false
     }

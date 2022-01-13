@@ -14,7 +14,7 @@
         "domain": "",
         "domains": [],
         "downloads": 0,
-        "etag_repository": "W/\"64e3243e179f63da057f2843c9830577701afd94d93304e0678d56dabe5caf55\"",
+        "etag_repository": "W/\"5066f6c93cad8f632c6a857ec1b0a1964c5cceda328f1083fd4045a916d7ca42\"",
         "file_name": "auto-entities.js",
         "filename": null,
         "first_install": false,
@@ -29,7 +29,7 @@
         "installed": true,
         "installed_commit": "9961ee0",
         "installed_version": "1.9.1",
-        "open_issues": 49,
+        "open_issues": 52,
         "last_commit": "9961ee0",
         "last_version": "1.9.1",
         "last_updated": "2021-11-26T08:07:32Z",
@@ -48,7 +48,7 @@
         ],
         "selected_tag": null,
         "show_beta": false,
-        "stargazers_count": 523,
+        "stargazers_count": 525,
         "topics": [],
         "zip_release": false
     }
