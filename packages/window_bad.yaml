@@ -1,0 +1,28 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      bad_fenster_alert:
+        friendly_name: Bad Fenster notifications
+        value_template: >
+          {{ is_state("group.residents", "home") and is_state("binary_sensor.fenster_bad_contact", "on") }}
+        icon_template: >
+          {% if is_state("group.residents", "home") %}
+            mdi:cellphone-message
+          {% else %}
+            mdi:cellphone-message-off
+          {% endif %}
+
+alert:
+  bad_fenster_offen:
+    name: "Bad: Fenster offen"
+    entity_id: binary_sensor.bad_fenster_alert
+    state: "on"
+    repeat:
+      - 30
+      - 15
+    skip_first: true
+    can_acknowledge: true
+    title: "Badezimmer 🥶"
+    message: "Wird frisch hier: Temperaturänderung {{ states('sensor.bad_temperature_change_over_5_minutes') }}°C/h"
+    notifiers:
+      - all_phones

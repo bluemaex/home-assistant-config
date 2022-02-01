@@ -1,9 +1,6 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-# allow python scripts
-python_script:
-
 # base
 homeassistant: !include includes/homeassistant.yaml
 influxdb: !include includes/influxdb.yaml
@@ -12,7 +9,11 @@ logger: !include includes/logger.yaml
 http: !include includes/http.yaml
 frontend: !include includes/frontend.yaml
 
+# allow python scripts
+python_script:
+
 # custom defined entities
+alert: !include includes/alert.yaml
 automation: !include_dir_merge_list includes/automation
 group: !include includes/group.yaml
 notify: !include includes/notify.yaml
@@ -25,6 +26,7 @@ switch: !include_dir_merge_list includes/switch
 homekit: !include_dir_merge_list includes/homekit
 zone: !include includes/zone.yaml
 person: !include includes/person.yaml
+telegram_bot: !include includes/telegram_bot.yaml
 
 # managed via web ui
 automation ui: !include automations.yaml

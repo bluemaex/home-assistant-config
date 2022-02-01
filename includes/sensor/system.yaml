@@ -39,12 +39,12 @@
 
 - platform: filesize
   file_paths:
-    - /config/.storage/lovelace.lovelace_maexhome
+    - /config/.storage/lovelace
 
 - platform: sql
   db_url: !secret database_dsn
   queries:
-    - name: MariaDB size
+    - name: MariaDB Size
       query: >
         SELECT table_schema AS "database",
         ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) "value"

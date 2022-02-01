@@ -1,9 +1,24 @@
 {
     "version": 1,
     "minor_version": 1,
-    "key": "lovelace.lovelace_maexhome",
+    "key": "lovelace",
     "data": {
         "config": {
+            "kiosk_mode": {
+                "non_admin_settings": {
+                    "hide_menubutton": true,
+                    "hide_sidebar": true,
+                    "ignore_entity_settings": true
+                },
+                "user_settings": [
+                    {
+                        "users": [
+                            "kiosk"
+                        ],
+                        "kiosk": true
+                    }
+                ]
+            },
             "background": "var(--background-image)",
             "decluttering_templates": {
                 "automation_template": {
@@ -32,13 +47,19 @@
                     "title": "Home",
                     "badges": [
                         {
-                            "entity": "binary_sensor.motion_unifi_g3_flex_flur"
-                        },
-                        {
                             "entity": "binary_sensor.shelly_motion_bad_motion"
                         },
                         {
                             "entity": "binary_sensor.shelly_motion_kuche_motion"
+                        },
+                        {
+                            "entity": "binary_sensor.fenster_wohnzimmer_links_contact"
+                        },
+                        {
+                            "entity": "binary_sensor.fenster_bad_contact"
+                        },
+                        {
+                            "entity": "binary_sensor.fenster_schlafzimmer_contact"
                         },
                         {
                             "entity": "person.bluemaex"
@@ -146,10 +167,10 @@
                                 },
                                 {
                                     "entities": [
-                                        "light.kuche"
+                                        "light.kueche"
                                     ],
                                     "head": {
-                                        "entity": "light.kuche",
+                                        "entity": "light.kueche",
                                         "hide_when_off": false,
                                         "name": "K\u00fcche",
                                         "type": "custom:slider-entity-row"
@@ -160,18 +181,7 @@
                                 {
                                     "entities": [
                                         "light.bad_spiegel",
-                                        "light.bad_decke",
-                                        {
-                                            "entity": "script.white_lights_living_room",
-                                            "icon_height": "20px",
-                                            "name": "White lights",
-                                            "show_icon": false,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.white_lights_living_room"
-                                            }
-                                        }
+                                        "light.bad_decke"
                                     ],
                                     "head": {
                                         "color_picker": true,
@@ -221,7 +231,10 @@
                                 },
                                 {
                                     "entities": [
-                                        "switch.beamer"
+                                        {
+                                            "entity": "switch.beamer",
+                                            "name": "Beamer Power Outlet"
+                                        }
                                     ],
                                     "head": {
                                         "entity": "switch.beamer_livingroom"
@@ -275,7 +288,7 @@
                         {
                             "cards": [
                                 {
-                                    "content": "# Quarantine-o-meter \nThe gauge meters display the amount of time spent at home in the last 14 days. Where Max left the house (on average) {{ (states(\"sensor.quarantine_meter_max_times_left\")|int(0) / 14) | round(1) }} times per day ({{states(\"sensor.quarantine_meter_max_times_left\")}} total) and has been outside {{ states(\"sensor.time_outside_this_week\") }}h this week.",
+                                    "content": "# Quarantine-o-meter \nMax left the house in the last 14 days (on average) {{ (states(\"sensor.quarantine_meter_max_times_left\")|int(0) / 14) | round(1) }} times per day ({{states(\"sensor.quarantine_meter_max_times_left\")}} total) for {{ states(\"sensor.quarantine_meter_max_time_outside\") }}h.",
                                     "type": "markdown"
                                 },
                                 {
@@ -310,7 +323,7 @@
                                         }
                                     ],
                                     "head": {
-                                        "entity": "sensor.servereck_status",
+                                        "entity": "sensor.servereck_energy_power",
                                         "icon": "mdi:server",
                                         "name": "Servereck",
                                         "state": "{{ states(\"sensor.servereck_energy_power\") }} Watt\n",
@@ -327,7 +340,7 @@
                                         }
                                     ],
                                     "head": {
-                                        "entity": "sensor.servereck_status",
+                                        "entity": "sensor.schreibtisch_energy_power",
                                         "icon": "mdi:desk",
                                         "name": "Schreibtisch",
                                         "state": "{{ states(\"sensor.schreibtisch_energy_power\") }} Watt\n",
@@ -395,7 +408,7 @@
                                         }
                                     ],
                                     "head": {
-                                        "entity": "sensor.fridge_status",
+                                        "entity": "sensor.fridge_energy_power",
                                         "icon": "mdi:fridge",
                                         "name": "Fridge",
                                         "state": "{{ states(\"sensor.fridge_energy_power\") }} Watt\n",
@@ -411,19 +424,26 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "input_boolean.vacation_mode"
+                                    "entity": "input_boolean.shower_mode"
                                 },
                                 {
                                     "entity": "input_boolean.guest_mode"
                                 },
                                 {
                                     "entities": [
-                                        "input_select.theme",
-                                        "input_boolean.theme_alternative"
+                                        "switch.presence_simulation"
                                     ],
                                     "head": {
-                                        "entity": "input_boolean.dark_mode",
-                                        "name": "Dark mode"
+                                        "entity": "input_boolean.vacation_mode"
+                                    },
+                                    "type": "custom:fold-entity-row"
+                                },
+                                {
+                                    "entities": [
+                                        "input_select.theme"
+                                    ],
+                                    "head": {
+                                        "entity": "input_boolean.dark_mode"
                                     },
                                     "type": "custom:fold-entity-row"
                                 }
@@ -551,16 +571,16 @@
                             "type": "entities",
                             "entities": [
                                 {
-                                    "entity": "binary_sensor.motion_unifi_g3_flex_flur"
+                                    "entity": "binary_sensor.unifi_g3_flex_flur_motion"
                                 },
                                 {
-                                    "entity": "binary_sensor.is_dark_unifi_g3_flex_flur"
+                                    "entity": "binary_sensor.unifi_g3_flex_flur_is_dark"
                                 },
                                 {
-                                    "entity": "select.recording_mode_unifi_g3_flex_flur"
+                                    "entity": "select.unifi_g3_flex_flur_recording_mode"
                                 },
                                 {
-                                    "entity": "camera.unifi_g3_flex_flur"
+                                    "entity": "camera.unifi_g3_flex_flur_high"
                                 }
                             ],
                             "title": "Unifi Protect",
@@ -568,8 +588,8 @@
                         },
                         {
                             "type": "picture-entity",
-                            "entity": "camera.unifi_g3_flex_flur",
-                            "camera_image": "camera.unifi_g3_flex_flur",
+                            "entity": "camera.unifi_g3_flex_flur_high",
+                            "camera_image": "camera.unifi_g3_flex_flur_high",
                             "show_name": true,
                             "show_state": false,
                             "hold_action": {
@@ -2554,7 +2574,12 @@
                                         },
                                         {
                                             "entity": "sensor.mariadb_size",
-                                            "icon": "mdi:home-assistant"
+                                            "icon": "mdi:database-search"
+                                        },
+                                        {
+                                            "entity": "sensor.lovelace",
+                                            "name": "Lovelace Size",
+                                            "icon": "mdi:desktop-mac-dashboard"
                                         },
                                         {
                                             "animation": "off",
@@ -2737,7 +2762,8 @@
                                             "icon": "mdi:ip-network"
                                         },
                                         {
-                                            "entity": "sensor.maexhome_external_ipv6"
+                                            "entity": "sensor.maexhome_external_ipv6",
+                                            "icon": "mdi:ip-network-outline"
                                         }
                                     ],
                                     "show_header_toggle": false,

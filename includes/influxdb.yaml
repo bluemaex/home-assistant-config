@@ -9,17 +9,13 @@ exclude:
   entities:
     - sun.sun
     - sensor.date
-    - sensor.date_time
     - sensor.time
     - sensor.hacs
-    - sensor.energy_current
-    - sensor.energy_today
-    - sensor.energy_yesterday
     - sensor.brother_hl_l2370dn_series
     - sensor.timestamp_start_of_today
     - sensor.uptime
     - sensor.mariadb_size
-    - sensor.lovelace_lovelace_maexhome
+    - sensor.lovelace
 
   entity_globs:
     - sensor.*_status
@@ -38,6 +34,7 @@ exclude:
     - sensor.*_rx
     - sensor.*_status
     - sensor.*_rssi
+    - sensor.energy_*
     - sensor.ble_rssi_*
     - binary_sensor.*_button1
     - sensor.network_in_*

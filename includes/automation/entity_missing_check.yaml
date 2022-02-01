@@ -1,0 +1,13 @@
+- id: entity_missing_check
+  alias: "Entities: Check if we are missing something"
+  trigger:
+    - platform: time
+      at: "18:00:00"
+    - platform: homeassistant
+      event: start
+  condition: []
+  action:
+    - event: ad.watchman.audit
+      event_data: {}
+    - service: readme.generate
+  mode: single

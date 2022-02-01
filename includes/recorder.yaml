@@ -8,20 +8,16 @@ exclude:
   entities:
     - sensor.date
     - sensor.time
-    - sensor.date_time
-    - sensor.hacs
-    - sensor.energy
-    - sensor.energy_today
-    - sensor.energy_yesterday
     - sensor.brother_hl_l2370dn_series
     - sensor.timestamp_start_of_today
     - sensor.uptime
     - sensor.mariadb_size
-    - sensor.lovelace_lovelace_maexhome
+    - sensor.lovelace
 
   entity_globs:
     - automation.shellies_*
     - sensor.weather_*
+    - sensor.energy_*
     - sensor.hl_l2370dn_*
     - sensor.*_energy_current
     - sensor.*_energy_voltage
@@ -31,11 +27,14 @@ exclude:
     - sensor.*_energy_apparentpower
     - sensor.*_energy_factor
     - sensor.*_energy_totalstarttime
+    - sensor.*_connect_count
     - sensor.*_tx
     - sensor.*_rx
     - sensor.*_status
     - sensor.*_rssi
     - sensor.ble_rssi_*
+    - sensor.fenster_*_linkquality
+    - sensor.fenster_*_voltage
     - binary_sensor.*_button1
     - sensor.network_in_*
     - sensor.network_out_*

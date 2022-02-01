@@ -1,4 +1,13 @@
 residents:
-  name: residents
+  name: Residents
   entities:
     - person.bluemaex
+
+presence:
+  name: Presence Simulation Group
+  entities:
+    - light.kueche_decke_1
+    - light.bad_decke_1
+    - light.bad_decke_2
+    - light.wohnzimmer_decke
+    - light.schlafzimmer_decke

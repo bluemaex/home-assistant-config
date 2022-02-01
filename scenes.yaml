@@ -12,7 +12,7 @@
     light.wohnzimmer_decke:
       brightness: 189
       state: "on"
-    light.flur_eck:
+    light.flur_ecke:
       brightness: 26
       color_temp: 370
       state: "on"
@@ -79,3 +79,39 @@
     light.schlafzimmer_bett:
       state: "on"
       brightness: 40
+- id: "1614485288828"
+  name: "Day: Sonnenaufgang"
+  icon: mdi:weather-sunset-up
+  entities: {}
+- id: "161448527737"
+  name: "Day: Sonnenuntergang"
+  icon: mdi:weather-sunset-down
+  entities:
+    light.schlafzimmer_bett:
+      brightness: 38
+      color_temp: 370
+      state: "on"
+    light.wohnzimmer_decke:
+      brightness: 189
+      color_temp: 370
+      state: "on"
+    switch.monitor_hintergrund:
+      friendly_name: Monitor Hintergrundlicht
+      icon: mdi:monitor
+      state: "on"
+- id: "1598255559149"
+  name: "Wakeup"
+  icon: mdi:alarm-note
+  entities:
+    light.schlafzimmer_bett:
+      brightness: 255
+      color_temp: 370
+      state: "on"
+    light.flur_ecke:
+      brightness: 80
+      color_temp: 370
+      state: "on"
+    switch.monitor_hintergrund:
+      friendly_name: Monitor Hintergrundlicht
+      icon: mdi:monitor
+      state: "on"

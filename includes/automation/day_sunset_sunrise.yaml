@@ -1,0 +1,28 @@
+- id: day_sunset
+  alias: "Day: Sunset"
+  description: ""
+  trigger:
+    - platform: sun
+      event: sunset
+      offset: -00:45:00
+  condition:
+    - condition: state
+      entity_id: group.residents
+      state: home
+  action:
+    - scene: scene.day_sonnenuntergang
+  mode: single
+
+- id: day_sunrise
+  alias: "Day: Sunrise"
+  description: ""
+  trigger:
+    - platform: sun
+      event: sunrise
+  condition:
+    - condition: state
+      entity_id: group.residents
+      state: home
+  action:
+    - scene: scene.day_sonnenaufgang
+  mode: single

@@ -1,4 +1,3 @@
----
 purge_manual:
   module: purge_manual
   class: PurgeManual

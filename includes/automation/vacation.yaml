@@ -14,6 +14,9 @@
   action:
     - service: input_boolean.turn_on
       entity_id: input_boolean.vacation_mode
+    - service: switch.turn_on
+      target:
+        entity_id: switch.presence_simulation
     - service: notify.all_phones
       data:
         title: "Vacation mode"
@@ -35,9 +38,44 @@
       entity_id: input_boolean.guest_mode
       state: "off"
   action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.presence_simulation
     - service: input_boolean.turn_off
       entity_id: input_boolean.vacation_mode
     - service: notify.all_phones
       data:
         title: "Vacation mode"
         message: "Welcome back! Switching off the vacation mode."
+
+- id: vacation_mode_presence_simulation_on
+  alias: "Vacation mode: presence simulation turn on"
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: input_boolean.vacation_mode
+    to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.presence_simulation
+
+- id: vacation_mode_presence_simulation_off
+  alias: "Vacation mode: presence simulation turn off"
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: input_boolean.vacation_mode
+    to: "off"
+  condition:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
+  action:
+    - service: switch.turn_off
+      target:
+        entity_id: switch.presence_simulation

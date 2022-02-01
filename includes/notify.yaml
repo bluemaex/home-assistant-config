@@ -8,3 +8,7 @@
   services:
     - service: mobile_app_minimaex
     - service: mobile_app_maexpad
+
+- platform: telegram
+  name: max_telegram
+  chat_id: !secret telegram_bot_chatid_max

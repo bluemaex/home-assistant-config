@@ -1,8 +1,43 @@
-# bewegungscounter
+# Temperature
 - platform: statistics
-  name: Flur Bewegungszähler 24h
-  entity_id: binary_sensor.motion_unifi_g3_flex_flur
-  state_characteristic: count
-  sampling_size: 86400
+  name: Flur Temperature mean over last 24 hours
+  entity_id: sensor.ble_temperature_xiaomi_flur
+  state_characteristic: mean
+  sampling_size: 2880
   max_age:
     hours: 24
+
+- platform: statistics
+  name: Flur Temperature change over 5 minutes
+  entity_id: sensor.ble_temperature_xiaomi_flur
+  state_characteristic: change
+  sampling_size: 50
+  precision: 1
+  max_age:
+    minutes: 5
+
+- platform: statistics
+  name: Servereck Temperature mean over last 24 hours
+  entity_id: sensor.ble_temperature_xiaomi_servereck
+  state_characteristic: mean
+  sampling_size: 2880
+  max_age:
+    hours: 24
+
+- platform: statistics
+  name: Servereck Temperature change over 5 minutes
+  entity_id: sensor.ble_temperature_xiaomi_servereck
+  state_characteristic: change
+  sampling_size: 50
+  precision: 1
+  max_age:
+    minutes: 5
+
+# bewegungscounter
+- platform: history_stats
+  name: Flur Bewegungszähler Heute
+  entity_id: binary_sensor.unifi_g3_flex_flur_motion
+  state: "on"
+  type: count
+  start: "{{ states('sensor.timestamp_start_of_today') | float(0) }}"
+  end: "{{ now() }}"

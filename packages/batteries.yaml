@@ -1,0 +1,61 @@
+input_number:
+  battery_low_threshold:
+    name: Battery Low Threshold
+    initial: 20
+    min: 5
+    max: 50
+
+binary_sensor:
+  - platform: template
+    sensors:
+      batteries_low:
+        friendly_name: Low batteries
+        value_template: >
+          {% set count = namespace(value=0) %}
+          {% for state in states.sensor | selectattr('attributes.device_class', '==', 'battery') %}
+            {% if 0 <= state.state | int(-1) < states('input_number.battery_low_threshold') | int(0) %}
+              {%- set count.value = count.value + 1 -%}
+            {% endif %}
+          {% endfor %} 
+          {{ count.value > 0 }}
+        attribute_templates:
+          batteries: >-
+            {%- set result = namespace(sensors=[]) -%} 
+            {% for state in states.sensor | selectattr('attributes.device_class', '==', 'battery') %}
+                {%- set result.sensors = result.sensors + [state.name ~ ' (' ~ state.state ~ ' %)'] -%}
+            {% endfor %} 
+            {{result.sensors | list }}
+          battery_low: >-
+            {% set result = namespace(sensors=[]) %} 
+            {% for state in states.sensor | selectattr('attributes.device_class', '==', 'battery') %}
+              {% if 0 <= state.state | int(-1) < states('input_number.battery_low_threshold') | int(0) %}
+                {%- set result.sensors = result.sensors + [state.name ~ ' (' ~ state.state ~ ' %)'] -%}
+              {% endif %}
+            {% endfor %} 
+            {{result.sensors | list }}
+        icon_template: >-
+          {% if is_state("binary_sensor.batteries_low", "on") %}
+            mdi:battery-low
+          {% else %}
+            mdi:battery-90
+          {% endif %}
+
+automation:
+  - id: battery_low_check
+    alias: "Batteries: low battery level check"
+    trigger:
+      - platform: time
+        at: "19:00:00"
+    condition:
+      - condition: state
+        entity_id: group.residents
+        state: home
+      - condition: template
+        value_template: >-
+          {{ state_attr('binary_sensor.batteries_low', 'battery_low') | count > 0 }}
+    action:
+      - service: notify.all_phones
+        data:
+          title: Low Battery Warning
+          message: The battery of the sensor(s) {{ state_attr('binary_sensor.batteries_low', 'battery_low') | join(', ') }} is low.
+    mode: single

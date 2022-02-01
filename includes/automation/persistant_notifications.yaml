@@ -7,12 +7,14 @@
       domain: persistent_notification
       service: create
   condition:
-    condition: template
-    value_template:
-      '{{ trigger.event.data.service_data.notification_id == notification_id
-      or notification_id == "" }}'
+    - condition: template
+      value_template: >-
+        {{ trigger.event.data.service_data.notification_id == notification_id or notification_id == "" }}
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: "off"
   action:
-    - service: notify.mobile_app_minimaex
+    - service: notify.max_telegram
       data:
         title: "{{ trigger.event.data.service_data.title }}"
         message: "{{ trigger.event.data.service_data.message }}"

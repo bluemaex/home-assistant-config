@@ -4,9 +4,21 @@
   radius: 75
   icon: mdi:home
 
-- name: Eltern
-  latitude: !secret zone_parents_latitude
-  longitude: !secret zone_parents_longitude
+- name: F15
+  latitude: !secret zone_f15_latitude
+  longitude: !secret zone_f15_longitude
+  radius: 75
+  icon: mdi:beer
+
+- name: Marion
+  latitude: !secret zone_marion_latitude
+  longitude: !secret zone_marion_longitude
+  radius: 300
+  icon: mdi:family-tree
+
+- name: Robi
+  latitude: !secret zone_robi_latitude
+  longitude: !secret zone_robi_longitude
   radius: 300
   icon: mdi:family-tree
 
@@ -19,5 +31,5 @@
 - name: Work K11
   latitude: !secret zone_work2_latitude
   longitude: !secret zone_work2_longitude
-  radius: 200
+  radius: 100
   icon: mdi:badge-account

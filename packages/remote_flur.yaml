@@ -1,20 +1,20 @@
 input_text:
-  remote_flur_door_last_event:
-    name: Remote Flur Entry Last Event
+  remote_flur_tuer_last_event:
+    name: Remote Flur Tuer Entry Last Event
     icon: mdi:remote
     min: 0
     max: 255
 
 automation:
-  - id: remote_flur_door
+  - id: remote_flur_tuer
     alias: "Remote: Eingangstür"
     use_blueprint:
       path: EPMatt/ikea_e1743.yaml
       input:
-        integration: deCONZ
-        controller_device: 3cb4ca34b6c8e58fd7b868ed90be7b20
+        helper_last_controller_event: input_text.remote_flur_tuer_last_event
+        integration: Zigbee2MQTT
+        controller_entity: sensor.remote_flur_tuer_action
         action_button_up_short:
           - scene: scene.coming_home
-        helper_last_controller_event: input_text.remote_flur_door_last_event
         action_button_down_short:
           - scene: scene.alles_aus

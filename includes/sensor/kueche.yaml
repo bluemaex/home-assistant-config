@@ -1,8 +1,44 @@
-# bewegungscounter
+# humidity
 - platform: statistics
-  name: Küche Bewegungszähler 24h
-  entity_id: binary_sensor.shelly_motion_kuche_motion
-  state_characteristic: count
+  name: Küche Humidity mean over last 24 hours
+  entity_id: sensor.ble_humidity_xiaomi_kuche
+  state_characteristic: mean
   sampling_size: 86400
   max_age:
     hours: 24
+
+- platform: statistics
+  name: Küche humidity change over 5 minutes
+  entity_id: sensor.ble_humidity_xiaomi_kuche
+  state_characteristic: change
+  sampling_size: 50
+  precision: 1
+  max_age:
+    minutes: 5
+
+# Temperature
+- platform: statistics
+  name: Küche Temperature mean over last 24 hours
+  entity_id: sensor.ble_temperature_xiaomi_kuche
+  state_characteristic: mean
+  sampling_size: 2880
+  max_age:
+    hours: 24
+
+- platform: statistics
+  name: Küche Temperature change over 5 minutes
+  entity_id: sensor.ble_temperature_xiaomi_kuche
+  state_characteristic: change
+  sampling_size: 50
+  precision: 1
+  max_age:
+    minutes: 5
+
+# bewegungscounter
+- platform: history_stats
+  name: Küche Bewegungszähler Heute
+  entity_id: binary_sensor.shelly_motion_kuche_motion
+  state: "on"
+  type: count
+  start: "{{ states('sensor.timestamp_start_of_today') | float(0) }}"
+  end: "{{ now() }}"

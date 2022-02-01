@@ -4,14 +4,10 @@ input_boolean:
     name: Theme Dark mode
     icon: mdi:theme-light-dark
 
-  theme_alternative:
-    initial: false
-    name: Theme alternative
-    icon: mdi:theme-light-dark
-
 input_select:
   theme:
     options:
+      - default
       - blue-red
       - dark-blue
       - dark-green
@@ -48,24 +44,23 @@ automation:
       entity_id: input_boolean.dark_mode
       service: input_boolean.turn_off
 
-  - id: frontend_theme_change
-    alias: "Frontend: change theme"
+  - alias: "Frontend: change ui theme"
     trigger:
       - platform: state
         entity_id: input_select.theme
       - platform: state
         entity_id: input_boolean.dark_mode
-      - platform: state
-        entity_id: input_boolean.theme_alternative
       - platform: homeassistant
         event: start
     action:
       service: frontend.set_theme
       data:
         name: >
-          {% set name = states("input_select.theme") -%}
-          {% set mode = "dark" if is_state("input_boolean.dark_mode", "on") else "light" -%}
-          {% set suffix = "-alternative" if is_state("input_boolean.theme_alternative", "on") else "" -%}
-          ios-{{ mode }}-mode-{{ name }}{{ suffix }}
-        mode: >
-          {{ "dark" if is_state("input_boolean.dark_mode", "on") else "light" }}
+          {% if is_state("input_select.theme", "default") %}
+            default
+          {% else %}
+            {% set mode = "dark" if is_state("input_boolean.dark_mode", "on") else "light" -%}
+            {% set name = states("input_select.theme") -%}
+            ios-{{ mode }}-mode-{{ name }}
+          {% endif %}
+        mode: "dark"

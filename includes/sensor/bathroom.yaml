@@ -11,38 +11,34 @@
   name: Bad humidity change over 5 minutes
   entity_id: sensor.ble_humidity_xiaomi_bad
   state_characteristic: change
-  max_age:
-    minutes: 5
   sampling_size: 50
   precision: 1
-
-- platform: derivative
-  name: Bad Humidity derivative
-  source: sensor.ble_humidity_xiaomi_bad
-  unit_time: min
-  time_window: "00:10:00"
+  max_age:
+    minutes: 5
 
 # Temperature
 - platform: statistics
   name: Bad Temperature mean over last 24 hours
   entity_id: sensor.ble_temperature_xiaomi_bad
   state_characteristic: mean
-  sampling_size: 86400
+  sampling_size: 2880
   max_age:
     hours: 24
 
-- platform: derivative
-  source: sensor.ble_temperature_xiaomi_bad
-  name: Bad Temperature change per hour
-  round: 1
-  unit_time: h
-  time_window: "00:30:00"
+- platform: statistics
+  name: Bad Temperature change over 5 minutes
+  entity_id: sensor.ble_temperature_xiaomi_bad
+  state_characteristic: change
+  sampling_size: 50
+  precision: 1
+  max_age:
+    minutes: 5
 
 # bewegungscounter
-- platform: statistics
-  name: Bad Bewegungszähler 24h
+- platform: history_stats
+  name: Bad Bewegungszähler Heute
   entity_id: binary_sensor.shelly_motion_bad_motion
-  state_characteristic: count
-  sampling_size: 86400
-  max_age:
-    hours: 24
+  state: "on"
+  type: count
+  start: "{{ states('sensor.timestamp_start_of_today') | float(0) }}"
+  end: "{{ now() }}"

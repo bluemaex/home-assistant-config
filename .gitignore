@@ -135,22 +135,22 @@ notebooks/
 airsonos.xml
 themes/ios-*
 addons/rclone/rclone.conf
+addons/zigbee2mqtt
+zigbee.db
 
 ## .storage exclude/include
 .storage/*
 
-# hacs
+### hacs
 !.storage/hacs
 !.storage/hacs/*
 !.storage/hacs.critical
 !.storage/hacs.hacs
 !.storage/hacs.repositories
 
-# infrared
+### infrared
 !.storage/broadlink_remote_24dfa7e0003e_*
 
-# areas
+# areas + lovelace
 !.storage/core_area_registry
-
-# lovelace
 !.storage/lovelac*

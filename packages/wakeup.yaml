@@ -1,0 +1,45 @@
+#
+# Homekit specific toggle switch for leaving/arriving
+#
+switch:
+  - platform: template
+    switches:
+      homekit_wakeup_automation:
+        friendly_name: "Homekit: Wakeup Automation"
+        unique_id: "homekit_wakeup_automation"
+        value_template: >-
+          {{ is_state('light.schlafzimmer_bett', 'on') }}
+        turn_on:
+          - event: homekit_alarmclock
+            event_data: {}
+        turn_off:
+          - service: notify.max
+            data:
+              title: "No ❌"
+              message: That is not how this works. 😡
+        icon_template: >-
+          {% if is_state('group.residents', 'home') %}
+            mdi:alarm-note
+          {% else %}
+            mdi:alarm-note-off
+          {% endif %}
+
+#
+# Automation on lwakeup signal
+#
+automation:
+  - id: wakeup_scene
+    alias: "Alarm Clock: Do Wakeup Things"
+    trigger:
+      - platform: event
+        event_type: homekit_alarmclock
+    action:
+      - service: cover.open_cover
+        target:
+          entity_id: cover.schlafzimmer_rollo
+      - service: scene.turn_on
+        target:
+          entity_id: scene.wakeup
+        data:
+          transition: 10
+    mode: single

@@ -12,6 +12,7 @@
       - light.flur
       - light.schlafzimmer
       - light.bad
+      - light.alle_lichter
     exclude_entity_globs:
       - light.*_decke_*
       - light.*_spiegel_*

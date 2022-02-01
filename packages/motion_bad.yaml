@@ -4,12 +4,12 @@ scene:
     entities:
       light.bad:
         color_mode: color_temp
-        brightness: 25
+        brightness: 100
         color_temp: 366
         state: "on"
-    icon: mdi:toothbrush-paste
-  - id: bad_tagsuber
-    name: "Bad: Tagsüber"
+    icon: mdi:bathtub-outline
+  - id: bad_tagsueber
+    name: "Bad: Tagsueber"
     entities:
       light.bad:
         color_mode: brightness
@@ -30,7 +30,7 @@ scene:
         state: "on"
       light.bad_spiegel_3:
         state: "off"
-    icon: mdi:paper-roll
+    icon: mdi:bathtub-outline
 
 automation:
   - id: bad_motion_activate_light
@@ -42,12 +42,14 @@ automation:
         light_target:
           entity_id:
             - light.bad
-        no_motion_wait: 300
+        no_motion_wait: 180
+        no_motion_blocker: input_boolean.shower_mode
+        no_motion_blocker_boolean: false
         scene_morning: scene.bad_morgens
-        scene_day: scene.bad_tagsuber
+        scene_day: scene.bad_tagsueber
         scene_evening: scene.bad_morgens
         scene_night: scene.bad_nachts
         time_scene_morning: "05:00:00"
-        time_scene_day: "10:00:00"
+        time_scene_day: "09:00:00"
         time_scene_evening: "22:00:00"
         time_scene_night: "23:00:00"

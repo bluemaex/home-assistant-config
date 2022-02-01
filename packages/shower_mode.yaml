@@ -1,0 +1,31 @@
+input_boolean:
+  shower_mode:
+    name: Shower Mode
+    icon: mdi:shower-head
+
+automation:
+  - id: shower_mode_on
+    alias: "Shower Mode: auto turn on"
+    initial_state: true
+    trigger:
+      - platform: template
+        value_template: >-
+          {{ states("sensor.bad_humidity_change_over_5_minutes") | int(0) > 10 }}
+        for: "00:01:00"
+    condition: []
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.shower_mode
+
+  - id: shower_mode_off
+    alias: "Shower Mode: auto turn off"
+    initial_state: true
+    trigger:
+      - platform: template
+        value_template: >-
+          {{ states("sensor.bad_humidity_change_over_5_minutes") | int(2) <= 1 }}
+        for: "00:10:00"
+    condition: []
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.shower_mode

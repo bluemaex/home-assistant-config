@@ -53,15 +53,6 @@
 # Quarantine Tracker
 #
 - platform: history_stats
-  name: Quarantine meter Max times left
-  entity_id: person.bluemaex
-  state: "home"
-  type: count
-  duration:
-    days: 14
-  end: "{{ now() }}"
-
-- platform: history_stats
   name: Quarantine meter Max
   entity_id: person.bluemaex
   state: "home"
@@ -71,7 +62,33 @@
   end: "{{ now() }}"
 
 - platform: history_stats
-  name: Time outside this week
+  name: Quarantine meter Max times left
+  entity_id: person.bluemaex
+  state: "home"
+  type: count
+  duration:
+    days: 14
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: Quarantine meter Max time outside
+  entity_id: person.bluemaex
+  state:
+    - "away"
+    - "unknown"
+    - "not_home"
+    - "Work K11"
+    - "Work M51"
+  type: time
+  duration:
+    days: 14
+  end: "{{ now() }}"
+
+#
+# Work/Away Trackers
+#
+- platform: history_stats
+  name: Time outside this week Max
   entity_id: person.bluemaex
   state:
     - "away"
@@ -82,9 +99,6 @@
     {{ states("sensor.timestamp_start_of_today") | float(0) - now().weekday() * 86400 }}
   end: "{{ now() }}"
 
-  #
-  # Work Tracker
-  #
 - platform: history_stats
   name: Time at work this week Max
   entity_id: person.bluemaex
