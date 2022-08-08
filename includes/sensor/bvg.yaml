@@ -1,0 +1,40 @@
+- platform: bvg_berlin_public_transport
+  name: M41 nach Hbf
+  walking_distance: 0
+  file_path: "/tmp/"
+  stop_id: 900000078155
+  direction:
+    - "Hauptbahnhof"
+
+- platform: bvg_berlin_public_transport
+  name: U8 Hermannstrasse
+  walking_distance: 0
+  stop_id: 900000078101
+  file_path: "/tmp/"
+  direction:
+    - "Hermannstraße"
+
+- platform: bvg_berlin_public_transport
+  walking_distance: 0
+  name: U8 Wittenau
+  stop_id: 900000078101
+  file_path: "/tmp/"
+  direction:
+    - "Wittenau"
+    - "Paracelsus-Bad"
+
+- platform: bvg_berlin_public_transport
+  walking_distance: 0
+  name: U7 Rudow
+  stop_id: 900000078101
+  file_path: "/tmp/"
+  direction:
+    - "Rudow"
+
+- platform: bvg_berlin_public_transport
+  walking_distance: 0
+  name: U7 Spandau
+  stop_id: 900000078101
+  file_path: "/tmp/"
+  direction:
+    - "Spandau"

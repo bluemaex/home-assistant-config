@@ -52,4 +52,4 @@ automation:
         time_scene_morning: "05:00:00"
         time_scene_day: "09:00:00"
         time_scene_evening: "22:00:00"
-        time_scene_night: "23:00:00"
+        time_scene_night: "23:59:00"

@@ -1,4 +1,0 @@
-purge_manual:
-  module: purge_manual
-  class: PurgeManual
-  dsn: !secret database_dsn

@@ -15,7 +15,7 @@ exclude:
     - sensor.timestamp_start_of_today
     - sensor.uptime
     - sensor.mariadb_size
-    - sensor.lovelace
+    - sensor.lovelace_size
 
   entity_globs:
     - sensor.*_status

@@ -1,117 +1,179 @@
-- id: "1598285429149"
-  name: "Coming Home"
+- id: '1598285429149'
+  name: Coming Home
   icon: mdi:home-import-outline
   entities:
     switch.denon_qs1:
       icon: mdi:radio
-      state: "on"
+      state: 'on'
     light.schlafzimmer_bett:
       brightness: 38
       color_temp: 370
-      state: "on"
+      state: 'on'
     light.wohnzimmer_decke:
       brightness: 189
-      state: "on"
+      state: 'on'
     light.flur_ecke:
       brightness: 26
       color_temp: 370
-      state: "on"
+      state: 'on'
     switch.monitor_hintergrund:
       friendly_name: Monitor Hintergrundlicht
       icon: mdi:monitor
-      state: "on"
-- id: "1598132687768"
+      state: 'on'
+- id: '1598132687768'
   name: Movie Time
   icon: mdi:theater
   entities:
     switch.beamer_livingroom:
       friendly_name: Beamer Wohnzimmer
       icon: mdi:projector
-      state: "on"
+      state: 'on'
     light.wohnzimmer_decke:
       friendly_name: Wohnzimmer Deckenlicht
-      state: "off"
+      state: 'off'
     switch.denon_qs2:
       friendly_name: DENON AppleTV
       icon: mdi:apple
-      state: "on"
+      state: 'on'
     switch.monitor_hintergrund:
       friendly_name: Monitor Hintergrundlicht
       icon: mdi:monitor
-      state: "on"
-- id: "1598285266647"
+      state: 'on'
+- id: '1598285266647'
   name: Alles aus
   icon: mdi:home-export-outline
   entities:
     switch.denon_power:
       icon: mdi:audio-video-off
-      state: "off"
+      state: 'off'
     switch.beamer_livingroom:
       icon: mdi:projector
-      state: "off"
+      state: 'off'
     light.alle_lichter:
       supported_features: 40
-      state: "off"
+      state: 'off'
     switch.monitor_hintergrund:
       icon: mdi:monitor
-      state: "off"
+      state: 'off'
     switch.banana:
       icon: mdi:monitor
-      state: "off"
-- id: "1598285288828"
+      state: 'off'
+- id: '1598285288828'
   name: Bettzeit
   icon: mdi:bed
   entities:
     switch.monitor_hintergrund:
       icon: mdi:monitor
-      state: "off"
+      state: 'off'
     switch.banana:
       icon: mdi:monitor
-      state: "off"
+      state: 'off'
     switch.denon_power:
       icon: mdi:audio-video-off
-      state: "off"
+      state: 'off'
     switch.beamer_livingroom:
       icon: mdi:projector
-      state: "off"
+      state: 'off'
     light.alle_lichter:
-      state: "off"
+      state: 'off'
     light.schlafzimmer_bett:
-      state: "on"
+      state: 'on'
       brightness: 40
-- id: "1614485288828"
-  name: "Day: Sonnenaufgang"
+- id: '1614485288828'
+  name: 'Day: Sonnenaufgang'
   icon: mdi:weather-sunset-up
   entities: {}
-- id: "161448527737"
-  name: "Day: Sonnenuntergang"
+- id: '161448527737'
+  name: 'Day: Sonnenuntergang'
   icon: mdi:weather-sunset-down
   entities:
     light.schlafzimmer_bett:
       brightness: 38
       color_temp: 370
-      state: "on"
+      state: 'on'
     light.wohnzimmer_decke:
       brightness: 189
       color_temp: 370
-      state: "on"
+      state: 'on'
     switch.monitor_hintergrund:
       friendly_name: Monitor Hintergrundlicht
       icon: mdi:monitor
-      state: "on"
-- id: "1598255559149"
-  name: "Wakeup"
-  icon: mdi:alarm-note
+      state: 'on'
+- id: '1598255559149'
+  name: Wakeup
   entities:
     light.schlafzimmer_bett:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
       brightness: 255
-      color_temp: 370
-      state: "on"
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior:
+      update:
+        state: idle
+      update_available: false
+      friendly_name: Schlafzimmer Bett
+      supported_features: 45
+      state: 'on'
     light.flur_ecke:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - xy
+      color_mode: xy
       brightness: 80
-      color_temp: 370
-      state: "on"
+      hs_color:
+      - 28.193
+      - 65.098
+      rgb_color:
+      - 255
+      - 167
+      - 89
+      xy_color:
+      - 0.526
+      - 0.387
+      color:
+        x: 0.526
+        y: 0.387
+      linkquality: 255
+      power_on_behavior: 'on'
+      update:
+        state: idle
+      update_available: false
+      friendly_name: Flur Ecke
+      supported_features: 61
+      state: 'on'
+    cover.schlafzimmer_rollo:
+      current_position: 100
+      battery: 37
+      linkquality: 255
+      position: 100
+      update:
+        state: idle
+      update_available: false
+      friendly_name: Schlafzimmer Rollo
+      supported_features: 15
+      state: open
     switch.monitor_hintergrund:
-      friendly_name: Monitor Hintergrundlicht
+      assumed_state: true
       icon: mdi:monitor
-      state: "on"
+      friendly_name: Monitor Hintergrundlicht
+      state: 'on'
+  icon: mdi:alarm-note
+  metadata:
+    switch.monitor_hintergrund:
+      entity_only: true

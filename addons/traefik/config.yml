@@ -14,7 +14,7 @@ http:
       service: homeAssistantService
   
     metricsRouter:
-      rule: "Host(`home.b.blmx.de`) && PathPrefix(`/metrics`)"
+      rule: "Host(`home.b.blmx.de`) && PathPrefix(`/traefik-metrics`)"
       entryPoints: ["web-secure"]
       tls:
         certResolver: le
@@ -35,3 +35,4 @@ http:
       loadBalancer:
         servers:
           - url: "http://homeassistant:8123"
+

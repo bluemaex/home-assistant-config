@@ -1,0 +1,62 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/201740996.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@ludeeus"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "master",
+        "description": "Use Jinja and data from Home Assistant to generate your README.md file",
+        "domain": "readme",
+        "domains": [],
+        "downloads": 58,
+        "etag_repository": "W/\"e9aa7f16df7d6e7cece3119e68f843cc0c97b77112db4924958c9603b9ca7cd0\"",
+        "file_name": "",
+        "filename": "readme.zip",
+        "first_install": false,
+        "fork": false,
+        "full_name": "custom-components/readme",
+        "hacs": "0.19.1",
+        "hide": false,
+        "hide_default_branch": true,
+        "homeassistant": "2021.5.0",
+        "id": "201740996",
+        "iot_class": "calculated",
+        "installed": true,
+        "installed_commit": "208ae25",
+        "installed_version": "0.5.0",
+        "open_issues": 0,
+        "last_commit": "208ae25",
+        "last_version": "0.5.0",
+        "last_updated": "2022-05-28T08:50:23Z",
+        "manifest_name": "Generate readme",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-05-28T08:50:23",
+        "releases": true,
+        "render_readme": true,
+        "published_tags": [
+            "0.5.0",
+            "0.4.0",
+            "0.3.0",
+            "0.2.1",
+            "0.2.0"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 19,
+        "topics": [
+            "automation",
+            "home-assistant",
+            "jinja",
+            "readme"
+        ],
+        "zip_release": true
+    }
+}

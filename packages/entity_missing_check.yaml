@@ -1,0 +1,20 @@
+automation:
+  - id: entity_missing_check
+    alias: "Entities: Check if we are missing something"
+    trigger:
+      - platform: time
+        at: "18:00:00"
+      - platform: homeassistant
+        event: start
+    condition: []
+    action:
+      - service: readme.generate
+      - delay:
+          hours: 0
+          minutes: 5
+          seconds: 0
+      - service: watchman.report
+        data:
+          send_notification: |-
+            {{ states('sensor.watchman_missing_entities') | int > 0 }}
+    mode: single

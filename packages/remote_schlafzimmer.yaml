@@ -1,10 +1,4 @@
 input_text:
-  remote_schlafzimmer_rollo_last_event:
-    name: Remote Schlafzimmer Rollo Last Event
-    icon: mdi:remote
-    min: 1
-    max: 255
-
   remote_schlafzimmer_remote_bett_last_event:
     name: Remote Schlafzimmer Bett Last Event
     icon: mdi:remote
@@ -12,27 +6,6 @@ input_text:
     max: 255
 
 automation:
-  - id: remote_schlafzimmer_rollo
-    alias: "Remote: Schlafzimmer Rollo"
-    use_blueprint:
-      path: EPMatt/ikea_e1766.yaml
-      input:
-        helper_last_controller_event: input_text.remote_schlafzimmer_rollo_last_event
-        integration: Zigbee2MQTT
-        controller_entity: sensor.remote_schlafzimmer_rollo_action
-        action_button_up_short:
-          - device_id: 01facedecd0f44490b4cf98e6eba44e5
-            domain: cover
-            entity_id: cover.schlafzimmer_rollo
-            type: set_position
-            position: 100
-        action_button_down_short:
-          - device_id: 01facedecd0f44490b4cf98e6eba44e5
-            domain: cover
-            entity_id: cover.schlafzimmer_rollo
-            type: set_position
-            position: 0
-
   - id: remote_schlafzimmer_bett
     alias: "Remote: Schlafzimmer Bett"
     use_blueprint:

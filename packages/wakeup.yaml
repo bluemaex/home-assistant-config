@@ -1,6 +1,10 @@
 #
 # Homekit specific toggle switch for leaving/arriving
 #
+input_boolean:
+  homekit_wakeup_automation_state:
+    name: State of Homekit Switch
+
 switch:
   - platform: template
     switches:
@@ -8,7 +12,7 @@ switch:
         friendly_name: "Homekit: Wakeup Automation"
         unique_id: "homekit_wakeup_automation"
         value_template: >-
-          {{ is_state('light.schlafzimmer_bett', 'on') }}
+          {{ is_state('input_boolean.homekit_wakeup_automation_state', 'on') }}
         turn_on:
           - event: homekit_alarmclock
             event_data: {}
@@ -18,7 +22,7 @@ switch:
               title: "No ❌"
               message: That is not how this works. 😡
         icon_template: >-
-          {% if is_state('group.residents', 'home') %}
+          {% if is_state('input_boolean.homekit_wakeup_automation_state', 'on') %}
             mdi:alarm-note
           {% else %}
             mdi:alarm-note-off
@@ -33,8 +37,19 @@ automation:
     trigger:
       - platform: event
         event_type: homekit_alarmclock
+    condition:
+      - condition: state
+        entity_id: group.residents
+        state: home
     action:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.homekit_wakeup_automation_state
+      - service: media_player.media_play
+        target:
+          entity_id: media_player.schlafzimmer
       - service: cover.open_cover
+        data: {}
         target:
           entity_id: cover.schlafzimmer_rollo
       - service: scene.turn_on
@@ -42,4 +57,7 @@ automation:
           entity_id: scene.wakeup
         data:
           transition: 10
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.homekit_wakeup_automation_state
     mode: single

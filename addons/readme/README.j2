@@ -1,0 +1,52 @@
+{%- set custom_component_descriptions = {"readme": "Generates this awesome readme file."} -%}
+# 👋 Hello there and welcome to maexhome! 🏚
+
+This is my personal Home Assistant configuration trying to make my home a bit smarter by automating certain repeating stuff.
+
+Nothing is yet documented really, I really should do this at a certain point. This repository exists mostly for my own amusement - like all Home Assistant Instances this is a work in progress, but maybe you find something useful here :)
+
+## Table of content
+
+- [Supervisor add-ons](#supervisor-add-ons)
+- [Devices](#devices)
+- [Custom Integrations](#hacs)
+
+## Devices
+
+✍️📄🆘
+
+## Supervisor add-ons
+
+I run a [Supervised install](https://www.home-assistant.io/getting-started/) with the following add-ons:
+
+{%- for addon in addons | sort(attribute='name') %}
+- [{{addon.name}}]({{addon.repository}}) {{addon.version}}
+{%- endfor %}
+
+## HACS
+
+In addition to the pre-installed integrations and lovelace cards, HACS is used to managed and install additional
+functionality.
+
+### Integrations
+Name  | Installed Version | Documentation
+----  | ----------------- | -------------
+{%- for component in hacs_components | selectattr('category', 'equalto', 'integration') | selectattr('installed', 'equalto', True) | sort(attribute='name') %}
+{{component.name}} | {{component.installed_version}} | {{component.documentation}}
+{%- endfor %}
+
+### Lovelace
+Name  | Installed Version | Documentation
+----- | ----------------- | -------------
+{%- for component in hacs_components | selectattr('category', 'equalto', 'plugin')  | selectattr('installed', 'equalto', True) | sort(attribute='name') %}
+{{component.name}} | {{component.installed_version}} | {{component.documentation}}
+{%- endfor %}
+
+### Themes
+Name  | Installed Version | Documentation
+----- | ----------------- | -------------
+{%- for component in hacs_components | selectattr('category', 'equalto', 'theme') | sort(attribute='name') %}
+{{component.name}} | {{component.installed_version}} | {{component.documentation}}
+{%- endfor %}
+
+

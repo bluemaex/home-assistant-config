@@ -9,6 +9,8 @@ decluttering_templates:
       filter:
         include:
         - entity_id: automation.[[slug]]*
+        - entity_id: automation.[[slug1]]*
+        - entity_id: automation.[[slug2]]*
       sort: entity_id
       type: custom:auto-entities
 kiosk_mode:
@@ -23,12 +25,12 @@ kiosk_mode:
 title: maexhome
 views:
 - badges:
+  - entity: person.bluemaex
   - entity: binary_sensor.shelly_motion_bad_motion
   - entity: binary_sensor.shelly_motion_kuche_motion
   - entity: binary_sensor.fenster_wohnzimmer_links_contact
   - entity: binary_sensor.fenster_bad_contact
   - entity: binary_sensor.fenster_schlafzimmer_contact
-  - entity: person.bluemaex
   - entity: sensor.ble_temperature_xiaomi_wohnzimmer
   - entity: sensor.ble_temperature_xiaomi_schlafzimmer
   - entity: sensor.ble_temperature_xiaomi_bad
@@ -52,7 +54,8 @@ views:
         service_data:
           entity_id: scene.coming_home
       type: button
-    - hold_action:
+    - entity: scene.alles_aus
+      hold_action:
         action: none
       icon: mdi:bus-stop
       name: Alles aus
@@ -61,9 +64,11 @@ views:
       show_state: false
       tap_action:
         action: call-service
-        service: scene.alles_aus
-        service_data: {}
-        target: {}
+        service: scene.turn_on
+        service_data:
+          transition: 2
+        target:
+          entity_id: scene.alles_aus
       type: button
     type: horizontal-stack
   - entity: weather.maexhome
@@ -1643,11 +1648,9 @@ views:
     filter:
       exclude:
       - entity_id: automation.alarm_clock_*
-      - entity_id: automation.apple_watch*
       - entity_id: automation.arriving_*
       - entity_id: automation.backup_*
       - entity_id: automation.day_*
-      - entity_id: automation.doorbell_*
       - entity_id: automation.frontend_*
       - entity_id: automation.logger_*
       - entity_id: automation.leaving_*
@@ -1656,6 +1659,8 @@ views:
       - entity_id: automation.shellies_*
       - entity_id: automation.vacation_mode_*
       - entity_id: automation.waschmaschine*
+      - entity_id: automation.bad_*
+      - entity_id: automation.shower_*
       include:
       - domain: automation
     sort:
@@ -1664,13 +1669,9 @@ views:
   - template: automation_template
     type: custom:decluttering-card
     variables:
-    - name: Arriving
+    - name: Arrive/Leave
     - slug: arriving_
-  - template: automation_template
-    type: custom:decluttering-card
-    variables:
-    - name: Frontend
-    - slug: frontend_
+    - slug1: leaving_
   - template: automation_template
     type: custom:decluttering-card
     variables:
@@ -1684,12 +1685,7 @@ views:
   - template: automation_template
     type: custom:decluttering-card
     variables:
-    - name: Leaving
-    - slug: leaving
-  - template: automation_template
-    type: custom:decluttering-card
-    variables:
-    - name: Backup automations
+    - name: Backup
     - slug: backup
   - template: automation_template
     type: custom:decluttering-card
@@ -1704,27 +1700,25 @@ views:
   - template: automation_template
     type: custom:decluttering-card
     variables:
-    - name: Waschmaschine automations
-    - slug: waschmaschine_
+    - name: Bad
+    - slug2: waschmaschine_
+    - slug1: shower_
+    - slug: bad_
   - template: automation_template
     type: custom:decluttering-card
     variables:
-    - name: Apple Watch
-    - slug: apple_watch
-  - template: automation_template
-    type: custom:decluttering-card
-    variables:
-    - name: Logger automations
+    - name: Logger
     - slug: logger
   - template: automation_template
     type: custom:decluttering-card
     variables:
-    - name: Day/Sun automations
+    - name: Day/Sun
     - slug: day
+    - slug1: alarm_clock_*
   - template: automation_template
     type: custom:decluttering-card
     variables:
-    - name: Notification automations
+    - name: Notification
     - slug: notification
   icon: mdi:robot
   path: automations
@@ -1749,7 +1743,7 @@ views:
         icon: mdi:home-assistant
       - entity: sensor.mariadb_size
         icon: mdi:database-search
-      - entity: sensor.lovelace
+      - entity: sensor.lovelace_size
         icon: mdi:desktop-mac-dashboard
         name: Lovelace Size
       - animation: 'off'
@@ -1869,20 +1863,10 @@ views:
       - type: divider
       - entity: sensor.maexhome_external_ipv4
         icon: mdi:ip-network
-      - entity: sensor.maexhome_external_ipv6
-        icon: mdi:ip-network-outline
       show_header_toggle: false
       title: System
       type: entities
     type: vertical-stack
-  - entities:
-    - sensor.network_in_enp1s0
-    - sensor.network_out_enp1s0
-    icon: mdi:server
-    name: VLAN Home
-    show:
-      labels: true
-    type: custom:mini-graph-card
   - entities:
     - sensor.network_in_enp2s0
     - sensor.network_out_enp2s0
@@ -1891,6 +1875,19 @@ views:
     show:
       labels: true
     type: custom:mini-graph-card
+  - card_mod:
+      style:
+        ha-markdown:
+          $: "ha-markdown-element:first-of-type hr{\n  border-color: #303030;\n}\n"
+    content: '<h2> <ha-icon icon=''mdi:shield-half-full''></ha-icon> Watchman report<h2>
+      <h3>Missing Entities: {{ states.sensor.watchman_missing_entities.state }} </h3>
+      {%- for item in state_attr("sensor.watchman_missing_entities", "entities") %}
+      <hr> <table><tr> <td> <ha-icon icon=''mdi: {%- if item.state=="missing"-%}cloud-alert''
+      {%- elif item.state=="unavail" -%}cloud-off-outline'' {%- else-%}cloud-question''
+      {%- endif -%} ></ha-icon> {{ item.id }} [{{item.state}}] <a title="{{item.occurrences}}">
+      {{item.occurrences.split(''/'')[-1].split('':'')[0]}}</a> </td></tr></table>
+      {%- endfor %}'
+    type: markdown
   icon: mdi:home-assistant
   path: system
   title: System Information

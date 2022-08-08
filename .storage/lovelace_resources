@@ -10,12 +10,12 @@
                 "id": "f2f909d389e940cfbf9a40ef427e6726"
             },
             {
-                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381150",
+                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381162",
                 "type": "module",
                 "id": "9439f85f4384497ea0071060d08ed1e4"
             },
             {
-                "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=1507819942012",
+                "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994220",
                 "type": "module",
                 "id": "786a7a01f84241e48a5b6aafc0bea0f2"
             },
@@ -45,7 +45,7 @@
                 "id": "67391160527d4ecb9f913092b20e8a71"
             },
             {
-                "url": "/hacsfiles/lovelace-auto-entities/auto-entities.js?hacstag=167744584191",
+                "url": "/hacsfiles/lovelace-auto-entities/auto-entities.js?hacstag=1677445841110",
                 "type": "module",
                 "id": "2a3ce975af344eb1be3cbcdaa1b361f5"
             },

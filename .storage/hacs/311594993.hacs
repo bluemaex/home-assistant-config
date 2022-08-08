@@ -1,0 +1,62 @@
+{
+    "version": "6",
+    "minor_version": 1,
+    "key": "hacs/311594993.hacs",
+    "data": {
+        "archived": false,
+        "authors": [
+            "@slashback100"
+        ],
+        "category": "integration",
+        "content_in_root": false,
+        "country": [],
+        "config_flow": true,
+        "default_branch": "main",
+        "description": "Home Assistant Presence Simulation",
+        "domain": "presence_simulation",
+        "domains": [],
+        "downloads": 0,
+        "etag_repository": "W/\"f071600a2da08e88663b3468d5a5d32adfe7cfb98c745ab0d50ad6473c0a7ddb\"",
+        "file_name": "",
+        "filename": null,
+        "first_install": false,
+        "fork": false,
+        "full_name": "slashback100/presence_simulation",
+        "hacs": null,
+        "hide": false,
+        "hide_default_branch": false,
+        "homeassistant": null,
+        "id": "311594993",
+        "iot_class": null,
+        "installed": true,
+        "installed_commit": "a26a42f",
+        "installed_version": "v1.16",
+        "open_issues": 5,
+        "last_commit": "a26a42f",
+        "last_version": "v1.16",
+        "last_updated": "2022-04-27T15:00:24Z",
+        "manifest_name": "Presence Simulation",
+        "new": false,
+        "persistent_directory": null,
+        "pushed_at": "2022-04-27T15:00:24",
+        "releases": true,
+        "render_readme": true,
+        "published_tags": [
+            "v1.16",
+            "v1.15",
+            "v1.14",
+            "v1.13",
+            "v1.12"
+        ],
+        "selected_tag": null,
+        "show_beta": false,
+        "stargazers_count": 116,
+        "topics": [
+            "historic",
+            "homeassistant",
+            "homeassistant-components",
+            "presence-simulation"
+        ],
+        "zip_release": false
+    }
+}

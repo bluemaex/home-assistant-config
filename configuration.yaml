@@ -1,5 +1,6 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
+websocket_api:
 
 # base
 homeassistant: !include includes/homeassistant.yaml
@@ -14,7 +15,6 @@ python_script:
 
 # custom defined entities
 alert: !include includes/alert.yaml
-automation: !include_dir_merge_list includes/automation
 group: !include includes/group.yaml
 notify: !include includes/notify.yaml
 input_boolean: !include includes/input_boolean.yaml
