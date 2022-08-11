@@ -1,0 +1,40 @@
+# Project Information
+site_name: maexhome documentation
+site_description: Compilation and reference of important home automation
+site_author: bluemaex
+docs_dir: docs/
+repo_name: bluemaex/home-assistant-config
+repo_url: https://github.com/bluemaex/home-assistant-config
+copyright: Copyright &copy; 2016 - 2022 bluemaex
+
+# Configuration
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: docs/assets/favicon.png
+  icon:
+    logo: logo
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+# page tree
+nav:
+  - Home: index.md
