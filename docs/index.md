@@ -6,15 +6,15 @@ Issues, questions and pull requests are welcome!
 
 ## History
 
-✍️📄🆘
+📝
 
 ## Hardware
 
-✍️📄🆘
+🆘
 
 ## Software
 
-✍️📄🆘
+❓
 
 ### Supervisor add-ons
 
