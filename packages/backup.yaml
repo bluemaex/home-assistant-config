@@ -47,5 +47,5 @@ automation:
     action:
       - service: hassio.addon_start
         data:
-          addon: 2ca71ec5_rclone
+          addon: c1f54215_rclone
     mode: single
