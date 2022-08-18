@@ -18,7 +18,7 @@ automation:
       - service: switch.turn_on
         target:
           entity_id: switch.presence_simulation
-      - service: notify.all_phones
+      - service: notify.residents
         data:
           title: "Vacation mode"
           message: "No one at home for 24 hours, switching on vacation mode."

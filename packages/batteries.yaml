@@ -54,7 +54,7 @@ automation:
         value_template: >-
           {{ state_attr('binary_sensor.batteries_low', 'battery_low') | count > 0 }}
     action:
-      - service: notify.all_phones
+      - service: notify.residents
         data:
           title: Low Battery Warning
           message: The battery of the sensor(s) {{ state_attr('binary_sensor.batteries_low', 'battery_low') | join(', ') }} is low.

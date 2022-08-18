@@ -1,5 +1,5 @@
 - platform: group
-  name: all_phones
+  name: residents
   services:
     - service: mobile_app_minimaex
 

@@ -151,7 +151,7 @@ automation:
       - condition: state
         entity_id: group.residents
         state: home
-      - service: notify.all_phones
+      - service: notify.residents
         data:
           message: me finish, me empty! kthxbye
           title: Washing Machine bzzz
@@ -196,4 +196,4 @@ alert:
     title: Washing Machine bzzz
     message: "You are done ☝️ You like smelly clothes? I finished {{ relative_time(states('input_datetime.washing_machine_finished') | as_datetime) }} ago"
     notifiers:
-      - all_phones
+      - residents

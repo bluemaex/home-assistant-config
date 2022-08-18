@@ -25,4 +25,4 @@ alert:
     title: "Badezimmer 🥶"
     message: "Wird frisch hier: Temperaturänderung {{ states('sensor.bad_temperature_change_over_5_minutes') }}°C/h"
     notifiers:
-      - all_phones
+      - residents
