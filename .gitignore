@@ -141,16 +141,8 @@ zigbee.db
 ## .storage exclude/include
 .storage/*
 
-### hacs
-!.storage/hacs
-!.storage/hacs/*
-!.storage/hacs.critical
-!.storage/hacs.hacs
-!.storage/hacs.repositories
-
 ### infrared
 !.storage/broadlink_remote_24dfa7e0003e_*
 
 # areas + lovelace
 !.storage/core_area_registry
-!.storage/lovelac*

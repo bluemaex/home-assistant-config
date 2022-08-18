@@ -17,11 +17,11 @@ Nothing is yet documented really, I really should do this at a certain point. Th
 ## Supervisor add-ons
 
 I run a [Supervised install](https://www.home-assistant.io/getting-started/) with the following add-ons:
-- [Cloudflared](9074a9fa) 2.0.7
+- [Cloudflared](9074a9fa) 2.0.12
 - [MariaDB](core) 2.5.1
 - [Mosquitto broker](core) 6.1.2
-- [Rclone](c1f54215) 3.0.10
-- [Studio Code Server](a0d7b954) 5.2.1
+- [Rclone](c1f54215) 3.0.11
+- [Studio Code Server](a0d7b954) 5.2.2
 - [Traefik](c1f54215) 4.1.4
 - [Zigbee2MQTT](45df7312) 1.27.0-1
 
