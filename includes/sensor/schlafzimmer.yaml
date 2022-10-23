@@ -1,7 +1,7 @@
 # humidity
 - platform: statistics
   name: Schlafzimmer Humidity mean over last 24 hours
-  entity_id: sensor.ble_humidity_xiaomi_schlafzimmer
+  entity_id: sensor.ble_xiaomi_schlafzimmer_humidity
   state_characteristic: mean
   sampling_size: 86400
   max_age:
@@ -9,7 +9,7 @@
 
 - platform: statistics
   name: Schlafzimmer humidity change over 5 minutes
-  entity_id: sensor.ble_humidity_xiaomi_schlafzimmer
+  entity_id: sensor.ble_xiaomi_schlafzimmer_humidity
   state_characteristic: change
   sampling_size: 50
   precision: 1
@@ -19,7 +19,7 @@
 # Temperature
 - platform: statistics
   name: Schlafzimmer Temperature mean over last 24 hours
-  entity_id: sensor.ble_temperature_xiaomi_schlafzimmer
+  entity_id: sensor.ble_xiaomi_schlafzimmer_temperature
   state_characteristic: mean
   sampling_size: 2880
   max_age:
@@ -27,7 +27,7 @@
 
 - platform: statistics
   name: Schlafzimmer Temperature change over 5 minutes
-  entity_id: sensor.ble_temperature_xiaomi_schlafzimmer
+  entity_id: sensor.ble_xiaomi_schlafzimmer_temperature
   state_characteristic: change
   sampling_size: 50
   precision: 1

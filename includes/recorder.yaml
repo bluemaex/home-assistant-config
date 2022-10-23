@@ -8,7 +8,6 @@ exclude:
   entities:
     - sensor.date
     - sensor.time
-    - sensor.brother_hl_l2370dn_series
     - sensor.timestamp_start_of_today
     - sensor.uptime
     - sensor.mariadb_size
@@ -18,7 +17,8 @@ exclude:
     - automation.shellies_*
     - sensor.weather_*
     - sensor.energy_*
-    - sensor.hl_l2370dn_*
+    - sensor.hl_l2370dn*
+    - sensor.brother_hl_l2370dn*
     - sensor.*_energy_current
     - sensor.*_energy_voltage
     - sensor.*_energy_total

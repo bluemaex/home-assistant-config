@@ -1,7 +1,7 @@
 # Temperature
 - platform: statistics
   name: Flur Temperature mean over last 24 hours
-  entity_id: sensor.ble_temperature_xiaomi_flur
+  entity_id: sensor.ble_xiaomi_flur_temperature
   state_characteristic: mean
   sampling_size: 2880
   max_age:
@@ -9,7 +9,7 @@
 
 - platform: statistics
   name: Flur Temperature change over 5 minutes
-  entity_id: sensor.ble_temperature_xiaomi_flur
+  entity_id: sensor.ble_xiaomi_flur_temperature
   state_characteristic: change
   sampling_size: 50
   precision: 1
@@ -18,7 +18,7 @@
 
 - platform: statistics
   name: Servereck Temperature mean over last 24 hours
-  entity_id: sensor.ble_temperature_xiaomi_servereck
+  entity_id: sensor.ble_xiaomi_servereck_temperature
   state_characteristic: mean
   sampling_size: 2880
   max_age:
@@ -26,7 +26,7 @@
 
 - platform: statistics
   name: Servereck Temperature change over 5 minutes
-  entity_id: sensor.ble_temperature_xiaomi_servereck
+  entity_id: sensor.ble_xiaomi_servereck_temperature
   state_characteristic: change
   sampling_size: 50
   precision: 1

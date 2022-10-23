@@ -44,7 +44,7 @@ automation:
           entity_id: switch.presence_simulation
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacation_mode
-      - service: notify.all_phones
+      - service: notify.residents
         data:
           title: "Vacation mode"
           message: "Welcome back! Switching off the vacation mode."

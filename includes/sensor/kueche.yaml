@@ -1,7 +1,7 @@
 # humidity
 - platform: statistics
   name: Küche Humidity mean over last 24 hours
-  entity_id: sensor.ble_humidity_xiaomi_kuche
+  entity_id: sensor.ble_xiaomi_kueche_humidity
   state_characteristic: mean
   sampling_size: 86400
   max_age:
@@ -9,7 +9,7 @@
 
 - platform: statistics
   name: Küche humidity change over 5 minutes
-  entity_id: sensor.ble_humidity_xiaomi_kuche
+  entity_id: sensor.ble_xiaomi_kueche_humidity
   state_characteristic: change
   sampling_size: 50
   precision: 1
@@ -19,7 +19,7 @@
 # Temperature
 - platform: statistics
   name: Küche Temperature mean over last 24 hours
-  entity_id: sensor.ble_temperature_xiaomi_kuche
+  entity_id: sensor.ble_xiaomi_kueche_temperature
   state_characteristic: mean
   sampling_size: 2880
   max_age:
@@ -27,7 +27,7 @@
 
 - platform: statistics
   name: Küche Temperature change over 5 minutes
-  entity_id: sensor.ble_temperature_xiaomi_kuche
+  entity_id: sensor.ble_xiaomi_kueche_temperature
   state_characteristic: change
   sampling_size: 50
   precision: 1

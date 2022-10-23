@@ -11,7 +11,6 @@ exclude:
     - sensor.date
     - sensor.time
     - sensor.hacs
-    - sensor.brother_hl_l2370dn_series
     - sensor.timestamp_start_of_today
     - sensor.uptime
     - sensor.mariadb_size
@@ -28,7 +27,8 @@ exclude:
     - sensor.*_energy_totalstarttime
     - sensor.*_energy_total
     - sensor.*_energy_yesterday
-    - sensor.hl_l2370dn_*
+    - sensor.brother_hl_l2370dn*
+    - sensor.hl_l2370dn*
     - automation.shellies_*
     - sensor.*_tx
     - sensor.*_rx
@@ -73,13 +73,15 @@ component_config_glob:
     override_measurement: tracker
   sensor.maexmini_*:
     override_measurement: tracker
+  sensor.maexphone_*:
+    override_measurement: tracker
   # humidity
-  sensor.ble_humidity_*:
+  sensor.ble_xiaomi_*_humidity:
     override_measurement: humidity
-  sensor.ble_temperature_*:
+  sensor.ble_xiaomi_*_temperature:
     override_measurement: temperature
   # battery
-  sensor.ble_battery_*:
+  sensor.ble_xiaomi_*_battery:
     override_measurement: battery
   sensor.shelly_*_battery:
     override_measurement: battery

@@ -3,5 +3,5 @@
   port: 21105
   filter:
     include_entity_globs:
-      - sensor.ble_humidity_xiaomi_*
-      - sensor.ble_temperature_xiaomi_*
+      - sensor.ble_xiaomi_*_humidity
+      - sensor.ble_xiaomi_*_temperature

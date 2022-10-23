@@ -3,7 +3,7 @@
   user_id: !secret user_bluemaex_id
   picture: !secret user_bluemaex_photo
   device_trackers:
-    - device_tracker.minimaex_2 # mobile app
+    - device_tracker.maexphone # mobile app
     - device_tracker.minimaex # connected to wifi
 
 - name: Kiosk

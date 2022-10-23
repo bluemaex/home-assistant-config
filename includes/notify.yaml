@@ -1,12 +1,13 @@
 - platform: group
   name: residents
   services:
-    - service: mobile_app_minimaex
+    - service: mobile_app_maexphone
+    - service: mobile_app_maexpad
 
 - platform: group
   name: max
   services:
-    - service: mobile_app_minimaex
+    - service: mobile_app_maexphone
     - service: mobile_app_maexpad
 
 - platform: telegram

@@ -31,12 +31,12 @@ views:
   - entity: binary_sensor.fenster_wohnzimmer_links_contact
   - entity: binary_sensor.fenster_bad_contact
   - entity: binary_sensor.fenster_schlafzimmer_contact
-  - entity: sensor.ble_temperature_xiaomi_wohnzimmer
-  - entity: sensor.ble_temperature_xiaomi_schlafzimmer
-  - entity: sensor.ble_temperature_xiaomi_bad
-  - entity: sensor.ble_temperature_xiaomi_kuche
-  - entity: sensor.ble_temperature_xiaomi_flur
-  - entity: sensor.ble_temperature_xiaomi_servereck
+  - entity: sensor.ble_xiaomi_wohnzimmer_temperature
+  - entity: sensor.ble_xiaomi_schlafzimmer_temperature
+  - entity: sensor.ble_xiaomi_kueche_temperature
+  - entity: sensor.ble_xiaomi_bad_temperature
+  - entity: sensor.ble_xiaomi_servereck_temperature
+  - entity: sensor.ble_xiaomi_flur_temperature
   cards:
   - cards:
     - entity: sensor.time
@@ -326,53 +326,71 @@ views:
   cards:
   - cards:
     - cards:
-      - entity: sensor.ble_temperature_xiaomi_wohnzimmer
+      - entity: sensor.ble_xiaomi_wohnzimmer_temperature
         graph: line
         type: sensor
-      - entity: sensor.ble_temperature_xiaomi_schlafzimmer
-        graph: line
-        type: sensor
-      type: horizontal-stack
-    - cards:
-      - entity: sensor.ble_temperature_xiaomi_bad
-        graph: line
-        type: sensor
-      - entity: sensor.ble_temperature_xiaomi_flur
+      - entity: sensor.ble_xiaomi_schlafzimmer_temperature
         graph: line
         type: sensor
       type: horizontal-stack
     - cards:
-      - entity: sensor.ble_temperature_xiaomi_kuche
+      - entity: sensor.ble_xiaomi_bad_temperature
         graph: line
         type: sensor
-      - entity: sensor.ble_temperature_xiaomi_servereck
+      - detail: 1
+        entity: sensor.ble_xiaomi_flur_temperature
         graph: line
+        hours_to_show: 24
+        type: sensor
+      type: horizontal-stack
+    - cards:
+      - detail: 1
+        entity: sensor.ble_xiaomi_kueche_temperature
+        graph: line
+        hours_to_show: 24
+        type: sensor
+      - detail: 1
+        entity: sensor.ble_xiaomi_servereck_temperature
+        graph: line
+        hours_to_show: 24
         type: sensor
       type: horizontal-stack
     type: vertical-stack
   - cards:
     - cards:
-      - entity: sensor.ble_humidity_xiaomi_wohnzimmer
+      - detail: 1
+        entity: sensor.ble_xiaomi_wohnzimmer_humidity
         graph: line
+        hours_to_show: 24
         type: sensor
-      - entity: sensor.ble_humidity_xiaomi_schlafzimmer
+      - detail: 1
+        entity: sensor.ble_xiaomi_schlafzimmer_humidity
         graph: line
-        type: sensor
-      type: horizontal-stack
-    - cards:
-      - entity: sensor.ble_humidity_xiaomi_bad
-        graph: line
-        type: sensor
-      - entity: sensor.ble_humidity_xiaomi_flur
-        graph: line
+        hours_to_show: 24
         type: sensor
       type: horizontal-stack
     - cards:
-      - entity: sensor.ble_humidity_xiaomi_kuche
+      - detail: 1
+        entity: sensor.ble_xiaomi_bad_humidity
         graph: line
+        hours_to_show: 24
         type: sensor
-      - entity: sensor.ble_humidity_xiaomi_servereck
+      - detail: 1
+        entity: sensor.ble_xiaomi_flur_humidity
         graph: line
+        hours_to_show: 24
+        type: sensor
+      type: horizontal-stack
+    - cards:
+      - detail: 1
+        entity: sensor.ble_xiaomi_kueche_humidity
+        graph: line
+        hours_to_show: 24
+        type: sensor
+      - detail: 1
+        entity: sensor.ble_xiaomi_servereck_humidity
+        graph: line
+        hours_to_show: 24
         type: sensor
       type: horizontal-stack
     type: vertical-stack
@@ -806,6 +824,12 @@ views:
     type: vertical-stack
   - entity: media_player.denon_avr_x1200w
     type: media-control
+  - entity: switch.mediaeck
+    show_icon: true
+    show_name: true
+    tap_action:
+      action: toggle
+    type: button
   path: remote-avr
   title: AVR
 - badges: []
@@ -1863,13 +1887,22 @@ views:
       - type: divider
       - entity: sensor.maexhome_external_ipv4
         icon: mdi:ip-network
+      - entity: sensor.local_ip
       show_header_toggle: false
       title: System
       type: entities
     type: vertical-stack
   - entities:
-    - sensor.network_in_enp2s0
-    - sensor.network_out_enp2s0
+    - sensor.network_throughput_in_enp0s18
+    - sensor.network_throughput_out_enp0s18
+    icon: mdi:server
+    name: VLAN IoT
+    show:
+      labels: true
+    type: custom:mini-graph-card
+  - entities:
+    - sensor.network_in_enp0s18
+    - sensor.network_out_enp0s18
     icon: mdi:server
     name: VLAN IoT
     show:

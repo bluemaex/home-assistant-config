@@ -4,14 +4,14 @@
     - type: disk_use_percent
       arg: "/"
     - type: memory_use_percent
+    - type: throughput_network_in
+      arg: enp0s18
+    - type: throughput_network_out
+      arg: enp0s18
     - type: network_in
-      arg: enp1s0
+      arg: enp0s18
     - type: network_out
-      arg: enp1s0
-    - type: network_in
-      arg: enp2s0
-    - type: network_out
-      arg: enp2s0
+      arg: enp0s18
     - type: processor_use
     - type: last_boot
     - type: load_1m

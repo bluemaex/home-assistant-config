@@ -54,7 +54,7 @@ automation:
           entity_id: scene.coming_home
         data:
           transition: 2
-      - service: notify.mobile_app_minimaex
+      - service: notify.max
         data:
           title: Welcome Home
           message: >-
@@ -80,7 +80,7 @@ script:
           action_guestmode: "{{ 'LEAVING_GUESTMODE_' ~ context.id }}"
           action_ignore: "{{ 'LEAVING_IGNORE_' ~ context.id }}"
       - alias: Left the building
-        service: notify.mobile_app_minimaex
+        service: notify.max
         data:
           title: You've left the building
           message: |-
@@ -138,7 +138,7 @@ script:
               - condition: template
                 value_template: "{{ wait.trigger.event.data.action == action_ignore }}"
             sequence:
-              - service: notify.mobile_app_minimaex
+              - service: notify.max
                 data:
                   title: Shutdown canceled
                   message: Yes, sir.
