@@ -25,9 +25,10 @@ kiosk_mode:
 title: maexhome
 views:
 - badges:
+  - entity: group.residents
   - entity: person.bluemaex
-  - entity: binary_sensor.shelly_motion_bad_motion
-  - entity: binary_sensor.shelly_motion_kuche_motion
+  - entity: binary_sensor.motion_kueche_occupancy
+  - entity: binary_sensor.motion_bad_occupancy
   - entity: binary_sensor.fenster_wohnzimmer_links_contact
   - entity: binary_sensor.fenster_bad_contact
   - entity: binary_sensor.fenster_schlafzimmer_contact
@@ -35,26 +36,29 @@ views:
   - entity: sensor.ble_xiaomi_schlafzimmer_temperature
   - entity: sensor.ble_xiaomi_kueche_temperature
   - entity: sensor.ble_xiaomi_bad_temperature
-  - entity: sensor.ble_xiaomi_servereck_temperature
   - entity: sensor.ble_xiaomi_flur_temperature
+  - entity: sensor.ble_xiaomi_servereck_temperature
   cards:
   - cards:
     - entity: sensor.time
       type: entity
-    - entity: scene.coming_home
+    - entity: automation.arriving_at_home
       hold_action:
         action: none
       icon: mdi:home-import-outline
+      name: Coming Homes
       show_icon: true
       show_name: true
       show_state: false
       tap_action:
         action: call-service
-        service: scene.turn_on
-        service_data:
-          entity_id: scene.coming_home
+        data:
+          skip_condition: true
+        service: automation.trigger
+        target:
+          entity_id: automation.arriving_at_home
       type: button
-    - entity: scene.alles_aus
+    - entity: automation.alles_aus
       hold_action:
         action: none
       icon: mdi:bus-stop
@@ -64,11 +68,11 @@ views:
       show_state: false
       tap_action:
         action: call-service
-        service: scene.turn_on
-        service_data:
-          transition: 2
+        data:
+          skip_condition: true
+        service: automation.trigger
         target:
-          entity_id: scene.alles_aus
+          entity_id: automation.alles_aus
       type: button
     type: horizontal-stack
   - entity: weather.maexhome
@@ -78,8 +82,11 @@ views:
   - entities:
     - entities:
       - light.wohnzimmer_decke
-      - switch.monitor_hintergrund
-      - switch.banana
+      - switch.monitorlicht
+      - light.wled_monitor
+      - light.wled_media
+      - light.wled_couch
+      - switch.gosund_banana_power
       head:
         color_picker: true
         entity: light.wohnzimmer
@@ -116,7 +123,17 @@ views:
         name: Bad
         type: custom:slider-entity-row
       type: custom:fold-entity-row
-    - entity: light.flur
+    - entities:
+      - light.flur
+      - switch.cloudlicht
+      - light.wled_rack
+      head:
+        color_picker: true
+        entity: light.wled_rack
+        hide_when_off: false
+        name: Flur
+        type: custom:slider-entity-row
+      type: custom:fold-entity-row
     show_header_toggle: false
     title: Lichter
     type: entities
@@ -126,10 +143,11 @@ views:
       - switch.denon_qs2
       - switch.denon_qs3
       - switch.denon_qs4
+      - switch.denon_stereo
       - type: divider
       - entity: switch.denon_power
         name: Infrared Power Toggle
-      - entity: switch.mediaeck
+      - entity: switch.gosund_mediaeck_power
         name: Power Outlet Toggle
       head:
         artwork: material
@@ -139,7 +157,7 @@ views:
         type: custom:mini-media-player
       type: custom:fold-entity-row
     - entities:
-      - entity: switch.beamer
+      - entity: switch.gosund_beamer_power
         name: Beamer Power Outlet
       head:
         entity: switch.beamer_livingroom
@@ -152,14 +170,14 @@ views:
       name: AppleTV
       type: custom:mini-media-player
     - artwork: material
-      entity: media_player.kuche
+      entity: media_player.homepod_kuche
       group: true
       hide:
         volume: true
       name: Homepod Küche
       type: custom:mini-media-player
     - artwork: material
-      entity: media_player.schlafzimmer
+      entity: media_player.homepod_schlafzimmer
       group: true
       hide:
         volume: true
@@ -196,64 +214,66 @@ views:
   - entities:
     - entities:
       - icon: mdi:currency-eur
-        name: "{% set kwh = states(\"sensor.servereck_energy_today\") | float(0) %}\
-          \ {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\") |\
-          \ float(0) %} {%\nset cost_today = cost * kwh %} Today used {{ kwh }} kWh\
-          \ and cost €{{ cost_today | round(2) }}. "
+        name: "{% set kwh = states(\"sensor.gosund_servereck_daily_energy_usage\"\
+          ) | float(0) %} {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\"\
+          ) | float(0) %} {%\nset cost_today = cost * kwh %} Today used {{ kwh }}\
+          \ kWh and cost €{{ cost_today | round(2) }}. "
         type: custom:template-entity-row
       head:
-        entity: sensor.servereck_energy_power
+        entity: sensor.gosund_servereck_energy_power
         icon: mdi:server
         name: Servereck
-        state: '{{ states("sensor.servereck_energy_power") }} Watt
+        state: '{{ states("sensor.gosund_servereck_energy_power") }} Watt
 
           '
         type: custom:template-entity-row
       type: custom:fold-entity-row
     - entities:
       - icon: mdi:currency-eur
-        name: "{% set kwh = states(\"sensor.schreibtisch_energy_today\") | float(0)\
-          \ %} {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\"\
+        name: "{% set kwh = states(\"sensor.gosund_schreibtisch_daily_energy_usage\"\
+          ) | float(0) %} {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\"\
           ) | float(0) %} {%\n   set cost_today = cost * kwh %} Today used {{ kwh\
           \ }} kWh and cost €{{ cost_today | round(2) }}. "
         type: custom:template-entity-row
       head:
-        entity: sensor.schreibtisch_energy_power
+        entity: sensor.gosund_schreibtisch_energy_power
         icon: mdi:desk
         name: Schreibtisch
-        state: '{{ states("sensor.schreibtisch_energy_power") }} Watt
+        state: '{{ states("sensor.gosund_schreibtisch_energy_power") }} Watt
 
           '
         type: custom:template-entity-row
       type: custom:fold-entity-row
     - entities:
       - icon: mdi:currency-eur
-        name: "{% set kwh = states(\"sensor.mediaeck_energy_today\") | float(0) %}\
-          \ {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\") |\
-          \ float(0) %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }}\
+        name: "{% set kwh = states(\"sensor.gosund_mediaeck_daily_energy_usage\")\
+          \ | float(0) %} {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\"\
+          ) | float(0) %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }}\
           \ kWh and cost €{{ cost_today | round(2) }}. "
         type: custom:template-entity-row
       head:
-        entity: media_player.denon_avr_x1200w
+        entity: sensor.gosund_mediaeck_energy_power
+        icon: mdi:music-box
         name: Mediaeck
         secondary: 'Has been on for {{ states("sensor.hours_denon_has_been_on_last_7_days")
           | float(0) }} hours in the last 7 days
 
           '
         state: "{% if is_state(\"media_player.denon_avr_x1200w\", \"off\") %}\n  Off\n\
-          {% else %}\n  {{ states(\"sensor.mediaeck_energy_power\") }} Watt\n{% endif\
-          \ %}\n"
+          {% else %}\n  {{ states(\"sensor.gosund_mediaeck_energy_power\") }} Watt\n\
+          {% endif %}\n"
         type: custom:template-entity-row
       type: custom:fold-entity-row
     - entities:
       - icon: mdi:currency-eur
-        name: "{% set kwh = states(\"sensor.beamer_energy_today\") | float(0) %} {%\
-          \ \n  set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0)\
-          \ %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }} kWh and cost\
-          \ €{{ cost_today | round(2) }}. "
+        name: "{% set kwh = states(\"sensor.gosund_beamer_daily_energy_usage\") |\
+          \ float(0) %} {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\"\
+          ) | float(0) %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }}\
+          \ kWh and cost €{{ cost_today | round(2) }}. "
         type: custom:template-entity-row
       head:
-        entity: switch.beamer_livingroom
+        entity: sensor.gosund_beamer_energy_power
+        icon: mdi:projector
         name: Projector Wohnzimmer
         secondary: 'Has been on {{ states("sensor.times_projector_has_been_on_last_7_days")
           | int(0) }} times ({{ states("sensor.hours_projector_has_been_on_last_7_days")
@@ -261,19 +281,20 @@ views:
 
           '
         state: "{% if is_state(\"switch.beamer_livingroom\", \"off\") %}\n  Off\n\
-          {% else %}\n  {{ states(\"sensor.beamer_energy_power\") }} Watt\n{% endif\
-          \ %}\n"
+          {% else %}\n  {{ states(\"sensor.gosund_beamer_energy_power\") }} Watt\n\
+          {% endif %}\n"
         type: custom:template-entity-row
       type: custom:fold-entity-row
     - entities:
       - icon: mdi:currency-eur
-        name: "{% set kwh = states(\"sensor.waschmaschine_energy_today\") | float(0)\
-          \ %} {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\"\
+        name: "{% set kwh = states(\"sensor.gosund_waschmaschine_daily_energy_usage\"\
+          ) | float(0) %} {% \n  set cost = states(\"input_number.electricity_cost_per_kwh\"\
           ) | float(0) %} {%\n  set cost_today = cost * kwh %} Today used {{ kwh }}\
           \ kWh and cost €{{ cost_today | round(2) }}. "
         type: custom:template-entity-row
       head:
-        entity: binary_sensor.washing_machine
+        entity: sensor.gosund_waschmaschine_energy_power
+        icon: mdi:washing-machine
         name: Washing machine
         secondary: 'Has been on {{ states("sensor.times_washing_machine_has_been_on_last_7_days")
           }} times ({{ states("sensor.hours_washing_machine_has_been_on_last_7_days")
@@ -281,23 +302,23 @@ views:
 
           '
         state: "{% if is_state(\"binary_sensor.washing_machine\", \"on\") %}\n  {{states(\"\
-          input_select.washing_machine_status\")}}, {{ states(\"sensor.waschmaschine_energy_power\"\
+          input_select.washing_machine_status\")}}, {{ states(\"sensor.gosund_waschmaschine_energy_power\"\
           ) }} Watt\n{% elif is_state(\"input_select.washing_machine_status\", \"\
           Clean\") %}\n  Finished\n{% else %}\n  Off\n{% endif %}\n"
         type: custom:template-entity-row
       type: custom:fold-entity-row
     - entities:
       - icon: mdi:currency-eur
-        name: "{% set kwh = states(\"sensor.fridge_energy_today\") | float(0) %} {%\
-          \ \n   set cost = states(\"input_number.electricity_cost_per_kwh\") | float(0)\
-          \ %} {%\n   set cost_today = cost * kwh %} Today used {{ kwh }} kWh and\
-          \ cost €{{ cost_today | round(2) }}. "
+        name: "{% set kwh = states(\"sensor.gosund_fridge_daily_energy_usage\") |\
+          \ float(0) %} {% \n   set cost = states(\"input_number.electricity_cost_per_kwh\"\
+          ) | float(0) %} {%\n   set cost_today = cost * kwh %} Today used {{ kwh\
+          \ }} kWh and cost €{{ cost_today | round(2) }}. "
         type: custom:template-entity-row
       head:
-        entity: sensor.fridge_energy_power
+        entity: sensor.gosund_fridge_energy_power
         icon: mdi:fridge
         name: Fridge
-        state: '{{ states("sensor.fridge_energy_power") }} Watt
+        state: '{{ states("sensor.gosund_fridge_energy_power") }} Watt
 
           '
         type: custom:template-entity-row
@@ -318,6 +339,7 @@ views:
       head:
         entity: input_boolean.dark_mode
       type: custom:fold-entity-row
+    - entity: cover.schlafzimmer_rollo
     show_header_toggle: false
     type: entities
   path: default_view
@@ -415,6 +437,11 @@ views:
     show_name: true
     show_state: false
     type: picture-entity
+  - dark_mode: true
+    entities:
+    - entity: person.bluemaex
+    hours_to_show: 168
+    type: map
   path: cam
   title: Cam
 - badges: []
@@ -824,7 +851,7 @@ views:
     type: vertical-stack
   - entity: media_player.denon_avr_x1200w
     type: media-control
-  - entity: switch.mediaeck
+  - entity: switch.gosund_mediaeck_power
     show_icon: true
     show_name: true
     tap_action:
@@ -1327,344 +1354,6 @@ views:
   title: beamer
 - badges: []
   cards:
-  - cards:
-    - entity: switch.monitor_hintergrund
-      hold_action:
-        action: none
-      icon: mdi:monitor
-      icon_height: 20px
-      name: 'Monitor Backlight '
-      show_state: false
-      tap_action:
-        action: toggle
-      type: button
-    - cards:
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Brightness Up
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: brightness_up
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Brightness Down
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: brightness_down
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Power Off
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: power_off
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Power On
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: power_on
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      type: horizontal-stack
-    - cards:
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Red
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: red
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Green
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: green
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Blue
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: blue
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: White
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: white
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      type: horizontal-stack
-    - cards:
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C1
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c1
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C2
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c2
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C3
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c3
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Flash
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: flash
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      type: horizontal-stack
-    - cards:
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C4
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c4
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C5
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c5
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C6
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c6
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Strobe
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: strobe
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      type: horizontal-stack
-    - cards:
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C7
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c7
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C8
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c8
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C9
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c9
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Fade
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: fade
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      type: horizontal-stack
-    - cards:
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C10
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c10
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C11
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c11
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: C12
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: c12
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      - entity: remote.rm3_wohnzimmer_remote
-        icon: mdi:projector
-        name: Smooth
-        show_icon: false
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: smooth
-            device: ledstrip_monitor
-            entity_id: remote.rm3_wohnzimmer_remote
-          target: {}
-        type: button
-      type: horizontal-stack
-    type: vertical-stack
-  path: remote-monitor
-  title: backlight
-- badges: []
-  cards:
   - card:
       show_header_toggle: false
       title: Uncategorized automations
@@ -1685,6 +1374,7 @@ views:
       - entity_id: automation.waschmaschine*
       - entity_id: automation.bad_*
       - entity_id: automation.shower_*
+      - entity_id: automation.update_*
       include:
       - domain: automation
     sort:
@@ -1744,6 +1434,7 @@ views:
     variables:
     - name: Notification
     - slug: notification
+    - slug1: update
   icon: mdi:robot
   path: automations
   title: Automations
@@ -1757,9 +1448,6 @@ views:
       - entity: sensor.latest_available_version
         icon: mdi:home-assistant
         name: Hassio Current Version
-      - entity: sensor.hacs
-        icon: mdi:update
-        name: Community Store
       - type: divider
       - entity: sensor.last_boot
         icon: mdi:calendar
@@ -1893,16 +1581,16 @@ views:
       type: entities
     type: vertical-stack
   - entities:
-    - sensor.network_throughput_in_enp0s18
-    - sensor.network_throughput_out_enp0s18
+    - sensor.network_throughput_in_eth0
+    - sensor.network_throughput_out_eth0
     icon: mdi:server
     name: VLAN IoT
     show:
       labels: true
     type: custom:mini-graph-card
   - entities:
-    - sensor.network_in_enp0s18
-    - sensor.network_out_enp0s18
+    - sensor.network_in_eth0
+    - sensor.network_out_eth0
     icon: mdi:server
     name: VLAN IoT
     show:
@@ -1921,6 +1609,22 @@ views:
       {{item.occurrences.split(''/'')[-1].split('':'')[0]}}</a> </td></tr></table>
       {%- endfor %}'
     type: markdown
+  - cards:
+    - entity: sensor.ha_entities_count
+      type: entity
+    - content: '{% for attr in states.sensor.ha_entities_count.attributes %} {%- if
+        not attr=="friendly_name"  and not attr=="unit_of_measurement" and not attr=="icon"  and
+        not states.sensor.ha_entities_count.attributes[attr] <= 0 -%}{{attr}}: {{states.sensor.ha_entities_count.attributes[attr]}}{{-
+        ''\n'' -}} {%- endif %} {%- endfor -%}
+
+        '
+      type: markdown
+    mode: vertical
+    title: ''
+    type: custom:vertical-stack-in-card
+  - entity: sensor.cube_last_action
+    state_color: false
+    type: entity
   icon: mdi:home-assistant
   path: system
   title: System Information

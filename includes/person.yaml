@@ -4,7 +4,6 @@
   picture: !secret user_bluemaex_photo
   device_trackers:
     - device_tracker.maexphone # mobile app
-    - device_tracker.minimaex # connected to wifi
 
 - name: Kiosk
   id: kiosk

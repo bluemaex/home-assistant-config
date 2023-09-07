@@ -1,0 +1,64 @@
+input_select:
+  washingmachine_state_machine:
+    name: Washing Machine - State Machine
+    options:
+      - unplugged
+      - idle
+      - paused
+      - detached_overload
+      - job_ongoing
+      - job_completed
+    icon: mdi:washing-machine
+
+input_boolean:
+  washingmachine_job_cycle:
+    name: Washing Machine - Job Cycle
+    icon: mdi:washing-machine
+  washingmachine_automation_self_trigger:
+    name: Washing Machine - Automation Self-trigger
+    icon: mdi:washing-machine
+
+input_datetime:
+  washingmachine_last_started:
+    name: Washing Machine last started
+    has_date: true
+    has_time: true
+
+  washingmachine_last_finished:
+    name: Washing Machine last finished
+    has_date: true
+    has_time: true
+
+timer:
+  washingmachine_delayed_job_completion_timer:
+    name: Washing Machine - Delayed Job Completion Timer
+    duration: "00:20:00"
+    restore: true
+    icon: mdi:washing-machine
+
+sensor:
+  - platform: history_stats
+    name: Times washing machine has been used last 7 days
+    entity_id: input_select.washingmachine_state_machine
+    state: "job_completed"
+    type: count
+    duration:
+      days: 7
+    end: "{{ now() }}"
+
+alert:
+  washingmachine_finished_not_emptied:
+    name: Washmachine finished but not emptied
+    entity_id: input_select.washing_machine_status
+    state: "job_completed"
+    repeat:
+      - 5
+      - 10
+      - 10
+      - 15
+      - 20
+    skip_first: true
+    title: Washing Machine bzzz
+    message: "You are done ☝️ You like smelly clothes? I finished {{ relative_time(states('input_datetime.washingmachine_last_finished') | as_datetime) }} ago"
+    notifiers:
+      - all_phones

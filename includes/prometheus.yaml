@@ -1,0 +1,93 @@
+filter:
+  exclude_domains:
+    - weather
+    - sun
+
+  exclude_entities:
+    - sensor.date
+    - sensor.time
+    - sensor.timestamp_start_of_today
+
+  exclude_entity_globs:
+    # automations
+    - automation.shellies_*
+    # binary_sensor
+    - binary_sensor.*_button1
+    # input etc
+    - input_text.*_last_event
+    # trackers
+    - sensor.*_geocoded_location
+    - sensor.*_bssid
+    - sensor.*_last_update_trigger
+    - sensor.*_ssid
+    - sensor.*_battery_state
+    - sensor.*_frontmost_app
+    - sensor.*_active_audio_input
+    - sensor.*_active_audio_output
+    - sensor.*_connection_type
+    - sensor.*_primary_display_name
+    - sensor.*_primary_display_id
+    # calculations
+    - sensor.*_temperature_mean_over_*
+    - sensor.*_temperature_change_over_*
+    - sensor.*_has_been_on_*
+    # sensors
+    - sensor.*_status
+    - sensor.*_storage
+    - sensor.*_energy_reactivepower
+    - sensor.*_energy_apparentpower
+    - sensor.*_energy_factor
+    - sensor.*_energy_totalstarttime
+    - sensor.*_energy_total
+    - sensor.*_energy_yesterday
+    - sensor.brother_hl_l2370dn*
+    - sensor.hl_l2370dn*
+    - sensor.*_tx
+    - sensor.*_rx
+    - sensor.*_rssi
+    - sensor.ble_rssi_*
+    - sensor.*_esp_wifi_signal
+    - sensor.network_in_*
+    - sensor.network_out_*
+    - sensor.load_*
+    - sensor.disk_*
+    - sensor.processor_*
+    - sensor.memory_*
+    - sensor.cube_*
+    - sensor.*_energy_daily
+    - sensor.*_energy_weekly
+    - sensor.*_energy_monthly
+    - sensor.wled_*_power
+    - sensor.kueche_decke_*_power
+    - sensor.bad_decke_*_power
+    - sensor.bad_spiegel_*_power
+    - sensor.schlafzimmer_*_power
+    - sensor.wohnzimmer_*_power
+
+include:
+  entity_globs:
+    - sensor.flur_licht*
+    - sensor.wohnzimmer_licht*
+    - sensor.schlafzimmer_licht*
+    - sensor.kueche_licht*
+    - sensor.bad_licht*
+
+component_config_domain:
+  zone:
+    override_metric: zone_persons
+  update:
+    override_metric: updates
+
+component_config_glob:
+  sensor.*_connect_count:
+    override_metric: sensor_connection_count
+  sensor.*_power_outage_count:
+    override_metric: sensor_power_outage_count
+  sensor.remote_*_click:
+    override_metric: remote_button_presses
+  sensor.*_led_count:
+    override_metric: sensor_led_count
+  sensor.*_device_temperature:
+    override_metric: sensor_device_temperature_celsius
+  binary_sensor.*_update_available:
+    override_metric: updates

@@ -18,7 +18,42 @@ http:
       entryPoints: ["web-secure"]
       tls:
         certResolver: le
-      service: prometheus@internal  
+      service: prometheus@internal
+    
+    uptimeKumaRouter:
+      rule: "Host(`status.b.blmx.de`)"
+      entryPoints: ["web-secure"]
+      tls:
+        certResolver: le
+      service: uptimeKumaService
+
+    healtcheckIoRouter:
+      rule: "Host(`cron.b.blmx.de`)"
+      entryPoints: ["web-secure"]
+      tls:
+        certResolver: le
+      service: healtcheckIoService
+
+    victoriaMetricsRouter:
+      rule: "Host(`vm.b.blmx.de`)"
+      entryPoints: ["web-secure"]
+      tls:
+        certResolver: le
+      service: victoriaMetricsService
+
+    lokiRouter:
+      rule: "Host(`loki.b.blmx.de`)"
+      entryPoints: ["web-secure"]
+      tls:
+        certResolver: le
+      service: lokiService
+
+    grafanaRouter:
+      rule: "Host(`grafana.b.blmx.de`)"
+      entryPoints: ["web-secure"]
+      tls:
+        certResolver: le
+      service: grafanaService
 
   middlewares:
     httpsRedirect:
@@ -36,3 +71,27 @@ http:
         servers:
           - url: "http://homeassistant:8123"
 
+    uptimeKumaService:
+      loadBalancer:
+        servers:
+          - url: "http://a0d7b954-uptime-kuma:3001"
+
+    healtcheckIoService:
+      loadBalancer:
+        servers:
+          - url: "http://c1f54215-healthchecks:8000"
+
+    victoriaMetricsService:
+      loadBalancer:
+        servers:
+          - url: "http://c1f54215-victoriametrics:8428"
+
+    grafanaService:
+      loadBalancer:
+        servers:
+          - url: "http://a0d7b954-grafana:80"
+
+    lokiService:
+      loadBalancer:
+        servers:
+          - url: "http://c1f54215-grafana-loki:3100"

@@ -2,17 +2,12 @@
   mode: bridge
   port: 21100
   filter:
-    include_domains:
-      - light
     include_entities:
-      - switch.banana
-      - switch.monitor_hintergrund
-    exclude_entities:
+      - switch.gosund_banana_power
       - light.wohnzimmer
       - light.flur
       - light.schlafzimmer
       - light.bad
       - light.alle_lichter
-    exclude_entity_globs:
-      - light.*_decke_*
-      - light.*_spiegel_*
+      - light.wled_monitor
+      - light.wled_rack

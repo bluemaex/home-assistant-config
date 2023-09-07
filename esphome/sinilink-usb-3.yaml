@@ -1,0 +1,6 @@
+substitutions:
+  name: "sinilink-usb-3"
+  name_underscored: sinilink_usb_3
+  friendly_name: Sinilink USB 3
+
+<<: !include common/sinilink_usb.yaml

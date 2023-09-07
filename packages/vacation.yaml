@@ -80,3 +80,10 @@ automation:
       - service: switch.turn_off
         target:
           entity_id: switch.presence_simulation
+
+group:
+  presence:
+    name: Presence Simulation Group
+    entities:
+      - light.schlafzimmer_bett
+      - switch.gosund_banana_power

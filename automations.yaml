@@ -1,37 +1,135 @@
-- id: '1642513883937'
-  alias: Zigbee2MQTT - Magic Cube Wohnzimmer
-  description: ''
+- id: "1676927780826"
+  alias: Aqara Magic Cube MQTT Triggered
+  description: ""
   use_blueprint:
-    path: golles/zigbee2mqtt_aqara_magic_cube.yaml
+    path: SirGoodenough/Zigbee2MQTT-Xiaomi_Cube_Controller_MQTT_Triggered.yaml
     input:
-      remote: sensor.cube_wohnzimmer_action
-      rotate_left_side_0:
-      - service: media_player.volume_set
-        data:
-          volume_level: '{% set volume = state_attr(''media_player.denon_avr_x1200w'',
-            ''volume_level'') | float - 0.05 %} {% if volume > 0.03 %}{{volume}}{%
-            else %}0.03{% endif %}'
-        target:
-          entity_id: media_player.denon_avr_x1200w
-      rotate_right_side_0:
-      - service: media_player.volume_set
-        data:
-          volume_level: '{% set volume = state_attr(''media_player.denon_avr_x1200w'',
-            ''volume_level'') | float + 0.05 %} {% if volume < 0.40 %}{{volume}}{%
-            else %}0.40{% endif %}'
-        target:
-          entity_id: media_player.denon_avr_x1200w
-      tap_side_0:
-      - service: switch.toggle
-        target:
-          entity_id: switch.denon_qs1
-      rotate_right_side_5:
-      - device_id: 93f0e0715cbf2fa1bfec9c23d69d3ef2
-        domain: light
-        entity_id: light.wohnzimmer_decke
-        type: brightness_increase
-      rotate_left_side_5:
-      - device_id: 93f0e0715cbf2fa1bfec9c23d69d3ef2
-        domain: light
-        entity_id: light.wohnzimmer_decke
-        type: brightness_decrease
+      topic: zigbee2mqtt/Cube
+      rotate_cw_face_0:
+        - service: script.cube_dimmer_volume
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            media_player: media_player.denon_avr_x1200w
+      rotate_ccw_face_0:
+        - service: script.cube_dimmer_volume
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            media_player: media_player.denon_avr_x1200w
+      doubletap_face_0:
+        - service: switch.toggle
+          data: {}
+          target:
+            entity_id: switch.denon_qs4
+      rotate_cw_face_2:
+        - service: script.cube_dimmer_volume
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            media_player: media_player.denon_avr_x1200w
+      rotate_ccw_face_2:
+        - service: script.cube_dimmer_volume
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            media_player: media_player.denon_avr_x1200w
+      doubletap_face_2:
+        - service: switch.toggle
+          data: {}
+          target:
+            entity_id: switch.denon_stereo
+      rotate_cw_face_3:
+        - service: script.cube_dimmer_volume
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            media_player: media_player.denon_avr_x1200w
+      rotate_ccw_face_3:
+        - service: script.cube_dimmer_volume
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            media_player: media_player.denon_avr_x1200w
+      doubletap_face_3:
+        - service: switch.toggle
+          data: {}
+          target:
+            entity_id: switch.denon_qs1
+      rotate_cw_face_5:
+        - service: script.cube_dimmer_light
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            light: light.wohnzimmer_decke
+      rotate_ccw_face_5:
+        - service: script.cube_dimmer_light
+          data:
+            angle: "{{ trigger.payload_json.action_angle | float(0.0)}}"
+            light: light.wohnzimmer_decke
+      doubletap_face_5:
+        - service: light.toggle
+          data: {}
+          target:
+            entity_id: light.wohnzimmer_decke
+      doubletap_face_1:
+        - service: light.toggle
+          data: {}
+          target:
+            entity_id: light.wled_monitor
+- id: "1679693302359"
+  alias: ALLES AUS
+  description: ""
+  trigger: []
+  condition: []
+  action:
+    - if:
+        - condition: state
+          entity_id: switch.beamer_livingroom
+          state: "on"
+      then:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id: switch.beamer_livingroom
+    - parallel:
+        - service: switch.turn_off
+          data: {}
+          target:
+            entity_id:
+              - switch.gosund_banana_power
+              - switch.cloudlicht
+              - switch.monitorlicht
+        - service: light.turn_off
+          data:
+            transition: 1
+          target:
+            entity_id:
+              - light.alle_lichter
+              - light.wled_rack
+              - light.wled_couch
+              - light.wled_media
+              - light.wled_monitor
+        - service: media_player.turn_off
+          data: {}
+          target:
+            entity_id:
+              - media_player.denon_avr_x1200w
+        - service: media_player.media_stop
+          data: {}
+          target:
+            entity_id:
+              - media_player.homepod_schlafzimmer
+              - media_player.homepod_kuche
+              - media_player.maextv
+  mode: single
+- id: "1679864528808"
+  alias: Bettzeit
+  description: ""
+  trigger: []
+  condition: []
+  action:
+    - service: automation.trigger
+      data:
+        skip_condition: true
+      target:
+        entity_id: automation.alles_aus
+    - service: light.turn_on
+      data:
+        brightness: 50
+      target:
+        entity_id: light.schlafzimmer_bett
+  mode: single

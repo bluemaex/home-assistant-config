@@ -6,8 +6,8 @@
       - script.appletv_*
       - switch.homekit_*
     include_entities:
-      - scene.bettzeit
-      - scene.alles_aus
+      - automation.bettzeit
+      - automation.alles_aus
       - scene.coming_home
       - scene.movie_time
       - script.denon_etnfm

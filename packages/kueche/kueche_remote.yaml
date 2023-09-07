@@ -1,0 +1,42 @@
+input_text:
+  remote_kueche_spuele_last_event:
+    name: Remote Kueche Spuele Last Event
+    icon: mdi:remote
+
+automation:
+  - id: remote_kueche_spuele
+    alias: "Remote: Kueche Spuele"
+    use_blueprint:
+      path: EPMatt/ikea_e1743.yaml
+      input:
+        helper_last_controller_event: input_text.remote_kueche_spuele_last_event
+        integration: Zigbee2MQTT
+        controller_entity: sensor.remote_kueche_spuele_action
+        action_button_up_short:
+          - service: light.turn_on
+            data:
+              transition: 1
+            target:
+              entity_id: light.kueche
+        action_button_down_short:
+          - service: light.turn_off
+            data:
+              transition: 1
+            target:
+              entity_id: light.kueche
+        action_button_up_long:
+          - service: light.turn_on
+            data:
+              brightness_step_pct: 10
+            target:
+              entity_id: light.kueche
+        action_button_down_long:
+          - service: light.turn_on
+            data:
+              brightness_step_pct: -10
+            target:
+              entity_id: light.kueche
+        button_up_long_loop: true
+        button_down_long_loop: true
+        button_up_long_max_loop_repeats: 50
+        button_down_long_max_loop_repeats: 50

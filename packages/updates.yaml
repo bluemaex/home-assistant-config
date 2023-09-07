@@ -28,13 +28,8 @@ automation:
     alias: "Updates: Update Home-Assistant Minor version automatically"
     mode: single
     trigger:
-      - platform: state
-        entity_id:
-          - update.home_assistant_core_update
-        from: "off"
-        to: "on"
       - platform: time
-        at: "19:11:00"
+        at: "03:00:00"
     condition:
       - condition: template
         value_template: |-
@@ -53,25 +48,3 @@ automation:
           backup: true
         target:
           entity_id: update.home_assistant_core_update
-
-  - id: notification_hacs_updates
-    alias: "Updates: HACS updates pending as persistent notification"
-    trigger:
-      - platform: time
-        at: "14:00:00"
-      - platform: state
-        entity_id: sensor.hacs
-    condition:
-      - condition: template
-        value_template: "{{ states(trigger.entity_id) != 'unknown'}}"
-      - condition: template
-        value_template: "{{ (states(trigger.entity_id) | float(0)) != 0}}"
-    action:
-      - service: persistent_notification.create
-        data_template:
-          title: Updates pending in HACS
-          notification_id: hacs-update
-          message:
-            "{% for repo in state_attr(trigger.entity_id, 'repositories') %}\n\
-            \  **{{ repo.display_name }}** _{{ repo[\"installed_version\"] }}_ -> _{{\
-            \ repo[\"available_version\"] }}_\n{% endfor %}"

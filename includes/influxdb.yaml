@@ -1,89 +1,115 @@
+ssl: false
 host: !secret influxdb_host
 port: !secret influxdb_port
-database: !secret influxdb_database
-username: !secret influxdb_username
-password: !secret influxdb_password
-max_retries: 3
-default_measurement: state
-exclude:
+api_version: 1
+database: !secret influxdb_v1_db
+username: !secret influxdb_v1_user
+password: !secret influxdb_v1_pass
+max_retries: 5
+measurement_attr: entity_id
+
+tags_attributes:
+  - unit_of_measurement
+
+ignore_attributes:
+  - app_id
+  - app_name
+  - access_token
+  - assumed_state
+  - attribution
+  - auto_update
+  - color
+  - device_class
+  - device_file
+  - device_trackers
+  - editable
+  - effect
+  - effect_list
+  - entity_id
+  - entity_picture
+  - event
+  - forecast
+  - friendly_name
+  - frontend_stream_type
+  - has_date
+  - has_time
+  - hs_color
+  - id
+  - icon
+  - last_triggered
+  - level_config
+  - marker_type
+  - max
+  - max_color_temp_kelvin
+  - max_mireds
+  - media_content_type
+  - media_title
+  - media_artist
+  - media_album_name
+  - media_duration
+  - media_position
+  - media_position_updated_at
+  - min
+  - min_color_temp_kelvin
+  - min_mireds
+  - mode
+  - next_dawn
+  - next_dusk
+  - next_midnight
+  - next_noon
+  - next_rising
+  - next_setting
+  - on_level
+  - options
+  - pattern
+  - power_on_behavior
+  - precipitation_unit
+  - preset_modes
+  - pressure_unit
+  - release_summary
+  - release_url
+  - rgb_color
+  - skipped_version
+  - source_list
+  - state_class
+  - state_closed
+  - state_open
+  - stateExtra
+  - step
+  - source
+  - sound_mode
+  - sound_mode_list
+  - sound_mode_raw
+  - supported_color_modes
+  - supported_features
+  - temperature_unit
+  - unit_of_measurement
+  - unitOfMeasure
+  - user_id
+  - visibility_unit
+  - wind_speed_unit
+  - writable
+  - xy_color
+
+include:
+  domains:
+    - zone
+    - weather
+    - sun
+    - person
+    - media_player
+
   entities:
-    - sun.sun
-    - sensor.date
-    - sensor.time
-    - sensor.hacs
-    - sensor.timestamp_start_of_today
-    - sensor.uptime
-    - sensor.mariadb_size
-    - sensor.lovelace_size
+    - sensor.ha_entities_count
 
-  entity_globs:
-    - sensor.*_status
-    - sensor.*_tx
-    - sensor.*_rx
-    - sensor.*_storage
-    - sensor.*_energy_reactivepower
-    - sensor.*_energy_apparentpower
-    - sensor.*_energy_factor
-    - sensor.*_energy_totalstarttime
-    - sensor.*_energy_total
-    - sensor.*_energy_yesterday
-    - sensor.brother_hl_l2370dn*
-    - sensor.hl_l2370dn*
-    - automation.shellies_*
-    - sensor.*_tx
-    - sensor.*_rx
-    - sensor.*_status
-    - sensor.*_rssi
-    - sensor.energy_*
-    - sensor.ble_rssi_*
-    - binary_sensor.*_button1
-    - sensor.network_in_*
-    - sensor.network_out_*
-    - sensor.load_*
-    - sensor.disk_*
-    - sensor.processor_*
-    - sensor.memory_*
-
-component_config_glob:
-  automation.*:
-    override_measurement: automation
-  # media related
-  media_player.*:
-    override_measurement: media
-  switch.denon_*:
-    override_measurement: media
-  remote.*:
-    override_measurement: media
-  script.appletv_*:
-    override_measurement: media
-  script.denon_*:
-    override_measurement: media
-  # tracker
-  person.*:
-    override_measurement: tracker
-  group.residents:
-    override_measurement: tracker
-  group.person_*:
-    override_measurement: tracker
-  device_tracker.*:
-    override_measurement: tracker
-  sensor.minimaex_*:
-    override_measurement: tracker
-  sensor.maexpad_*:
-    override_measurement: tracker
-  sensor.maexmini_*:
-    override_measurement: tracker
-  sensor.maexphone_*:
-    override_measurement: tracker
-  # humidity
-  sensor.ble_xiaomi_*_humidity:
-    override_measurement: humidity
-  sensor.ble_xiaomi_*_temperature:
-    override_measurement: temperature
-  # battery
-  sensor.ble_xiaomi_*_battery:
-    override_measurement: battery
-  sensor.shelly_*_battery:
-    override_measurement: battery
-  sensor.*_battery_level:
-    override_measurement: battery
+component_config_domain:
+  zone:
+    override_measurement: homeassistant_influx_zone
+  weather:
+    override_measurement: homeassistant_influx_weather
+  sun:
+    override_measurement: homeassistant_influx_sun
+  person:
+    override_measurement: homeassistant_influx_person
+  media_player:
+    override_measurement: homeassistant_influx_mediaplayer

@@ -1,0 +1,7 @@
+external_components:
+  - source: github://TheStaticTurtle/esphome_syslog
+    components: [syslog]
+
+syslog:
+  ip_address: !secret syslog_ip
+  port: !secret syslog_port

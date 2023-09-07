@@ -13,7 +13,7 @@ from homeassistant.components.recorder import get_instance
 import homeassistant.util.dt as dt_util
 from homeassistant.const import EVENT_HOMEASSISTANT_START
 try:
-    from homeassistant.components.recorder.db_schema import States, StateAttributes
+    from homeassistant.components.recorder.db_schema import States, StateAttributes, StatesMeta
 except ImportError:
     from homeassistant.components.recorder.models import States, StateAttributes
 from homeassistant.components.recorder.const import DATA_INSTANCE
@@ -164,13 +164,6 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
         if is_running():
             _LOGGER.warning("Presence simulation already running. Doing nothing")
             return
-        running = True
-        #turn on the switch. Not calling turn_on() to avoid calling the start service again
-        entity.internal_turn_on()
-        _LOGGER.debug("setting restore states %s", overridden_restore)
-        await entity.set_restore_states(overridden_restore)
-        await entity.set_random(overridden_random)
-        _LOGGER.debug("Presence simulation started")
 
         current_date = datetime.now(timezone.utc)
         #compute the start date that will be used in the query to get the historic of the entities
@@ -180,15 +173,24 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
             expanded_entities = await async_expand_entities(overridden_entities)
         except Exception as e:
             _LOGGER.error("Error during identifing entities: "+overridden_entities)
-            running = False
-            entity.internal_turn_off()
             return
 
         if len(expanded_entities) == 0:
             _LOGGER.error("Error during identifing entities, no valid entities has been found")
-            running = False
-            entity.internal_turn_off()
             return
+
+        _LOGGER.debug("setting restore states %s", overridden_restore)
+        await entity.set_restore_states(overridden_restore)
+        await entity.set_random(overridden_random)
+        await entity.set_entities(expanded_entities)
+        await entity.set_delta(overridden_delta)
+        # turn on the switch. Not calling turn_on() to avoid calling the start
+        # service again.  Turn on switch only after setting the important
+        # attributes necessary to restore state upon HA restart, so
+        # we don't end up in a situation in which the simulation is marked
+        # as running, but the necessary attributes aren't set correctly.
+        entity.internal_turn_on()
+        _LOGGER.debug("Presence simulation started")
 
         if not restart:
             #set attribute on the switch
@@ -210,8 +212,6 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
                 except Exception as e:
                     _LOGGER.error("Scene could not be created, continue without the restore functionality: %s", e)
 
-        await entity.set_entities(expanded_entities)
-        await entity.set_delta(overridden_delta)
         _LOGGER.debug("Getting the historic from %s for %s", minus_delta, expanded_entities)
         await get_instance(hass).async_add_executor_job(handle_presence_simulation_sync, hass, call, minus_delta, expanded_entities, overridden_delta, overridden_random, entities_after_restart, delta_after_restart)
 
@@ -250,10 +250,10 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
         start_plus_delta = datetime.now(timezone.utc) + timedelta(overridden_delta)
         while is_running():
             #sleep until the 'delay' is passed
-            await asyncio.sleep(interval)
-            now = datetime.now(timezone.utc)
-            if now > start_plus_delta:
+            secs_left = (start_plus_delta - datetime.now(timezone.utc)).total_seconds()
+            if secs_left <= 0:
                 break
+            await asyncio.sleep(min(secs_left, interval))
 
         if is_running():
             _LOGGER.debug("%s has passed, presence simulation is relaunched", overridden_delta)
@@ -264,24 +264,37 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
     async def simulate_single_entity(entity_id, hist, overridden_delta, overridden_random):
         """This method will replay the historic of one entity received in parameter"""
         _LOGGER.debug("Simulate one entity: %s", entity_id)
-        for state in hist: #hypothsis: states are ordered chronologically
+
+        for idx, state in enumerate(hist): #hypothsis: states are ordered chronologically
             _LOGGER.debug("State %s", state.as_dict())
-            _LOGGER.debug("Switch of %s foreseen at %s", entity_id, state.last_updated+timedelta(overridden_delta))
+            try:
+                _last_updated = state.last_updated_ts
+            except:
+                _last_updated = state.last_updated
+            _LOGGER.debug("Switch of %s foreseen at %s", entity_id, _last_updated+timedelta(overridden_delta))
             #get the switch entity
             entity = hass.data[DOMAIN][SWITCH_PLATFORM][SWITCH]
-            await entity.async_add_next_event(state.last_updated+timedelta(overridden_delta), entity_id, state.state)
+            await entity.async_add_next_event(_last_updated+timedelta(overridden_delta), entity_id, state.state)
 
-            #a while with sleeps of _interval_ seconds is used here instead of a big sleep to check regulary the is_running() parameter
-            #and therefore stop the task as soon as the service has been stopped
-            random_delta = random.uniform(-overridden_random, overridden_random) # random number in seconds
-            _LOGGER.debug("Randomize the event of %s seconds", random_delta)
-            random_delta = random_delta / 60 / 60 / 24 # random number in days
+            target_time = _last_updated + timedelta(overridden_delta)
+            # Because we called get_significant_states with include_start_time_state=True
+            # the first element in hist should be the state at the start of the
+            # simulation (unless HA has restarted recently - see recorder/history.py and RecorderRuns)
+            # Do not add jitter to that first state time (which should be now anyways)
+            if idx > 0:
+                random_delta = random.uniform(-overridden_random, overridden_random) # random number in seconds
+                _LOGGER.debug("Randomize the event of %s seconds", random_delta)
+                random_delta = random_delta / 60 / 60 / 24 # random number in days
+                target_time += timedelta(random_delta)
+
+            # Rather than a single sleep until target_time, periodically check to see if
+            # the simulation has been stopped.
             while is_running():
-                minus_delta = datetime.now(timezone.utc) + timedelta(-overridden_delta) + timedelta(random_delta)
-                if state.last_updated <= minus_delta:
-                    break
                 #sleep as long as the event is not in the past
-                await asyncio.sleep(interval)
+                secs_left = (target_time - datetime.now(timezone.utc)).total_seconds()
+                if secs_left <= 0:
+                    break
+                await asyncio.sleep(min(secs_left, interval))
             if not is_running():
                 return # exit if state is false
             #call service to turn on/off the light
@@ -316,8 +329,18 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
             if "brightness" in state.attributes:
                 _LOGGER.debug("Got attribute brightness: %s", state.attributes["brightness"])
                 service_data["brightness"] = state.attributes["brightness"]
-            if "rgb_color" in state.attributes:
-                service_data["rgb_color"] = state.attributes["rgb_color"]
+            # Preserve accurate color information, where applicable
+            # see https://developers.home-assistant.io/docs/core/entity/light/#color-modes
+            # see https://developers.home-assistant.io/docs/core/entity/light/#turn-on-light-device
+            if "color_mode" in state.attributes:
+                _LOGGER.debug("Got attribute color_mode: %s", state.attributes["color_mode"])
+                color_mode = state.attributes["color_mode"]
+                # color_temp is the only color mode with an attribute that's not color_mode+"_color"
+                if color_mode != "color_temp":
+                    # Attribute color_mode will be xy, hs, rgb...
+                    color_mode = color_mode+"_color"
+                if color_mode in state.attributes:
+                    service_data[color_mode] = state.attributes[color_mode]
             if state.state == "on" or state.state == "off":
                 await hass.services.async_call("light", "turn_"+state.state, service_data, blocking=False)
             else:
@@ -385,12 +408,19 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
               entities_after_restart = previous_attribute['entity_id'],
               delta_after_restart = previous_attribute["delta"],
               random_after_restart = previous_attribute["random"])
+        else:
+            _LOGGER.debug("Setting switch to off")
+            # Finish initializing switch state
+            entity = hass.data[DOMAIN][SWITCH_PLATFORM][SWITCH]
+            entity.internal_turn_off()
 
     def _restore_state_sync(previous_attribute):
         _LOGGER.debug("In restore State Sync")
 
         session = hass.data[DATA_INSTANCE].get_session()
-        result = session.query(States.state, StateAttributes.shared_attrs).filter(States.attributes_id == StateAttributes.attributes_id).filter(States.entity_id == SWITCH_PLATFORM+"."+SWITCH).order_by(States.last_updated.desc()).limit(1)
+        result = session.query(States.state, StateAttributes.shared_attrs).join(StatesMeta).filter(States.attributes_id == StateAttributes.attributes_id).filter(States.metadata_id == StatesMeta.metadata_id).filter(StatesMeta.entity_id == SWITCH_PLATFORM+"."+SWITCH).order_by(States.last_updated_ts.desc()).limit(1)
+
+        # result[0] is a tuple of (state, attributes-json)
         if result.count() > 0 and result[0][0] == "on":
           previous_attribute["was_running"] = True
           _LOGGER.debug("Simulation was on before last shutdown, restarting it.")
@@ -404,7 +434,11 @@ async def async_mysetup(hass, entities, deltaStr, refreshInterval, restoreParam,
             previous_attribute['random'] = resultJson['random']
           else:
             previous_attribute['random'] = addRandomTime
-          previous_attribute['entity_id'] = resultJson['entity_id']
+          if 'entity_id' in resultJson:
+              previous_attribute['entity_id'] = resultJson['entity_id']
+          else:
+              _LOGGER.error("In _restore_state_sync, entity_id attribute missing")
+              previous_attribute["was_running"] = False
         else:
           previous_attribute["was_running"] = False
 

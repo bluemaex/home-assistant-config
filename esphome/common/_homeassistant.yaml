@@ -1,0 +1,13 @@
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret api_password
+
+  # Enable over-the-air updates
+ota:
+  password: !secret ota_password
+
+# Sync time with Home Assistant
+time:
+  - platform: homeassistant
+    id: homeassistant_time

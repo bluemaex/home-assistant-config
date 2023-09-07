@@ -37,7 +37,7 @@
 # bewegungscounter
 - platform: history_stats
   name: Bad Bewegungszähler Heute
-  entity_id: binary_sensor.shelly_motion_bad_motion
+  entity_id: binary_sensor.motion_bad_occupancy
   state: "on"
   type: count
   start: "{{ states('sensor.timestamp_start_of_today') | float(0) }}"

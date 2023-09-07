@@ -1,0 +1,6 @@
+substitutions:
+  name: "sinilink-cloudlicht"
+  name_underscored: sinilink_cloudlicht
+  friendly_name: USB Power Cloudlicht
+
+<<: !include common/sinilink_usb.yaml

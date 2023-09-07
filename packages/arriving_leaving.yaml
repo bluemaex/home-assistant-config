@@ -10,11 +10,10 @@ switch:
         #value_template: "{{ is_state('group.residents', 'home') }}"
         turn_on:
           - event: homekit_arriving
-            event_data: {}
+            event_data: { actor: "homekit" }
         turn_off:
-          - service: script.turn_on
-            target:
-              entity_id: script.leaving_turnoff_chooser
+          - event: homekit_leaving
+            event_data: { actor: "homekit" }
         icon_template: >-
           {% if is_state('group.residents', 'home') %}
             mdi:home-lightbulb
@@ -31,12 +30,16 @@ automation:
     trigger:
       - platform: event
         event_type: homekit_leaving
+      - platform: state
+        entity_id:
+          - group.residents
+        from: home
+        for:
+          minutes: 10
     action:
-      - service: scene.turn_on
+      - service: script.turn_on
         target:
-          entity_id: scene.alles_aus
-        data:
-          transition: 2
+          entity_id: script.leaving_turnoff_chooser
     mode: single
 
   - id: arriving_at_home
@@ -44,21 +47,33 @@ automation:
     trigger:
       - platform: event
         event_type: homekit_arriving
+      - platform: state
+        entity_id:
+          - group.residents
+        to: home
     condition:
       - condition: state
         entity_id: input_boolean.guest_mode
         state: "off"
     action:
-      - service: scene.turn_on
-        target:
-          entity_id: scene.coming_home
-        data:
-          transition: 2
+      - if:
+          - condition: sun
+            before: sunset
+            before_offset: "-00:45:00"
+        then:
+          - service: scene.turn_on
+            target:
+              entity_id: scene.coming_home
+            metadata: {}
+        else:
+          - service: scene.turn_on
+            target:
+              entity_id: scene.coming_home_after_sunset
+            metadata: {}
       - service: notify.max
         data:
           title: Welcome Home
-          message: >-
-            Welcome Back!
+          message: Welcome Back!
     mode: single
 
 #
@@ -125,8 +140,11 @@ script:
               - condition: template
                 value_template: "{{ wait.trigger.event.data.action == action_turnoff }}"
             sequence:
-              - event: homekit_leaving
-                event_data: {}
+              - service: automation.trigger
+                data:
+                  skip_condition: true
+                target:
+                  entity_id: automation.alles_aus
           - conditions:
               - condition: template
                 value_template: "{{ wait.trigger.event.data.action == action_guestmode }}"
@@ -146,5 +164,8 @@ script:
           - condition: state
             entity_id: input_boolean.guest_mode
             state: "off"
-          - event: homekit_leaving
-            event_data: {}
+          - service: automation.trigger
+            data:
+              skip_condition: true
+            target:
+              entity_id: automation.alles_aus

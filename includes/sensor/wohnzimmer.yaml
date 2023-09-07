@@ -34,11 +34,11 @@
   max_age:
     minutes: 5
 
-# bewegungscounter
-- platform: history_stats
-  name: Wohnzimmer Bewegungszähler Heute
-  entity_id: binary_sensor.motion_wohnzimmer_occupancy
-  state: "on"
-  type: count
-  start: "{{ states('sensor.timestamp_start_of_today') | float(0) }}"
-  end: "{{ now() }}"
+# # bewegungscounter
+# - platform: history_stats
+#   name: Wohnzimmer Bewegungszähler Heute
+#   entity_id: binary_sensor.motion_wohnzimmer_occupancy
+#   state: "on"
+#   type: count
+#   start: "{{ states('sensor.timestamp_start_of_today') | float(0) }}"
+#   end: "{{ now() }}"

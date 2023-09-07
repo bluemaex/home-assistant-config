@@ -1,7 +1,7 @@
 input_number:
   battery_low_threshold:
     name: Battery Low Threshold
-    initial: 20
+    initial: 15
     min: 5
     max: 50
 

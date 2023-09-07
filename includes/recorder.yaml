@@ -12,6 +12,8 @@ exclude:
     - sensor.uptime
     - sensor.mariadb_size
     - sensor.lovelace_size
+    - sensor.presence_wohnzimmer_target_distance
+    - sensor.presence_bad_target_distance
 
   entity_globs:
     - automation.shellies_*
@@ -38,7 +40,3 @@ exclude:
     - binary_sensor.*_button1
     - sensor.network_in_*
     - sensor.network_out_*
-    - sensor.load_*
-    - sensor.disk_*
-    - sensor.processor_*
-    - sensor.memory_*

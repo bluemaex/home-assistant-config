@@ -1,0 +1,83 @@
+<<: !include _wifi.yaml
+<<: !include _syslog.yaml
+<<: !include _webserver.yaml
+<<: !include _homeassistant.yaml
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+  platform: ESP8266
+  board: esp01_1m
+
+logger:
+  level: debug
+
+button:
+  - platform: restart
+    name: Restart
+    entity_category: diagnostic
+    icon: mdi:restart
+
+  - platform: safe_mode
+    name: Safe mode restart
+    entity_category: diagnostic
+    icon: mdi:restart-alert
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
+  - platform: uptime
+    name: Uptime
+
+# Blue LED
+status_led:
+  pin:
+    number: GPIO16
+
+switch:
+  # Relay
+  - platform: gpio
+    id: relay
+    pin: GPIO5
+
+  # Green LED
+  - platform: gpio
+    pin: GPIO14
+    id: green_led
+    inverted: true # start on
+
+  # Switch template to link relay and green LED states
+  # LED is on when relay is off
+  - platform: template
+    id: ${name_underscored}
+    name: Switch
+    lambda: |-
+      if (id(relay).state) {
+          return true;
+      } else {
+          return false;
+      }
+      turn_on_action:
+          - switch.turn_on:
+              id: green_led
+          - switch.turn_on:
+              id: relay
+      turn_off_action:
+          - switch.turn_off:
+              id: green_led
+          - switch.turn_off:
+              id: relay
+
+# Button
+binary_sensor:
+  - platform: gpio
+    id: ${name_underscored}_button
+    pin:
+    number: GPIO04
+    mode: INPUT_PULLUP
+    inverted: True
+    on_press:
+      - switch.toggle: "${name_underscored}"

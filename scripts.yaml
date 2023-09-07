@@ -3,93 +3,111 @@ appletv_main:
   icon: mdi:menu
   mode: single
   sequence:
-    - data:
-        command: menu
-        device: apple_remote_ir
-        hold_secs: 3
-      service: remote.send_command
-      target:
-        entity_id: remote.rm3_wohnzimmer_remote
-    - delay: 00:00:02
+  - data:
+      command: menu
+      device: apple_remote_ir
+      hold_secs: 3
+    service: remote.send_command
+    target:
+      entity_id: remote.rm3_wohnzimmer_remote
+  - delay: 00:00:02
 appletv_jellyfin:
   alias: AppleTV - Jellyfin
   icon: mdi:movie
   mode: single
   sequence:
-    - service: media_player.select_source
-      target:
-        entity_id: media_player.maextv
-      data:
-        source: Infuse
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.maextv
+    data:
+      source: Infuse
 appletv_netflix:
   alias: AppleTV - Netflix
   icon: mdi:netflix
   mode: single
   sequence:
-    - service: media_player.select_source
-      target:
-        entity_id: media_player.maextv
-      data:
-        source: Netflix
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.maextv
+    data:
+      source: Netflix
 appletv_youtube:
   alias: AppleTV - Youtube
   icon: mdi:youtube
   mode: single
   sequence:
-    - service: media_player.select_source
-      data:
-        source: YouTube
-      target:
-        entity_id: media_player.maextv
+  - service: media_player.select_source
+    data:
+      source: YouTube
+    target:
+      entity_id: media_player.maextv
 appletv_prime:
   alias: AppleTV - Prime
   icon: mdi:television-classic
   mode: single
   sequence:
-    - service: media_player.select_source
-      data:
-        source: Prime Video
-      target:
-        entity_id: media_player.maextv
+  - service: media_player.select_source
+    data:
+      source: Prime Video
+    target:
+      entity_id: media_player.maextv
 denon_etnfm:
   alias: DENON - ETN.fm
   icon: mdi:radio
   mode: single
   sequence:
-    - service: remote.send_command
-      data:
-        device: denonavr
-        command: quick_1
-        num_repeats: 1
-        entity_id: remote.rm3_wohnzimmer_remote
-    - delay: 00:00:30
-    - condition: state
-      entity_id: switch.denon_qs1
-      state: "off"
-    - service: remote.send_command
-      data:
-        device: denonavr
-        command: quick_1
-        num_repeats: 1
-        entity_id: remote.rm3_wohnzimmer_remote
-denon_sunshine90:
-  alias: DENON - Sunshine Live 90er
-  icon: mdi:radio
+  - service: remote.send_command
+    data:
+      device: denonavr
+      command: quick_1
+      num_repeats: 1
+      entity_id: remote.rm3_wohnzimmer_remote
+  - delay: 00:00:30
+  - condition: state
+    entity_id: switch.denon_qs1
+    state: 'off'
+  - service: remote.send_command
+    data:
+      device: denonavr
+      command: quick_1
+      num_repeats: 1
+      entity_id: remote.rm3_wohnzimmer_remote
+cube_dimmer_light:
+  alias: Cube Dimmer Light
   mode: single
+  description: Template Dimmer Control
+  variables:
+    angle:
+    light:
   sequence:
-    - service: remote.send_command
-      data:
-        device: denonavr
-        command: quick_4
-        num_repeats: 1
-        entity_id: remote.rm3_wohnzimmer_remote
-    - delay: 00:00:30
-    - condition: state
-      entity_id: switch.denon_qs4
-      state: "off"
-    - service: remote.send_command
-      data:
-        device: denonavr
-        command: quick_4
-        num_repeats: 1
-        entity_id: remote.rm3_wohnzimmer_remote
+  - service: light.turn_on
+    data_template:
+      entity_id: '{{ light }}'
+      brightness_pct: "{% set step_size = angle * 0.4 %}\n  {# Get brightness as a
+        percent. #}\n{% set cb = (state_attr( light, 'brightness') | float(10) / 255.0)
+        * 100.0 %} {% set new_brightness = cb | int(10) + step_size %} {% if new_brightness
+        < 5 %}\n  {# If it gets really low set to 0. Adjust if needed for your lights.
+        #}\n  0\n{% elif new_brightness <= 10 %}\n  {# If it's not quite 0, set to
+        a minimum working brightness. #}\n  10\n{% elif 91 <= new_brightness < (90
+        + step_size) %}\n  {# If it's almost full brightness, set to 100%. #}\n  100\n{%
+        else %}\n  {# Send actual calculated value. #}\n  {{ new_brightness }}\n{%
+        endif %}\n"
+  icon: mdi:brightness-percent
+cube_dimmer_volume:
+  alias: Cube Dimmer Volume
+  sequence:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: '{{ media_player }}'
+      volume_level: "{% if angle <= 0 %}{% set step_size = step_size | float (0.05)
+        * -1 %}{% endif %}  {% set new_volume = state_attr(media_player, 'volume_level')
+        | float(10) + step_size %} {% if new_volume < 0 %}\n  0\n{% elif new_volume
+        <= 0.45 %}\n  {{ new_volume }}\n{% else %}\n  {{ maximal }}\n{% endif %}\n"
+  mode: single
+  description: Template Dimmer Volume
+  variables:
+    angle: 0
+    maximal: 0.42
+    step_size: 0.05
+    media_player: media_player.denon_avr_x1200w
+  icon: mdi:volume-equal

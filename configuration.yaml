@@ -5,6 +5,7 @@ websocket_api:
 # base
 homeassistant: !include includes/homeassistant.yaml
 influxdb: !include includes/influxdb.yaml
+prometheus: !include includes/prometheus.yaml
 recorder: !include includes/recorder.yaml
 logger: !include includes/logger.yaml
 http: !include includes/http.yaml
@@ -27,6 +28,8 @@ homekit: !include_dir_merge_list includes/homekit
 zone: !include includes/zone.yaml
 person: !include includes/person.yaml
 telegram_bot: !include includes/telegram_bot.yaml
+template: !include_dir_merge_list includes/templates
+powercalc: !include includes/powercalc.yaml
 
 # managed via web ui
 automation ui: !include automations.yaml

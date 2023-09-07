@@ -1,0 +1,196 @@
+substitutions:
+  device_name: Flexispot
+  name: flexispot
+  min_height: "70.1" # Min height + 0.1
+  max_height: "110.1" # Max height - 0.1
+
+esphome:
+  name: ${name}
+  comment: ${device_name}
+  platform: ESP8266
+  board: d1_mini
+  includes:
+    - flexispot/desk_height_sensor.h
+
+<<: !include common/_wifi.yaml
+<<: !include common/_syslog.yaml
+<<: !include common/_webserver.yaml
+<<: !include common/_homeassistant.yaml
+
+logger:
+  level: DEBUG
+
+interval:
+  - interval: 30s
+    then:
+      - switch.turn_on: switch_wake_up
+
+uart:
+  id: desk_uart
+  baud_rate: 9600
+  tx_pin: D5
+  rx_pin: D6
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
+  - platform: uptime
+    name: Uptime
+
+  - platform: custom
+    lambda: |-
+      auto desk_height_sensor = new DeskHeightSensor(id(desk_uart));
+      App.register_component(desk_height_sensor);
+      return {desk_height_sensor};
+    sensors:
+      id: "desk_height"
+      name: Desk Height
+      unit_of_measurement: cm
+      accuracy_decimals: 1
+      icon: "mdi:counter"
+
+switch:
+  - platform: gpio
+    name: "Virtual Screen"
+    pin:
+      number: D2
+      mode: OUTPUT
+    restore_mode: ALWAYS_ON
+    internal: true
+
+  - platform: uart
+    name: "(wake up)" # Not available on all control panels
+    id: switch_wake_up
+    icon: mdi:gesture-tap-button
+    data: [0x9b, 0x06, 0x02, 0x00, 0x00, 0x6c, 0xa1, 0x9d]
+    uart_id: desk_uart
+    internal: true
+
+  - platform: uart
+    name: "M"
+    id: switch_m
+    icon: mdi:alpha-m-circle
+    data: [0x9b, 0x06, 0x02, 0x20, 0x00, 0xac, 0xb8, 0x9d]
+    uart_id: desk_uart
+
+  - platform: uart
+    name: "Preset 1"
+    id: switch_preset1
+    icon: mdi:numeric-1-box
+    data: [0x9b, 0x06, 0x02, 0x04, 0x00, 0xac, 0xa3, 0x9d]
+    uart_id: desk_uart
+
+  - platform: uart
+    name: "Preset 2"
+    id: switch_preset2
+    icon: mdi:numeric-2-box
+    data: [0x9b, 0x06, 0x02, 0x08, 0x00, 0xac, 0xa6, 0x9d]
+    uart_id: desk_uart
+
+  - platform: uart
+    name: "Sit" # Preset 3 on some control panels
+    id: switch_sit
+    icon: mdi:chair-rolling
+    data: [0x9b, 0x06, 0x02, 0x00, 0x01, 0xac, 0x60, 0x9d]
+    uart_id: desk_uart
+
+  - platform: uart
+    name: "Stand" # Not available for all control panels
+    id: switch_stand
+    icon: mdi:human-handsup
+    data: [0x9b, 0x06, 0x02, 0x10, 0x00, 0xac, 0xac, 0x9d]
+    uart_id: desk_uart
+
+  - platform: uart
+    name: "Up"
+    id: switch_up
+    icon: mdi:arrow-up-bold
+    data: [0x9b, 0x06, 0x02, 0x01, 0x00, 0xfc, 0xa0, 0x9d]
+    uart_id: desk_uart
+    #internal: true
+
+  - platform: uart
+    name: "Down"
+    id: switch_down
+    icon: mdi:arrow-down-bold
+    data: [0x9b, 0x06, 0x02, 0x02, 0x00, 0x0c, 0xa0, 0x9d]
+    uart_id: desk_uart
+    #internal: true
+
+cover:
+  - platform: template
+    has_position: true
+    id: desk_cover
+    icon: mdi:human-male-height-variant
+    name: "Desk"
+    device_class: blind
+    optimistic: true
+    assumed_state: false
+
+    open_action:
+      - while:
+          condition:
+            sensor.in_range:
+              id: desk_height
+              below: ${max_height}
+          then:
+            - logger.log: "Executing up command"
+            - cover.template.publish:
+                id: desk_cover
+                current_operation: OPENING
+            - switch.turn_on: switch_up
+            - delay: 100ms
+
+    close_action:
+      - while:
+          condition:
+            sensor.in_range:
+              id: desk_height
+              above: ${min_height}
+          then:
+            - cover.template.publish:
+                id: desk_cover
+                current_operation: CLOSING
+            - logger.log: "Executing down command"
+            - switch.turn_on: switch_down
+            - delay: 10ms
+
+    position_action:
+      if:
+        condition:
+          # Current height is more than target height, then move desk down
+          lambda: |-
+            float position = (float(id(desk_height).state) - float(${min_height})) / (float(${max_height}) - float(${min_height}));
+            return pos < position;
+        then:
+          - logger.log: "Schreibtisch muss runter gefahren werden"
+          - while:
+              condition:
+                # Move down till the current height is smaller then the target height
+                lambda: |-
+                  float position = (float(id(desk_height).state) - float(${min_height})) / (float(${max_height}) - float(${min_height}));
+                  return pos < position;
+              then:
+                - logger.log: "Executing down command"
+                - cover.template.publish:
+                    id: desk_cover
+                    current_operation: CLOSING
+                - switch.turn_on: switch_down
+                - delay: 10ms
+        else:
+          - logger.log: "Schreibtisch muss hoch gefahren werden"
+          - while:
+              condition:
+                # Move up till the current height is bigger then the target height
+                lambda: |-
+                  float position = (float(id(desk_height).state) - float(${min_height})) / (float(${max_height}) - float(${min_height}));
+                  return pos > position;
+              then:
+                - logger.log: "Executing up command"
+                - cover.template.publish:
+                    id: desk_cover
+                    current_operation: OPENING
+                - switch.turn_on: switch_up
+                - delay: 10ms

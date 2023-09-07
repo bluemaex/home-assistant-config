@@ -47,7 +47,7 @@ automation:
           entity_id: input_boolean.homekit_wakeup_automation_state
       - service: media_player.media_play
         target:
-          entity_id: media_player.schlafzimmer
+          entity_id: media_player.homepod_schlafzimmer
       - service: cover.open_cover
         data: {}
         target:

@@ -1,107 +1,1343 @@
 - id: "1598285429149"
-  name: Coming Home
-  icon: mdi:home-import-outline
+  name: Coming Home During Sun
   entities:
-    light.schlafzimmer_bett:
-      brightness: 38
-      color_temp: 370
-      state: "on"
-    light.wohnzimmer_decke:
-      brightness: 189
-      state: "on"
     light.flur_ecke:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+        - blink
+        - breathe
+        - okay
+        - channel_change
+        - finish_effect
+        - stop_effect
+      supported_color_modes:
+        - color_temp
+        - xy
+      color:
+        x: 0.4599
+        y: 0.4106
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior: "on"
+      update:
+        installed_version: 587806257
+        latest_version: 587806257
+        state: idle
+      update_available: false
+      friendly_name: Flur Ecke
+      supported_features: 44
+      color_mode: color_temp
       brightness: 26
+      hs_color:
+        - 28.391
+        - 65.659
+      rgb_color:
+        - 255
+        - 166
+        - 87
+      xy_color:
+        - 0.526
+        - 0.387
+      color_temp_kelvin: 2702
       color_temp: 370
-      state: "on"
-    switch.banana:
-      icon: mdi:monitor
-      state: "on"
-    switch.monitor_hintergrund:
-      friendly_name: Monitor Hintergrundlicht
-      icon: mdi:monitor
       state: "on"
     switch.denon_qs1:
       icon: mdi:radio
+      friendly_name: DENON ETN.fm
       state: "on"
-- id: "1598132687768"
-  name: Movie Time
-  icon: mdi:theater
+  icon: mdi:home-import-outline
+- id: "1598285429155"
+  name: Coming Home After Sunset
   entities:
-    switch.beamer_livingroom:
-      friendly_name: Beamer Wohnzimmer
-      icon: mdi:projector
+    light.schlafzimmer_bett:
+      effect_list:
+        - blink
+        - breathe
+        - okay
+        - channel_change
+        - finish_effect
+        - stop_effect
+      supported_color_modes:
+        - brightness
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior:
+      update:
+        installed_version: 587753009
+        latest_version: 587753009
+        state: idle
+      update_available: false
+      friendly_name: Schlafzimmer Bett
+      supported_features: 44
+      color_mode: brightness
+      brightness: 38
       state: "on"
     light.wohnzimmer_decke:
-      friendly_name: Wohnzimmer Deckenlicht
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+        - blink
+        - breathe
+        - okay
+        - channel_change
+        - finish_effect
+        - stop_effect
+      supported_color_modes:
+        - color_temp
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior: "on"
+      update:
+        installed_version: 587814449
+        latest_version: 587814449
+        state: idle
+      update_available: false
+      friendly_name: Wohnzimmer Decke
+      supported_features: 44
+      color_mode: color_temp
+      brightness: 187
+      color_temp_kelvin: 2702
+      color_temp: 370
+      hs_color:
+        - 28.391
+        - 65.659
+      rgb_color:
+        - 255
+        - 166
+        - 87
+      xy_color:
+        - 0.526
+        - 0.387
+      state: "on"
+    light.flur_ecke:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+        - blink
+        - breathe
+        - okay
+        - channel_change
+        - finish_effect
+        - stop_effect
+      supported_color_modes:
+        - color_temp
+        - xy
+      color:
+        x: 0.4599
+        y: 0.4106
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior: "on"
+      update:
+        installed_version: 587806257
+        latest_version: 587806257
+        state: idle
+      update_available: false
+      friendly_name: Flur Ecke
+      supported_features: 44
+      color_mode: color_temp
+      brightness: 26
+      hs_color:
+        - 28.391
+        - 65.659
+      rgb_color:
+        - 255
+        - 166
+        - 87
+      xy_color:
+        - 0.526
+        - 0.387
+      color_temp_kelvin: 2702
+      color_temp: 370
+      state: "on"
+    switch.gosund_banana_power:
+      friendly_name: Banana
+      state: "on"
+    switch.monitorlicht:
+      friendly_name: Monitor-Frontlight
+      state: "on"
+    switch.denon_qs1:
+      icon: mdi:radio
+      friendly_name: DENON ETN.fm
+      state: "on"
+    light.wled_media:
+      effect_list:
+        - Akemi
+        - Android
+        - Aurora
+        - Black Hole
+        - Blends
+        - Blink
+        - Blink Rainbow
+        - Blobs
+        - Blurz
+        - Bouncing Balls
+        - Bpm
+        - Breathe
+        - Candle
+        - Candle Multi
+        - Chase
+        - Chase 2
+        - Chase 3
+        - Chase Flash
+        - Chase Flash Rnd
+        - Chase Rainbow
+        - Chase Random
+        - Chunchun
+        - Colored Bursts
+        - Colorful
+        - Colorloop
+        - Colortwinkles
+        - Colorwaves
+        - Crazy Bees
+        - DJ Light
+        - DNA
+        - DNA Spiral
+        - Dancing Shadows
+        - Dissolve
+        - Dissolve Rnd
+        - Drift
+        - Drift Rose
+        - Drip
+        - Dynamic
+        - Dynamic Smooth
+        - Fade
+        - Fairy
+        - Fairytwinkle
+        - Fill Noise
+        - Fire 2012
+        - Fire Flicker
+        - Firenoise
+        - Fireworks
+        - Fireworks 1D
+        - Fireworks Starburst
+        - Flow
+        - Flow Stripe
+        - Freqmap
+        - Freqmatrix
+        - Freqpixels
+        - Freqwave
+        - Frizzles
+        - Funky Plank
+        - GEQ
+        - Game Of Life
+        - Ghost Rider
+        - Glitter
+        - Gradient
+        - Gravcenter
+        - Gravcentric
+        - Gravfreq
+        - Gravimeter
+        - Halloween Eyes
+        - Heartbeat
+        - Hiphotic
+        - ICU
+        - Juggle
+        - Juggles
+        - Julia
+        - Lake
+        - Lighthouse
+        - Lightning
+        - Lissajous
+        - Loading
+        - Matripix
+        - Matrix
+        - Metaballs
+        - Meteor
+        - Meteor Smooth
+        - Midnoise
+        - Multi Comet
+        - Noise 1
+        - Noise 2
+        - Noise 3
+        - Noise 4
+        - Noise Pal
+        - Noise2D
+        - Noisefire
+        - Noisemeter
+        - Noisemove
+        - Oscillate
+        - Pacifica
+        - Palette
+        - Percent
+        - Perlin Move
+        - Phased
+        - Phased Noise
+        - Pixels
+        - Pixelwave
+        - Plasma
+        - Plasma Ball
+        - Plasmoid
+        - Polar Lights
+        - Popcorn
+        - Pride 2015
+        - Puddlepeak
+        - Puddles
+        - Pulser
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - Railway
+        - Rain
+        - Rainbow
+        - Rainbow Runner
+        - Random Colors
+        - Ripple
+        - Ripple Peak
+        - Ripple Rainbow
+        - Rocktaves
+        - Running
+        - Running Dual
+        - Saw
+        - Scan
+        - Scan Dual
+        - Scanner
+        - Scanner Dual
+        - Scrolling Text
+        - Sindots
+        - Sine
+        - Sinelon
+        - Sinelon Dual
+        - Sinelon Rainbow
+        - Solid
+        - Solid Glitter
+        - Solid Pattern
+        - Solid Pattern Tri
+        - Spaceships
+        - Sparkle
+        - Sparkle Dark
+        - Sparkle+
+        - Spots
+        - Spots Fade
+        - Squared Swirl
+        - Stream
+        - Stream 2
+        - Strobe
+        - Strobe Mega
+        - Strobe Rainbow
+        - Sun Radiation
+        - Sunrise
+        - Sweep
+        - Sweep Random
+        - Swirl
+        - TV Simulator
+        - Tartan
+        - Tetrix
+        - Theater
+        - Theater Rainbow
+        - Traffic Light
+        - Tri Fade
+        - Tri Wipe
+        - Twinkle
+        - Twinklecat
+        - Twinklefox
+        - Twinkleup
+        - Two Dots
+        - Washing Machine
+        - Waterfall
+        - Waverly
+        - Wavesins
+        - Wipe
+        - Wipe Random
+      supported_color_modes:
+        - rgb
+      icon: mdi:led-strip-variant
+      friendly_name: wled-media
+      supported_features: 36
+      color_mode: rgb
+      brightness: 128
+      hs_color:
+        - 0
+        - 0
+      rgb_color:
+        - 255
+        - 255
+        - 255
+      xy_color:
+        - 0.323
+        - 0.329
+      effect: Rainbow
+      state: "on"
+    light.wled_monitor:
+      effect_list:
+        - Akemi
+        - Android
+        - Aurora
+        - Black Hole
+        - Blends
+        - Blink
+        - Blink Rainbow
+        - Blobs
+        - Blurz
+        - Bouncing Balls
+        - Bpm
+        - Breathe
+        - Candle
+        - Candle Multi
+        - Chase
+        - Chase 2
+        - Chase 3
+        - Chase Flash
+        - Chase Flash Rnd
+        - Chase Rainbow
+        - Chase Random
+        - Chunchun
+        - Colored Bursts
+        - Colorful
+        - Colorloop
+        - Colortwinkles
+        - Colorwaves
+        - Crazy Bees
+        - DJ Light
+        - DNA
+        - DNA Spiral
+        - Dancing Shadows
+        - Dissolve
+        - Dissolve Rnd
+        - Drift
+        - Drift Rose
+        - Drip
+        - Dynamic
+        - Dynamic Smooth
+        - Fade
+        - Fairy
+        - Fairytwinkle
+        - Fill Noise
+        - Fire 2012
+        - Fire Flicker
+        - Firenoise
+        - Fireworks
+        - Fireworks 1D
+        - Fireworks Starburst
+        - Flow
+        - Flow Stripe
+        - Freqmap
+        - Freqmatrix
+        - Freqpixels
+        - Freqwave
+        - Frizzles
+        - Funky Plank
+        - GEQ
+        - Game Of Life
+        - Ghost Rider
+        - Glitter
+        - Gradient
+        - Gravcenter
+        - Gravcentric
+        - Gravfreq
+        - Gravimeter
+        - Halloween Eyes
+        - Heartbeat
+        - Hiphotic
+        - ICU
+        - Juggle
+        - Juggles
+        - Julia
+        - Lake
+        - Lighthouse
+        - Lightning
+        - Lissajous
+        - Loading
+        - Matripix
+        - Matrix
+        - Metaballs
+        - Meteor
+        - Meteor Smooth
+        - Midnoise
+        - Multi Comet
+        - Noise 1
+        - Noise 2
+        - Noise 3
+        - Noise 4
+        - Noise Pal
+        - Noise2D
+        - Noisefire
+        - Noisemeter
+        - Noisemove
+        - Oscillate
+        - Pacifica
+        - Palette
+        - Percent
+        - Perlin Move
+        - Phased
+        - Phased Noise
+        - Pixels
+        - Pixelwave
+        - Plasma
+        - Plasma Ball
+        - Plasmoid
+        - Polar Lights
+        - Popcorn
+        - Pride 2015
+        - Puddlepeak
+        - Puddles
+        - Pulser
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - Railway
+        - Rain
+        - Rainbow
+        - Rainbow Runner
+        - Random Colors
+        - Ripple
+        - Ripple Peak
+        - Ripple Rainbow
+        - Rocktaves
+        - Running
+        - Running Dual
+        - Saw
+        - Scan
+        - Scan Dual
+        - Scanner
+        - Scanner Dual
+        - Scrolling Text
+        - Sindots
+        - Sine
+        - Sinelon
+        - Sinelon Dual
+        - Sinelon Rainbow
+        - Solid
+        - Solid Glitter
+        - Solid Pattern
+        - Solid Pattern Tri
+        - Spaceships
+        - Sparkle
+        - Sparkle Dark
+        - Sparkle+
+        - Spots
+        - Spots Fade
+        - Squared Swirl
+        - Stream
+        - Stream 2
+        - Strobe
+        - Strobe Mega
+        - Strobe Rainbow
+        - Sun Radiation
+        - Sunrise
+        - Sweep
+        - Sweep Random
+        - Swirl
+        - TV Simulator
+        - Tartan
+        - Tetrix
+        - Theater
+        - Theater Rainbow
+        - Traffic Light
+        - Tri Fade
+        - Tri Wipe
+        - Twinkle
+        - Twinklecat
+        - Twinklefox
+        - Twinkleup
+        - Two Dots
+        - Washing Machine
+        - Waterfall
+        - Waverly
+        - Wavesins
+        - Wipe
+        - Wipe Random
+      supported_color_modes:
+        - rgb
+      icon: mdi:led-strip-variant
+      friendly_name: wled-monitor
+      supported_features: 36
+      color_mode: rgb
+      brightness: 128
+      hs_color:
+        - 0
+        - 0
+      rgb_color:
+        - 255
+        - 255
+        - 255
+      xy_color:
+        - 0.323
+        - 0.329
+      effect: Rainbow
+      state: "on"
+  icon: mdi:home-import-outline
+  metadata:
+    light.wled_media:
+      entity_only: true
+    light.wled_monitor:
+      entity_only: true
+- id: "1598132687768"
+  name: Movie Time
+  entities:
+    switch.beamer_livingroom:
+      icon: mdi:projector
+      friendly_name: Beamer Wohnzimmer
+      state: "on"
+    light.wohnzimmer_decke:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+        - blink
+        - breathe
+        - okay
+        - channel_change
+        - finish_effect
+        - stop_effect
+      supported_color_modes:
+        - color_temp
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior: "on"
+      update:
+        installed_version: 587814449
+        latest_version: 587814449
+        state: idle
+      update_available: false
+      friendly_name: Wohnzimmer Decke
+      supported_features: 44
       state: "off"
     switch.denon_qs2:
-      friendly_name: DENON AppleTV
       icon: mdi:apple
+      friendly_name: DENON AppleTV
       state: "on"
-    switch.monitor_hintergrund:
-      friendly_name: Monitor Hintergrundlicht
-      icon: mdi:monitor
+    light.wled_monitor:
+      effect_list:
+        - Akemi
+        - Android
+        - Aurora
+        - Black Hole
+        - Blends
+        - Blink
+        - Blink Rainbow
+        - Blobs
+        - Blurz
+        - Bouncing Balls
+        - Bpm
+        - Breathe
+        - Candle
+        - Candle Multi
+        - Chase
+        - Chase 2
+        - Chase 3
+        - Chase Flash
+        - Chase Flash Rnd
+        - Chase Rainbow
+        - Chase Random
+        - Chunchun
+        - Colored Bursts
+        - Colorful
+        - Colorloop
+        - Colortwinkles
+        - Colorwaves
+        - Crazy Bees
+        - DJ Light
+        - DNA
+        - DNA Spiral
+        - Dancing Shadows
+        - Dissolve
+        - Dissolve Rnd
+        - Drift
+        - Drift Rose
+        - Drip
+        - Dynamic
+        - Dynamic Smooth
+        - Fade
+        - Fairy
+        - Fairytwinkle
+        - Fill Noise
+        - Fire 2012
+        - Fire Flicker
+        - Firenoise
+        - Fireworks
+        - Fireworks 1D
+        - Fireworks Starburst
+        - Flow
+        - Flow Stripe
+        - Freqmap
+        - Freqmatrix
+        - Freqpixels
+        - Freqwave
+        - Frizzles
+        - Funky Plank
+        - GEQ
+        - Game Of Life
+        - Ghost Rider
+        - Glitter
+        - Gradient
+        - Gravcenter
+        - Gravcentric
+        - Gravfreq
+        - Gravimeter
+        - Halloween Eyes
+        - Heartbeat
+        - Hiphotic
+        - ICU
+        - Juggle
+        - Juggles
+        - Julia
+        - Lake
+        - Lighthouse
+        - Lightning
+        - Lissajous
+        - Loading
+        - Matripix
+        - Matrix
+        - Metaballs
+        - Meteor
+        - Meteor Smooth
+        - Midnoise
+        - Multi Comet
+        - Noise 1
+        - Noise 2
+        - Noise 3
+        - Noise 4
+        - Noise Pal
+        - Noise2D
+        - Noisefire
+        - Noisemeter
+        - Noisemove
+        - Oscillate
+        - Pacifica
+        - Palette
+        - Percent
+        - Perlin Move
+        - Phased
+        - Phased Noise
+        - Pixels
+        - Pixelwave
+        - Plasma
+        - Plasma Ball
+        - Plasmoid
+        - Polar Lights
+        - Popcorn
+        - Pride 2015
+        - Puddlepeak
+        - Puddles
+        - Pulser
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - Railway
+        - Rain
+        - Rainbow
+        - Rainbow Runner
+        - Random Colors
+        - Ripple
+        - Ripple Peak
+        - Ripple Rainbow
+        - Rocktaves
+        - Running
+        - Running Dual
+        - Saw
+        - Scan
+        - Scan Dual
+        - Scanner
+        - Scanner Dual
+        - Scrolling Text
+        - Sindots
+        - Sine
+        - Sinelon
+        - Sinelon Dual
+        - Sinelon Rainbow
+        - Solid
+        - Solid Glitter
+        - Solid Pattern
+        - Solid Pattern Tri
+        - Spaceships
+        - Sparkle
+        - Sparkle Dark
+        - Sparkle+
+        - Spots
+        - Spots Fade
+        - Squared Swirl
+        - Stream
+        - Stream 2
+        - Strobe
+        - Strobe Mega
+        - Strobe Rainbow
+        - Sun Radiation
+        - Sunrise
+        - Sweep
+        - Sweep Random
+        - Swirl
+        - TV Simulator
+        - Tartan
+        - Tetrix
+        - Theater
+        - Theater Rainbow
+        - Traffic Light
+        - Tri Fade
+        - Tri Wipe
+        - Twinkle
+        - Twinklecat
+        - Twinklefox
+        - Twinkleup
+        - Two Dots
+        - Washing Machine
+        - Waterfall
+        - Waverly
+        - Wavesins
+        - Wipe
+        - Wipe Random
+      supported_color_modes:
+        - rgb
+      icon: mdi:led-strip-variant
+      friendly_name: wled-monitor
+      supported_features: 36
+      color_mode: rgb
+      brightness: 128
+      hs_color:
+        - 0
+        - 0
+      rgb_color:
+        - 255
+        - 255
+        - 255
+      xy_color:
+        - 0.323
+        - 0.329
+      effect: Rainbow
       state: "on"
-- id: "1598285266647"
-  name: Alles aus
-  icon: mdi:home-export-outline
-  entities:
-    switch.denon_power:
-      icon: mdi:audio-video-off
-      state: "off"
-    switch.beamer_livingroom:
-      icon: mdi:projector
-      state: "off"
-    light.alle_lichter:
-      supported_features: 40
-      state: "off"
-    switch.monitor_hintergrund:
-      icon: mdi:monitor
-      state: "off"
-    switch.banana:
-      icon: mdi:monitor
-      state: "off"
-- id: "1598285288828"
-  name: Bettzeit
-  icon: mdi:bed
-  entities:
-    switch.monitor_hintergrund:
-      icon: mdi:monitor
-      state: "off"
-    switch.banana:
-      icon: mdi:monitor
-      state: "off"
-    switch.denon_power:
-      icon: mdi:audio-video-off
-      state: "off"
-    switch.beamer_livingroom:
-      icon: mdi:projector
-      state: "off"
-    light.alle_lichter:
-      state: "off"
-    light.schlafzimmer_bett:
-      state: "on"
-      brightness: 40
+  icon: mdi:theater
+  metadata:
+    light.wled_monitor:
+      entity_only: true
 - id: "1614485288828"
   name: "Day: Sonnenaufgang"
   icon: mdi:weather-sunset-up
   entities: {}
 - id: "161448527737"
   name: "Day: Sonnenuntergang"
-  icon: mdi:weather-sunset-down
   entities:
+    switch.monitorlicht:
+      friendly_name: Monitor-Frontlight
+      state: "on"
     light.schlafzimmer_bett:
+      effect_list:
+        - blink
+        - breathe
+        - okay
+        - channel_change
+        - finish_effect
+        - stop_effect
+      supported_color_modes:
+        - brightness
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior:
+      update:
+        installed_version: 587753009
+        latest_version: 587753009
+        state: idle
+      update_available: false
+      friendly_name: Schlafzimmer Bett
+      supported_features: 44
+      color_mode: brightness
       brightness: 38
-      color_temp: 370
       state: "on"
     light.wohnzimmer_decke:
-      brightness: 189
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+        - blink
+        - breathe
+        - okay
+        - channel_change
+        - finish_effect
+        - stop_effect
+      supported_color_modes:
+        - color_temp
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior: "on"
+      update:
+        installed_version: 587814449
+        latest_version: 587814449
+        state: idle
+      update_available: false
+      friendly_name: Wohnzimmer Decke
+      supported_features: 44
+      color_mode: color_temp
+      brightness: 188
+      color_temp_kelvin: 2702
       color_temp: 370
+      hs_color:
+        - 28.391
+        - 65.659
+      rgb_color:
+        - 255
+        - 166
+        - 87
+      xy_color:
+        - 0.526
+        - 0.387
       state: "on"
-    switch.monitor_hintergrund:
-      friendly_name: Monitor Hintergrundlicht
-      icon: mdi:monitor
+    light.wled_monitor:
+      effect_list:
+        - Akemi
+        - Android
+        - Aurora
+        - Black Hole
+        - Blends
+        - Blink
+        - Blink Rainbow
+        - Blobs
+        - Blurz
+        - Bouncing Balls
+        - Bpm
+        - Breathe
+        - Candle
+        - Candle Multi
+        - Chase
+        - Chase 2
+        - Chase 3
+        - Chase Flash
+        - Chase Flash Rnd
+        - Chase Rainbow
+        - Chase Random
+        - Chunchun
+        - Colored Bursts
+        - Colorful
+        - Colorloop
+        - Colortwinkles
+        - Colorwaves
+        - Crazy Bees
+        - DJ Light
+        - DNA
+        - DNA Spiral
+        - Dancing Shadows
+        - Dissolve
+        - Dissolve Rnd
+        - Drift
+        - Drift Rose
+        - Drip
+        - Dynamic
+        - Dynamic Smooth
+        - Fade
+        - Fairy
+        - Fairytwinkle
+        - Fill Noise
+        - Fire 2012
+        - Fire Flicker
+        - Firenoise
+        - Fireworks
+        - Fireworks 1D
+        - Fireworks Starburst
+        - Flow
+        - Flow Stripe
+        - Freqmap
+        - Freqmatrix
+        - Freqpixels
+        - Freqwave
+        - Frizzles
+        - Funky Plank
+        - GEQ
+        - Game Of Life
+        - Ghost Rider
+        - Glitter
+        - Gradient
+        - Gravcenter
+        - Gravcentric
+        - Gravfreq
+        - Gravimeter
+        - Halloween Eyes
+        - Heartbeat
+        - Hiphotic
+        - ICU
+        - Juggle
+        - Juggles
+        - Julia
+        - Lake
+        - Lighthouse
+        - Lightning
+        - Lissajous
+        - Loading
+        - Matripix
+        - Matrix
+        - Metaballs
+        - Meteor
+        - Meteor Smooth
+        - Midnoise
+        - Multi Comet
+        - Noise 1
+        - Noise 2
+        - Noise 3
+        - Noise 4
+        - Noise Pal
+        - Noise2D
+        - Noisefire
+        - Noisemeter
+        - Noisemove
+        - Oscillate
+        - Pacifica
+        - Palette
+        - Percent
+        - Perlin Move
+        - Phased
+        - Phased Noise
+        - Pixels
+        - Pixelwave
+        - Plasma
+        - Plasma Ball
+        - Plasmoid
+        - Polar Lights
+        - Popcorn
+        - Pride 2015
+        - Puddlepeak
+        - Puddles
+        - Pulser
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - Railway
+        - Rain
+        - Rainbow
+        - Rainbow Runner
+        - Random Colors
+        - Ripple
+        - Ripple Peak
+        - Ripple Rainbow
+        - Rocktaves
+        - Running
+        - Running Dual
+        - Saw
+        - Scan
+        - Scan Dual
+        - Scanner
+        - Scanner Dual
+        - Scrolling Text
+        - Sindots
+        - Sine
+        - Sinelon
+        - Sinelon Dual
+        - Sinelon Rainbow
+        - Solid
+        - Solid Glitter
+        - Solid Pattern
+        - Solid Pattern Tri
+        - Spaceships
+        - Sparkle
+        - Sparkle Dark
+        - Sparkle+
+        - Spots
+        - Spots Fade
+        - Squared Swirl
+        - Stream
+        - Stream 2
+        - Strobe
+        - Strobe Mega
+        - Strobe Rainbow
+        - Sun Radiation
+        - Sunrise
+        - Sweep
+        - Sweep Random
+        - Swirl
+        - TV Simulator
+        - Tartan
+        - Tetrix
+        - Theater
+        - Theater Rainbow
+        - Traffic Light
+        - Tri Fade
+        - Tri Wipe
+        - Twinkle
+        - Twinklecat
+        - Twinklefox
+        - Twinkleup
+        - Two Dots
+        - Washing Machine
+        - Waterfall
+        - Waverly
+        - Wavesins
+        - Wipe
+        - Wipe Random
+      supported_color_modes:
+        - rgb
+      icon: mdi:led-strip-variant
+      friendly_name: wled-monitor
+      supported_features: 36
+      color_mode: rgb
+      brightness: 128
+      hs_color:
+        - 0
+        - 0
+      rgb_color:
+        - 255
+        - 255
+        - 255
+      xy_color:
+        - 0.323
+        - 0.329
+      effect: Rainbow
       state: "on"
+    light.wled_media:
+      effect_list:
+        - Akemi
+        - Android
+        - Aurora
+        - Black Hole
+        - Blends
+        - Blink
+        - Blink Rainbow
+        - Blobs
+        - Blurz
+        - Bouncing Balls
+        - Bpm
+        - Breathe
+        - Candle
+        - Candle Multi
+        - Chase
+        - Chase 2
+        - Chase 3
+        - Chase Flash
+        - Chase Flash Rnd
+        - Chase Rainbow
+        - Chase Random
+        - Chunchun
+        - Colored Bursts
+        - Colorful
+        - Colorloop
+        - Colortwinkles
+        - Colorwaves
+        - Crazy Bees
+        - DJ Light
+        - DNA
+        - DNA Spiral
+        - Dancing Shadows
+        - Dissolve
+        - Dissolve Rnd
+        - Drift
+        - Drift Rose
+        - Drip
+        - Dynamic
+        - Dynamic Smooth
+        - Fade
+        - Fairy
+        - Fairytwinkle
+        - Fill Noise
+        - Fire 2012
+        - Fire Flicker
+        - Firenoise
+        - Fireworks
+        - Fireworks 1D
+        - Fireworks Starburst
+        - Flow
+        - Flow Stripe
+        - Freqmap
+        - Freqmatrix
+        - Freqpixels
+        - Freqwave
+        - Frizzles
+        - Funky Plank
+        - GEQ
+        - Game Of Life
+        - Ghost Rider
+        - Glitter
+        - Gradient
+        - Gravcenter
+        - Gravcentric
+        - Gravfreq
+        - Gravimeter
+        - Halloween Eyes
+        - Heartbeat
+        - Hiphotic
+        - ICU
+        - Juggle
+        - Juggles
+        - Julia
+        - Lake
+        - Lighthouse
+        - Lightning
+        - Lissajous
+        - Loading
+        - Matripix
+        - Matrix
+        - Metaballs
+        - Meteor
+        - Meteor Smooth
+        - Midnoise
+        - Multi Comet
+        - Noise 1
+        - Noise 2
+        - Noise 3
+        - Noise 4
+        - Noise Pal
+        - Noise2D
+        - Noisefire
+        - Noisemeter
+        - Noisemove
+        - Oscillate
+        - Pacifica
+        - Palette
+        - Percent
+        - Perlin Move
+        - Phased
+        - Phased Noise
+        - Pixels
+        - Pixelwave
+        - Plasma
+        - Plasma Ball
+        - Plasmoid
+        - Polar Lights
+        - Popcorn
+        - Pride 2015
+        - Puddlepeak
+        - Puddles
+        - Pulser
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - RSVD
+        - Railway
+        - Rain
+        - Rainbow
+        - Rainbow Runner
+        - Random Colors
+        - Ripple
+        - Ripple Peak
+        - Ripple Rainbow
+        - Rocktaves
+        - Running
+        - Running Dual
+        - Saw
+        - Scan
+        - Scan Dual
+        - Scanner
+        - Scanner Dual
+        - Scrolling Text
+        - Sindots
+        - Sine
+        - Sinelon
+        - Sinelon Dual
+        - Sinelon Rainbow
+        - Solid
+        - Solid Glitter
+        - Solid Pattern
+        - Solid Pattern Tri
+        - Spaceships
+        - Sparkle
+        - Sparkle Dark
+        - Sparkle+
+        - Spots
+        - Spots Fade
+        - Squared Swirl
+        - Stream
+        - Stream 2
+        - Strobe
+        - Strobe Mega
+        - Strobe Rainbow
+        - Sun Radiation
+        - Sunrise
+        - Sweep
+        - Sweep Random
+        - Swirl
+        - TV Simulator
+        - Tartan
+        - Tetrix
+        - Theater
+        - Theater Rainbow
+        - Traffic Light
+        - Tri Fade
+        - Tri Wipe
+        - Twinkle
+        - Twinklecat
+        - Twinklefox
+        - Twinkleup
+        - Two Dots
+        - Washing Machine
+        - Waterfall
+        - Waverly
+        - Wavesins
+        - Wipe
+        - Wipe Random
+      supported_color_modes:
+        - rgb
+      icon: mdi:led-strip-variant
+      friendly_name: wled-media
+      supported_features: 36
+      color_mode: rgb
+      brightness: 128
+      hs_color:
+        - 0
+        - 0
+      rgb_color:
+        - 255
+        - 255
+        - 255
+      xy_color:
+        - 0.323
+        - 0.329
+      effect: Rainbow
+      state: "on"
+  icon: mdi:weather-sunset-down
+  metadata:
+    light.wled_monitor:
+      entity_only: true
+    light.wled_media:
+      entity_only: true
 - id: "1598255559149"
   name: Wakeup
   entities:
@@ -115,19 +1351,25 @@
         - stop_effect
       supported_color_modes:
         - brightness
-      color_mode: brightness
-      brightness: 255
       level_config:
         on_level: previous
       linkquality: 255
       power_on_behavior:
       update:
+        installed_version: 587753009
+        latest_version: 587753009
         state: idle
       update_available: false
       friendly_name: Schlafzimmer Bett
-      supported_features: 45
+      supported_features: 44
+      color_mode: brightness
+      brightness: 255
       state: "on"
     light.flur_ecke:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
       effect_list:
         - blink
         - breathe
@@ -136,7 +1378,22 @@
         - finish_effect
         - stop_effect
       supported_color_modes:
+        - color_temp
         - xy
+      color:
+        x: 0.526
+        y: 0.387
+      level_config:
+        on_level: previous
+      linkquality: 255
+      power_on_behavior: "on"
+      update:
+        installed_version: 587806257
+        latest_version: 587806257
+        state: idle
+      update_available: false
+      friendly_name: Flur Ecke
+      supported_features: 44
       color_mode: xy
       brightness: 80
       hs_color:
@@ -149,34 +1406,19 @@
       xy_color:
         - 0.526
         - 0.387
-      color:
-        x: 0.526
-        y: 0.387
-      linkquality: 255
-      power_on_behavior: "on"
-      update:
-        state: idle
-      update_available: false
-      friendly_name: Flur Ecke
-      supported_features: 61
       state: "on"
     cover.schlafzimmer_rollo:
       current_position: 100
-      battery: 37
+      battery: 67
       linkquality: 255
       position: 100
       update:
+        installed_version: 587761201
+        latest_version: 587761201
         state: idle
       update_available: false
       friendly_name: Schlafzimmer Rollo
       supported_features: 15
       state: open
-    switch.monitor_hintergrund:
-      assumed_state: true
-      icon: mdi:monitor
-      friendly_name: Monitor Hintergrundlicht
-      state: "on"
   icon: mdi:alarm-note
-  metadata:
-    switch.monitor_hintergrund:
-      entity_only: true
+  metadata: {}

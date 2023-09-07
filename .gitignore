@@ -136,7 +136,9 @@ airsonos.xml
 themes/ios-*
 addons/rclone/rclone.conf
 addons/zigbee2mqtt
+addons/victoriametrics/prometheus.yaml
 zigbee.db
+traccar.xml
 
 ## .storage exclude/include
 .storage/*

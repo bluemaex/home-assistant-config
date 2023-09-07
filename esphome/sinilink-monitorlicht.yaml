@@ -1,0 +1,6 @@
+substitutions:
+  name: sinilink-monitorlicht
+  name_underscored: sinilink_monitorlicht
+  friendly_name: USB Power Monitorlicht
+
+<<: !include common/sinilink_usb.yaml
